@@ -7,8 +7,10 @@ namespace begabicho.shared.Notifications
 {
     public class Notifier
     {
-        public IEnumerable<Notification> Notifications { get; set; } = new List<Notification>();
+        public List<Notification> Notifications { get; set; }
         public bool HasAny => Notifications.Any();
+
+        public Notifier() => Notifications = new List<Notification>();
     }
 
     public class Notification
@@ -21,7 +23,7 @@ namespace begabicho.shared.Notifications
         }
 
         // #for service
-        public string Id { get; private set; }
+        public string Id { get; set; }
         public string Key { get; set; }
         public string Value { get; set; }
         public string Date { get; set; }
