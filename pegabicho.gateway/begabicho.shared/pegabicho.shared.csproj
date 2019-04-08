@@ -10,4 +10,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Specs\Base\" />
+    <Folder Include="Specs\Core\" />
+    <Folder Include="VOs\" />
+  </ItemGroup>
+
 </Project>

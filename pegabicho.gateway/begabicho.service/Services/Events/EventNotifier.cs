@@ -1,10 +1,10 @@
-﻿using begabicho.shared.Notifications;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using pegabicho.domain.Interfaces.Services.Events;
+using pegabicho.domain.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace begabicho.service.Events
 {
@@ -25,9 +25,9 @@ namespace begabicho.service.Events
 
         #region [ methods ]
 
-        public void CreateNotification<N>(string message) => Notifier.Notifications.Add(new Notification { Key = typeof(N).Name, Value = message, StatusCode = 400 });
+        public void Notify<N>(string message) => Notifier.Notifications.Add(new Notification { Key = typeof(N).Name, Value = message, StatusCode = 400 });
 
-        public void CreateNotification<N>(string message, Exception exception = null)
+        public void NotifyException<N>(string message, Exception exception = null)
         {
             var stack = new StackTrace(exception);
             var frames = stack.GetFrames();
@@ -60,19 +60,15 @@ namespace begabicho.service.Events
             });
         }
 
-        public IEnumerable<Notification> GetNotification() => Notifier.Notifications.AsEnumerable();
+        public bool HasNotification() => Notifier.HasAny;
+
+        public IEnumerable<Notification> GetNotifications() => Notifier.Notifications.AsEnumerable();
 
         #endregion
 
         #region [ overrides ]
 
         public override string ToString() => JsonConvert.SerializeObject(Notifier);
-
-        #endregion
-
-        #region [ validator ]
-
-        public bool HasNotification() => Notifier.HasAny;
 
         #endregion
 

@@ -1,12 +1,9 @@
 ﻿using begabicho.service.Requests.Base;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using static pegabicho.domain.Enums;
+using static pegabicho.domain.Entities.Enums;
 
-namespace begabicho.service.Requests
+namespace pegabicho.service.Requests.Data
 {
     public class DataRequest<T> : BaseRequest
     {

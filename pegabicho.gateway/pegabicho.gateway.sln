@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Tests", "5.Tests", "{FDC3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pegabicho.domain", "pegabicho.domain\pegabicho.domain.csproj", "{4EE8435F-833B-43A4-A9AF-E2ADE277CA54}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "begabicho.shared", "begabicho.shared\begabicho.shared.csproj", "{55069FFF-69CA-4166-A6B2-F5A5E7D1E6F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pegabicho.shared", "begabicho.shared\pegabicho.shared.csproj", "{55069FFF-69CA-4166-A6B2-F5A5E7D1E6F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "begabicho.service", "begabicho.service\begabicho.service.csproj", "{66B6E378-39DA-4451-9D80-C047F98A3E1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pegabicho.service", "begabicho.service\pegabicho.service.csproj", "{66B6E378-39DA-4451-9D80-C047F98A3E1C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pegabicho.boostrap", "pegabicho.boostrap\pegabicho.boostrap.csproj", "{85D1292A-1565-46DA-93FA-3E3F2F05F2CD}"
 EndProject

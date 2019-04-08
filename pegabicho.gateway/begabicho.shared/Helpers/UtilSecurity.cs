@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace begabicho.shared.Helpers
 {
     public static class UtilSecurity
     {
-        /// <summary>
-        /// inject user into object context
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="user"></param>
-        public static void UserInjector<T>(this T obj, User user)
-        {
-            foreach (var x in obj.GetType().GetProperties())
-                if (x.Name == "UserId")
-                    if (x.GetValue(obj) == null)
-                        x.SetValue(obj, user.Id);
-        }
+        ///// <summary>
+        ///// inject user into object context
+        ///// </summary>
+        ///// <param name="obj"></param>
+        ///// <param name="user"></param>
+        //public static void UserInjector<T>(this T obj, User user)
+        //{
+        //    foreach (var x in obj.GetType().GetProperties())
+        //        if (x.Name == "UserId")
+        //            if (x.GetValue(obj) == null)
+        //                x.SetValue(obj, user.Id);
+        //}
 
         /// <summary>
         /// encrypt password with MD5 format encoding

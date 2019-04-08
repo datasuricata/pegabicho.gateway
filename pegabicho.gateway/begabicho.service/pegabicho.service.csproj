@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\begabicho.shared\begabicho.shared.csproj" />
+    <ProjectReference Include="..\begabicho.shared\pegabicho.shared.csproj" />
     <ProjectReference Include="..\pegabicho.domain\pegabicho.domain.csproj" />
   </ItemGroup>
 
@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Requests\Storage\" />
     <Folder Include="Services\Base\" />
     <Folder Include="Services\Core\" />
     <Folder Include="Services\Ext\" />

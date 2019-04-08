@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using pegabicho.service.Requests.Data;
 using System.Threading.Tasks;
 
 namespace begabicho.service.Requests

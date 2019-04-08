@@ -5,9 +5,34 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Mappgin\" />
-    <Folder Include="Persistence\Repositories\Base\" />
-    <Folder Include="ORM\" />
+    <Compile Remove="Mappging\**" />
+    <EmbeddedResource Remove="Mappging\**" />
+    <None Remove="Mappging\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Mapping\Logs\" />
+    <Folder Include="Mapping\Persons\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\pegabicho.domain\pegabicho.domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

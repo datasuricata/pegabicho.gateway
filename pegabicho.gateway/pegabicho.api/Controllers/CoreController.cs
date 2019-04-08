@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using pegabicho.domain.Arguments.Base;
+using pegabicho.domain.Interfaces.Services.Base;
 
 namespace pegabicho.api.Controllers
 {
@@ -18,8 +20,8 @@ namespace pegabicho.api.Controllers
         /// <summary>
         /// User Service {Session Manager}
         /// </summary>
-       // private IUserApplicationService Service => (IUserApplicationService)HttpContext.RequestServices.GetService(typeof(IUserApplicationService));
-        protected IServiceBase ServiceBase => (IServiceBase)HttpContext.RequestServices.GetService(typeof(IServiceBase));
+        protected IServiceBase ServiceBase => 
+            (IServiceBase)HttpContext.RequestServices.GetService(typeof(IServiceBase));
 
 
         /// <summary>
@@ -27,8 +29,8 @@ namespace pegabicho.api.Controllers
         /// </summary>
         /// <param name="any class argument"></param>
         /// <param name="logged user"></param>
-        private delegate void UserInjector(object obj, User user);
-        private UserInjector UI = Utils.UserInjector;
+        //private delegate void UserInjector(object obj, User user);
+        //private UserInjector UI = Utils.UserInjector;
 
         #endregion
 
@@ -46,39 +48,39 @@ namespace pegabicho.api.Controllers
 
         #region [ methods ]
 
-        /// <summary>
-        /// inject reference account
-        /// </summary>
-        /// <param name="obj"></param>
-        protected T InjectAccount<T>(T obj)
-        {
-            UI.Invoke(obj, LoggedUser);
-            return obj;
-        }
+        ///// <summary>
+        ///// inject reference account
+        ///// </summary>
+        ///// <param name="obj"></param>
+        //protected T InjectAccount<T>(T obj)
+        //{
+        //    UI.Invoke(obj, LoggedUser);
+        //    return obj;
+        //}
 
-        /// <summary>
-        /// return user info from current context
-        /// </summary>
-        /// <returns></returns>
-        protected User LoggedUser
-        {
-            get
-            {
-                return Service?.GetMe(User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
-            }
-        }
+        ///// <summary>
+        ///// return user info from current context
+        ///// </summary>
+        ///// <returns></returns>
+        //protected User LoggedUser
+        //{
+        //    get
+        //    {
+        //        return Service?.GetMe(User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
+        //    }
+        //}
 
-        /// <summary>
-        /// return user info from current context whit details
-        /// </summary>
-        /// <returns></returns>
-        protected User LoggedUserDetail
-        {
-            get
-            {
-                return Service?.GetMeDetails(User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
-            }
-        }
+        ///// <summary>
+        ///// return user info from current context whit details
+        ///// </summary>
+        ///// <returns></returns>
+        //protected User LoggedUserDetail
+        //{
+        //    get
+        //    {
+        //        return Service?.GetMeDetails(User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
+        //    }
+        //}
 
         /// <summary>
         /// return server info used for request
@@ -112,10 +114,10 @@ namespace pegabicho.api.Controllers
             try
             {
                 if (ServiceBase.HasNotification())
-                    return BadRequest(ServiceBase.GetNotification());
+                    return BadRequest(ServiceBase.GetNotifications());
 
                 if (result == null)
-                    return new ObjectResult(new ResponseBase());
+                    return new ObjectResult(new ResponseBase(null));
 
                 return new ObjectResult(result);
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pegabicho.infra.ORM;
+using System;
 using System.Threading.Tasks;
 
 namespace pegabicho.infra.Transaction
@@ -32,7 +33,7 @@ namespace pegabicho.infra.Transaction
         }
 
         /// <summary>
-        /// Limpa a transição e zera o garbage collection
+        /// to clear GBC
         /// </summary>
         public void Dispose()
         {

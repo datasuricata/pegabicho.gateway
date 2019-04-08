@@ -4,7 +4,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace pegabicho.api.Startups
+namespace pegabicho.api.Kernel.Middlewares
 {
     public class ApiException
     {
@@ -19,7 +19,6 @@ namespace pegabicho.api.Startups
         {
             try
             {
-                // #invoke next
                 await _next(httpContext);
             }
             catch (Exception ex)
@@ -52,10 +51,7 @@ namespace pegabicho.api.Startups
                 Value = "Ops! Algo deu errado.",
                 Key = "ApiException",
                 Exception = lines,
-                Call = new string[] {
-                    $"Endpoint: {context.Request.Path.ToUriComponent()}",
-                    $"StackTrace: {exception.InnerException.StackTrace}"
-                },
+                Call = new string[] { context.Request.Path.ToUriComponent() },
             }.ToString());
         }
     }

@@ -1,20 +1,34 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace begabicho.shared.Notifications
+namespace pegabicho.domain.Notifications
 {
     public class Notifier
     {
+        // # properties
         public List<Notification> Notifications { get; set; }
-        public bool HasAny => Notifications.Any();
 
+        // # ctor
         public Notifier() => Notifications = new List<Notification>();
+
+        // # validator
+        public bool HasAny => Notifications.Any();
     }
 
     public class Notification
     {
+        // # for service
+        public string Id { get; set; }
+        public string Key { get; set; }
+        public string Value { get; set; }
+        public string Date { get; set; }
+
+        // # for server
+        public int StatusCode { get; set; }
+        public string[] Exception { get; set; }
+        public string[] Call { get; set; }
+
         public Notification()
         {
             Id = Guid.NewGuid().ToString().ToUpper().Replace("-", "");
@@ -22,17 +36,9 @@ namespace begabicho.shared.Notifications
             Value = "Ops! Algo deu errado.";
         }
 
-        // #for service
-        public string Id { get; set; }
-        public string Key { get; set; }
-        public string Value { get; set; }
-        public string Date { get; set; }
-
-        // #for server
-        public int StatusCode { get; set; }
-        public string[] Exception { get; set; }
-        public string[] Call { get; set; }
-
-        public override string ToString() => JsonConvert.SerializeObject(this);
+        public Notification(string msg)
+        {
+            new Notification() { Value = msg };
+        }
     }
 }

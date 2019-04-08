@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace pegabicho.domain
+namespace pegabicho.domain.Entities
 {
     public static class Enums
     {
@@ -175,7 +173,7 @@ namespace pegabicho.domain
             Delete = 1 << 7,
 
             [Display(Description = "Root")]
-            Root = 1 << 20,
+            Root = 1 << 99,
 
             #endregion
 
