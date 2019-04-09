@@ -43,25 +43,40 @@ namespace pegabicho.domain.Entities
             CRV = 4,
 
             [Display(Description = "Carteira Nacional de Habilitação")]
-            CNH = 5
+            CNH = 5,
+
+            [Display(Description = "Conselho Regional de Medicina Veterinária")]
+            CRMV = 6,
         }
 
         public enum UserType
         {
-            [Display(Description = "Cliente")]
+            [Display(Description = "Cliente", GroupName = "Clientes")]
             Client = 1,
 
-            [Display(Description = "Guincheiro")]
-            Winder = 2,
+            [Display(Description = "Passeador", GroupName = "Prestadores")]
+            Walker = 2,
 
-            [Display(Description = "Operador")]
-            Operator = 3,
+            [Display(Description = "Motorista", GroupName = "Prestadores")]
+            Rider = 3,
 
-            [Display(Description = "Administrador")]
-            Administrator = 4,
+            [Display(Description = "Entregador", GroupName = "Prestadores")]
+            Deliveryman = 4,
+
+            [Display(Description = "Adestrador", GroupName = "Prestadores")]
+            Trainer = 5,
+
+            [Display(Description = "Vendedor", GroupName = "??")]
+            Bargainer = 6,
+
+            [Display(Description = "Fornecedor", GroupName = "??")]
+            Outfitter = 7,
 
             [Display(Description = "Super Usuário")]
-            Super = 99,
+            SU = 99,
+
+            [Display(Description = "Super Usuário")]
+            SU = 99,
         }
 
         public enum GenderType
@@ -183,7 +198,7 @@ namespace pegabicho.domain.Entities
             Basic = (View | Edit | SoftDelete | Share),
 
             [Display(Description = "Winder")] //95
-            Winder = (Basic | App | Site),
+            Racer = (Basic | App | Site),
 
             [Display(Description = "Operator")] //47
             Operator = (Basic | BackOffice),
@@ -199,14 +214,20 @@ namespace pegabicho.domain.Entities
 
         public enum AuthPlataform
         {
-            [Display(Description = "Aplicativo")]
-            App = 0,
+            [Display(Description = "Aplicativo Cliente")]
+            ClientApp = 1,
 
-            [Display(Description = "Site Institucional")]
-            Site = 1,
+            [Display(Description = "Aplicativo Customer")]
+            CustomerApp = 2,
 
-            [Display(Description = "Site de Controle Interno")]
-            BackOffice = 2,
+            [Display(Description = "Institucional")]
+            Site = 3,
+
+            [Display(Description = "Backoffice")]
+            BackOffice = 4,
+
+            [Display(Description = "Vitrine")]
+            Vitrine = 5,
         }
     }
 }

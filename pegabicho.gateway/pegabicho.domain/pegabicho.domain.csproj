@@ -5,9 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Arguments\Core\Documents\" />
-    <Folder Include="Arguments\Core\Wallets\" />
-    <Folder Include="Arguments\Core\Persons\" />
     <Folder Include="Arguments\Hub\" />
     <Folder Include="Endpoints\" />
     <Folder Include="Entities\Core\" />
