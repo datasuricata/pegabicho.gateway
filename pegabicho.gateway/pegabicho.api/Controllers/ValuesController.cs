@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace pegabicho.api.Controllers
@@ -9,9 +10,19 @@ namespace pegabicho.api.Controllers
     {
         // GET api/values
         [HttpGet]
+        [Route("teste")]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var v1 = Environment.UserDomainName;
+            var v2 = Environment.UserName;
+            var v3 = Request.Host.ToString();
+            var v4 = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            var v5 = Request.HttpContext.Connection.LocalIpAddress.ToString();
+            var v6 = Request.HttpContext.Connection.RemotePort.ToString();
+
+            var list = new List<string>(){ v1, v2, v3, v4, v5, v6 };
+
+            return list;
         }
 
         // GET api/values/5

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using pegabicho.domain.Arguments.Base;
 using pegabicho.domain.Interfaces.Services.Base;
+using System;
 
 namespace pegabicho.api.Controllers
 {

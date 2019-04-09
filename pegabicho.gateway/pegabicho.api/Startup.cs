@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using pegabicho.api.Startups.Base;
+using pegabicho.domain.Interfaces.Services.Base;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -141,15 +142,15 @@ namespace pegabicho.api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //// # uow
-            //app.Use(async (context, next) =>
-            //{
-            //    // # request
-            //    await next.Invoke();
-            //    // # response
-            //    var BaseService = (IServiceBase)context.RequestServices.GetService(typeof(IServiceBase));
-            //    await BaseService.CommitAsync();
-            //});
+            // # uow
+            app.Use(async (context, next) =>
+            {
+                // # request
+                await next.Invoke();
+                // # response
+                var core = (IServiceBase)context.RequestServices.GetService(typeof(IServiceBase));
+                await core.Commit();
+            });
 
             #region [ enable log ]
 
@@ -164,16 +165,6 @@ namespace pegabicho.api
             {
                 app.UseHsts();
                 app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = new List<string> { "dev.html" } });
-            }
-            else if (env.IsStaging())
-            {
-                app.UseHsts();
-                app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = new List<string> { "stag.html" } });
-            }
-            else if (env.IsProduction())
-            {
-                app.UseHsts();
-                app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = new List<string> { "prod.html" } });
             }
             else
             {

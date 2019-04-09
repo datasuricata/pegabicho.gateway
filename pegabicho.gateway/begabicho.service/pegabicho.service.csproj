@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\begabicho.shared\pegabicho.shared.csproj" />
     <ProjectReference Include="..\pegabicho.domain\pegabicho.domain.csproj" />
+    <ProjectReference Include="..\pegabicho.infra\pegabicho.infra.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Requests\Storage\" />
-    <Folder Include="Services\Base\" />
     <Folder Include="Services\Core\" />
     <Folder Include="Services\Ext\" />
     <Folder Include="Validators\Core\" />
