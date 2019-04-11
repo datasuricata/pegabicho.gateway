@@ -1,10 +1,7 @@
 ﻿using pegabicho.domain.Entities.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using static pegabicho.domain.Entities.Enums;
 
-namespace pegabicho.domain.Arguments.Core.Users 
+namespace pegabicho.domain.Entities.Core.Users
 {
     public class Wallet : EntityBase
     {

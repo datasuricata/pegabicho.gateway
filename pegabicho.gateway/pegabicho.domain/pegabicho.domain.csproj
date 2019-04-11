@@ -5,9 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Arguments\Core\" />
     <Folder Include="Arguments\Hub\" />
     <Folder Include="Endpoints\" />
-    <Folder Include="Entities\Core\" />
+    <Folder Include="Entities\Core\Logs\" />
     <Folder Include="Interfaces\Hubs\" />
     <Folder Include="Interfaces\Repositories\Core\" />
     <Folder Include="Interfaces\Services\App\" />

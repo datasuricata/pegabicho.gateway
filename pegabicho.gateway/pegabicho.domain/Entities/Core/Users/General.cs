@@ -2,7 +2,7 @@
 using System;
 using static pegabicho.domain.Entities.Enums;
 
-namespace pegabicho.domain.Arguments.Core.Users
+namespace pegabicho.domain.Entities.Core.Users
 {
     public class General : EntityBase
     { 

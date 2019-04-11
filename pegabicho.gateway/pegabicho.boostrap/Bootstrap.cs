@@ -1,5 +1,4 @@
-﻿using begabicho.service.Events; 
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using pegabicho.domain.Interfaces.Repositories.Base;
 using pegabicho.domain.Interfaces.Services.Base;
@@ -7,6 +6,7 @@ using pegabicho.domain.Interfaces.Services.Events;
 using pegabicho.infra.ORM;
 using pegabicho.infra.Persistence.Repositories.Base;
 using pegabicho.infra.Transaction;
+using pegabicho.service.Events;
 using pegabicho.service.Services.Base;
 
 namespace pegabicho.boostrap

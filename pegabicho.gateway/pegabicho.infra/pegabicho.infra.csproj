@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Mapping\Logs\" />
-    <Folder Include="Mapping\Persons\" />
+    <Folder Include="Mapping\Users\" />
   </ItemGroup>
 
   <ItemGroup>

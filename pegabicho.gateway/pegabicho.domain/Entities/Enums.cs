@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace pegabicho.domain.Entities 
+namespace pegabicho.domain.Entities
 {
     public static class Enums
     {
@@ -66,17 +66,32 @@ namespace pegabicho.domain.Entities
             [Display(Description = "Adestrador", GroupName = "Prestadores")]
             Trainer = 5,
 
-            [Display(Description = "Vendedor", GroupName = "??")]
-            Bargainer = 6,
+            [Display(Description = "Hotelaria", GroupName = "Prestadores")]
+            Hostel = 6,
 
-            [Display(Description = "Fornecedor", GroupName = "??")]
-            Outfitter = 7,
+            [Display(Description = "Adestrador", GroupName = "Prestadores")]
+            Veterinary = 7,
 
-            [Display(Description = "Super Usuário")]
-            SU = 99,
+            [Display(Description = "Vendedor", GroupName = "Vitrine")]
+            Bargainer = 8,
 
-            [Display(Description = "Super Usuário")]
-            SU = 99,
+            [Display(Description = "Fornecedor", GroupName = "Vitrine")]
+            Outfitter = 9,
+
+            [Display(Description = "Gerente", GroupName = "Vitrine")]
+            Manager = 10,
+
+            [Display(Description = "Operador", GroupName = "BackOffice")]
+            Operator = 11,
+
+            [Display(Description = "Supervisor", GroupName = "BackOffice")]
+            Supervisor = 12,
+
+            [Display(Description = "Administrador", GroupName = "BackOffice")]
+            Admin = 13,
+
+            [Display(Description = "Mestre dos Magos", GroupName = "Shadow Florest")]
+            Root = 99,
         }
 
         public enum GenderType
@@ -131,6 +146,8 @@ namespace pegabicho.domain.Entities
             Commercial = 4,
         }
 
+        #region [ Ticket Manager ]
+
         public enum TicketType
         {
             [Display(Description = "Particular")]
@@ -151,83 +168,104 @@ namespace pegabicho.domain.Entities
             [Display(Description = "Reprovado")]
             Reproved = 3,
 
-            [Display(Description = "Processado")]
-            Processed = 4,
-
             [Display(Description = "Rechamada")]
-            CallBack = 5,
+            CallBack = 4,
+
+            [Display(Description = "Processado")]
+            Processed = 5,
         }
 
-        [Flags] //TODO User Access
-        public enum UserRole
-        {
-            #region [ attributes ]
+        #endregion
 
-            [Display(Description = "View")] //[1]
-            View = 1 << 0,
-
-            [Display(Description = "Edit")] //[2]
-            Edit = 1 << 1,
-
-            [Display(Description = "SoftDelete")] //[4]
-            SoftDelete = 1 << 2,
-
-            [Display(Description = "Share")] //[8]
-            Share = 1 << 3,
-
-            [Display(Description = "App")] //[16]
-            App = 1 << 4,
-
-            [Display(Description = "BackOffice")] //[32]
-            BackOffice = 1 << 5,
-
-            [Display(Description = "Site")] //[64]
-            Site = 1 << 6,
-
-            [Display(Description = "Delete")] //[128]
-            Delete = 1 << 7,
-
-            [Display(Description = "Root")]
-            Root = 1 << 99,
-
-            #endregion
-
-            #region [ perfis ]
-
-            [Display(Description = "Basic")] //15
-            Basic = (View | Edit | SoftDelete | Share),
-
-            [Display(Description = "Winder")] //95
-            Racer = (Basic | App | Site),
-
-            [Display(Description = "Operator")] //47
-            Operator = (Basic | BackOffice),
-
-            [Display(Description = "Administrator")] //175
-            Administrator = (Basic | BackOffice | Delete),
-
-            [Display(Description = "Administrador do Sistema")] //?
-            SM = (Basic | App | Site | BackOffice | Delete | Root),
-
-            #endregion
-        }
+        #region [ Access Manager ]
 
         public enum AuthPlataform
         {
-            [Display(Description = "Aplicativo Cliente")]
-            ClientApp = 1,
+            /// <summary>
+            /// App cliente, institucional, vitrine (consumidor)
+            /// </summary>
+            [Display(Description = "Autenticação Cliente")]
+            Client = 1,
 
-            [Display(Description = "Aplicativo Customer")]
-            CustomerApp = 2,
+            /// <summary>
+            /// App consumidor
+            /// </summary>
+            [Display(Description = "Autenticação Prestador")]
+            Customer = 2,
 
-            [Display(Description = "Institucional")]
-            Site = 3,
+            /// <summary>
+            /// Vitrine (empresa)
+            /// </summary>
+            [Display(Description = "Vitrine")]
+            Vitrine = 3,
 
+            /// <summary>
+            /// Backoffice da empresa
+            /// </summary>
             [Display(Description = "Backoffice")]
             BackOffice = 4,
 
-            [Display(Description = "Vitrine")]
-            Vitrine = 5,
+            /// <summary>
+            /// Acesso pika da porra toda
+            /// </summary>
+            [Display(Description = "Like a Shadow")]
+            Shadow = 5,
         }
+
+        [Flags]
+        public enum ModuleService
+        {
+            [Display(Description = "Transporte")] //[1]
+            Transport = 1 << 0,
+
+            [Display(Description = "Estetica")] //[2]
+            Estetica = 1 << 1,
+
+            [Display(Description = "Carteira de Saúde")] //[4]
+            HealthInsurance = 1 << 2,
+        }
+
+        [Flags]
+        public enum RoleAccess
+        {
+            [Display(Description = "Visualisar")] //[1]
+            View = 1 << 0,
+
+            [Display(Description = "Editar")] //[2]
+            Edit = 1 << 1,
+
+            [Display(Description = "Compartilhar")] //[4]
+            Share = 1 << 2,
+
+            [Display(Description = "Deletar Virtualmente")] //[8]
+            SoftDelete = 1 << 3,
+
+            [Display(Description = "Deletar")] //[16]
+            Delete = 1 << 4,
+
+            [Display(Description = "Sistema")] //[16]
+            Admin = 1 << 5,
+
+            [Display(Description = "Raiz")] //[32]
+            Root = 1 << 6,
+        }
+
+        [Flags]
+        public enum LevelAccess
+        {
+            [Display(Description = "Plebeu")]
+            BasicReadOnly = (RoleAccess.View | RoleAccess.Share),
+
+            [Display(Description = "Patriarca")]
+            Basic = (RoleAccess.View | RoleAccess.Edit | RoleAccess.SoftDelete | RoleAccess.Share),
+
+            [Display(Description = "Ansião")]
+            Admin = (Basic | RoleAccess.Admin),
+
+            [Display(Description = "Mestre dos Magos")]
+            Root = (Admin | RoleAccess.Root)
+        }
+
+        #endregion
     }
 }
