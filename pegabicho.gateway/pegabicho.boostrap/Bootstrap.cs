@@ -1,4 +1,4 @@
-﻿using begabicho.service.Events;
+﻿using begabicho.service.Events; 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using pegabicho.domain.Interfaces.Repositories.Base;

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static pegabicho.domain.Entities.Enums;
+using static pegabicho.domain.Entities.Enums; 
 
 namespace pegabicho.domain.Arguments.Core.Users
 {

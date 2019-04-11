@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Validators\Extensions\**" />
+    <EmbeddedResource Remove="Validators\Extensions\**" />
+    <None Remove="Validators\Extensions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\begabicho.shared\pegabicho.shared.csproj" />
     <ProjectReference Include="..\pegabicho.domain\pegabicho.domain.csproj" />
     <ProjectReference Include="..\pegabicho.infra\pegabicho.infra.csproj" />
@@ -21,11 +27,12 @@
 
   <ItemGroup>
     <Folder Include="Requests\Storage\" />
+    <Folder Include="Services\App\" />
     <Folder Include="Services\Core\" />
     <Folder Include="Services\Ext\" />
     <Folder Include="Validators\Core\" />
     <Folder Include="Validators\Custom\" />
-    <Folder Include="Validators\Extensions\" />
+    <Folder Include="Validators\Extension\" />
   </ItemGroup>
 
 </Project>

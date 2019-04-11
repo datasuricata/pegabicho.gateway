@@ -1,6 +1,6 @@
 ﻿using pegabicho.domain.Entities.Base;
 using System;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using System.Text;
 using static pegabicho.domain.Entities.Enums;
 

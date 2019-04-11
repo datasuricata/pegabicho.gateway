@@ -1,4 +1,4 @@
-﻿using begabicho.service.Requests.Base;
+﻿using pegabicho.service.Requests.Base;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using pegabicho.domain.Notifications;
@@ -6,9 +6,9 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
-
-namespace begabicho.service.Requests
+using System.Threading.Tasks; 
+ 
+namespace pegabicho.service.Requests
 {
     public class StorageRequest : BaseRequest
     {

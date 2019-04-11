@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+ 
 namespace pegabicho.domain.Notifications
 {
     public class Notifier

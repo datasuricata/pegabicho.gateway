@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace begabicho.service.Events
+namespace pegabicho.service.Events
 {
     public class EventNotifier : IEventNotifier, IDisposable
     {

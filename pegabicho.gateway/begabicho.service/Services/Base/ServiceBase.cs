@@ -1,10 +1,10 @@
-﻿using begabicho.service.Events;
+﻿using pegabicho.service.Events;
 using pegabicho.domain.Interfaces.Services.Base;
 using pegabicho.infra.Transaction;
 using System;
 using System.Threading.Tasks;
 
-namespace pegabicho.service.Services.Base
+namespace pegabicho.service.Services.Base 
 {
     public class ServiceBase : EventNotifier, IServiceBase
     {

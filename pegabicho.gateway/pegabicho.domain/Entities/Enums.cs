@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace pegabicho.domain.Entities
+namespace pegabicho.domain.Entities 
 {
     public static class Enums
     {

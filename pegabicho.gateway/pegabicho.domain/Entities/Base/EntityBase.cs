@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace pegabicho.domain.Entities.Base
+namespace pegabicho.domain.Entities.Base 
 {
     public class EntityBase
     {

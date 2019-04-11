@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace pegabicho.domain.Arguments.Core.Users
+namespace pegabicho.domain.Arguments.Core.Users 
 {
     public class User : EntityBase
     {

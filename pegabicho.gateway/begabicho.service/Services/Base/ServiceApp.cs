@@ -5,7 +5,7 @@ using pegabicho.infra.Transaction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+  
 namespace pegabicho.service.Services.Base
 {
     public class ServiceApp<T> : ServiceBase, IServiceApp<T> where T : EntityBase

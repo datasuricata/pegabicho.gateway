@@ -5,7 +5,7 @@ using pegabicho.domain.Arguments.Base;
 using pegabicho.domain.Interfaces.Services.Base;
 using System;
 
-namespace pegabicho.api.Controllers
+namespace pegabicho.api.Controllers 
 {
     //[Authorize]
     //[ApiController]

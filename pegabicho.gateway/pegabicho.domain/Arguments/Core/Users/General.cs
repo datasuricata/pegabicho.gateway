@@ -5,7 +5,7 @@ using static pegabicho.domain.Entities.Enums;
 namespace pegabicho.domain.Arguments.Core.Users
 {
     public class General : EntityBase
-    {
+    { 
         public GenderType GenderType { get; set; }
 
         public string PhoneNumber { get; set; }

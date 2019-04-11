@@ -20,7 +20,7 @@ using System.Text;
 
 namespace pegabicho.api
 {
-    public class Startup
+    public class Startup 
     {
         public IConfiguration Configuration { get; }
 

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace pegabicho.api.Startups
 {
-    public class ApiException
-    {
+    public class ApiException 
+    { 
         private readonly RequestDelegate _next;
 
         public ApiException(RequestDelegate next)

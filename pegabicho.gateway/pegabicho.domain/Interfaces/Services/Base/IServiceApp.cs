@@ -1,6 +1,6 @@
 ﻿using pegabicho.domain.Entities.Base;
 using System;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 
 namespace pegabicho.domain.Interfaces.Services.Base
 {

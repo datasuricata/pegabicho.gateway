@@ -1,7 +1,7 @@
-﻿using begabicho.service.Requests.Base;
+﻿using pegabicho.service.Requests.Base;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
-using static pegabicho.domain.Entities.Enums;
+using static pegabicho.domain.Entities.Enums; 
 
 namespace pegabicho.service.Requests.Data
 {

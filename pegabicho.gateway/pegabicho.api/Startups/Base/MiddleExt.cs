@@ -2,7 +2,7 @@
 
 namespace pegabicho.api.Startups.Base
 {
-    public static class MiddleExt
+    public static class MiddleExt 
     {
         public static IApplicationBuilder MiddleException(this IApplicationBuilder builder)
         {

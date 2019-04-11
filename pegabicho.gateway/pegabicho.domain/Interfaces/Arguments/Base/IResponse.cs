@@ -1,6 +1,6 @@
-﻿namespace pegabicho.domain.Interfaces.Arguments.Base
+﻿ namespace pegabicho.domain.Interfaces.Arguments.Base
 {
     public interface IResponse
     {
     }
-}
+} 

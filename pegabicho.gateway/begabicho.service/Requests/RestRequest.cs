@@ -1,7 +1,7 @@
 ﻿using pegabicho.service.Requests.Data;
 using System.Threading.Tasks;
-
-namespace begabicho.service.Requests
+ 
+namespace pegabicho.service.Requests
 {
     public class RestRequest
     {
