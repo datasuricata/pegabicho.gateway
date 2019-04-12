@@ -5,6 +5,8 @@ namespace pegabicho.domain.Entities
 {
     public static class Enums
     {
+        #region [ request ]
+
         public enum RequestMethod
         {
             Get = 1,
@@ -12,6 +14,10 @@ namespace pegabicho.domain.Entities
             Put = 3,
             Delete = 4,
         }
+
+        #endregion
+
+        #region [ pet ]
 
         public enum PetSize
         {
@@ -40,6 +46,10 @@ namespace pegabicho.domain.Entities
             Cat = 1,
         }
 
+        #endregion
+
+        #region [ payment ]
+
         public enum PaymentType
         {
             [Display(Description = "Não Definido")]
@@ -54,6 +64,10 @@ namespace pegabicho.domain.Entities
             [Display(Description = "Pagamento com Boleto Bancário")]
             BankSlip = 3
         }
+
+        #endregion
+
+        #region [ user ]
 
         public enum DocumentType
         {
@@ -148,16 +162,6 @@ namespace pegabicho.domain.Entities
             Blocked = 4
         }
 
-        public enum LogType
-        {
-            Uninformed = 0,
-            Register = 1,
-            Update = 2,
-            Delete = 3,
-            SoftDelete = 4,
-            Exception = 5
-        }
-
         public enum BuildingType
         {
             [Display(Description = "Casa")]
@@ -173,7 +177,23 @@ namespace pegabicho.domain.Entities
             Commercial = 4,
         }
 
-        #region [ Ticket Manager ]
+        #endregion
+
+        #region [ logging ]
+
+        public enum LogType
+        {
+            Uninformed = 0,
+            Register = 1,
+            Update = 2,
+            Delete = 3,
+            SoftDelete = 4,
+            Exception = 5
+        }
+
+        #endregion
+
+        #region [ ticket manager ]
 
         public enum TicketType
         {
@@ -204,7 +224,7 @@ namespace pegabicho.domain.Entities
 
         #endregion
 
-        #region [ Access Manager ]
+        #region [ access manager ]
 
         public enum AuthPlataform
         {

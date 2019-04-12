@@ -1,8 +1,9 @@
-﻿using pegabicho.domain.Notifications;
+﻿using pegabicho.domain.Interfaces.Arguments.Base;
+using pegabicho.domain.Notifications;
 
 namespace pegabicho.domain.Arguments.Base
 {
-    public class ResponseBase 
+    public class ResponseBase : IResponse
     {
         public Notification Message { get; set; }
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using pegabicho.domain.Arguments.Base;
 using pegabicho.domain.Interfaces.Services.Base;
 using System;
+using System.Threading.Tasks;
 
 namespace pegabicho.api.Controllers 
 {
@@ -98,14 +99,14 @@ namespace pegabicho.api.Controllers
 
         #endregion
 
-        #region [ controller ]
+        #region [ action result ]
 
         /// <summary>
         /// return new ObjectResponse or message notification
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected IActionResult CreateResponse(object result = null)
+        protected IActionResult Result(object result = null)
         {
             try
             {
@@ -113,7 +114,7 @@ namespace pegabicho.api.Controllers
                     return BadRequest(ServiceBase.GetNotifications());
 
                 if (result == null)
-                    return new ObjectResult(new ResponseBase(null));
+                    return new ObjectResult(new ResponseBase());
 
                 return new ObjectResult(result);
             }
@@ -127,12 +128,18 @@ namespace pegabicho.api.Controllers
             }
         }
 
+        #endregion
+
+        #region [ async action result ] 
+
+        // # todo async result response for generic request
+
         //protected async Task<IActionResult> ResultAsync(object result = null)
         //{
         //    try
         //    {
         //        if (ServiceBase.HasNotification())
-        //            return BadRequest(ServiceBase.GetNotification());
+        //            return BadRequest(ServiceBase.GetNotifications());
 
         //        if (result == null)
         //            return new ObjectResult(new ResponseBase());
