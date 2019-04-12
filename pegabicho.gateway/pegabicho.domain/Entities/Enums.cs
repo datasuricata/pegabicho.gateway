@@ -13,6 +13,33 @@ namespace pegabicho.domain.Entities
             Delete = 4,
         }
 
+        public enum PetSize
+        {
+            [Display(Description = "Não Definido")]
+            Uninformed = 0,
+
+            [Display(Description = "Porte Pequeno")]
+            Small = 1,
+
+            [Display(Description = "Porte Médio")]
+            Medium = 2,
+
+            [Display(Description = "Porte Grande")]
+            Big = 3,
+
+            [Display(Description = "Porte Gigante")]
+            Giant = 4,
+        }
+
+        public enum PetSpecie
+        {
+            [Display(Description = "Cão")]
+            Dog = 0,
+
+            [Display(Description = "Gato")]
+            Cat = 1,
+        }
+
         public enum PaymentType
         {
             [Display(Description = "Não Definido")]

@@ -9,7 +9,7 @@ namespace pegabicho.domain.Entities.Core.Users
         public string DocUri { get; set; }
         public DocumentType Type { get; set; }
 
-        public string UserId { get; set; }
+        public virtual string UserId { get; set; }
         public virtual User User { get; set; }
     }
 }

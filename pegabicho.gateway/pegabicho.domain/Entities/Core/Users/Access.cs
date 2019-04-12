@@ -7,5 +7,8 @@ namespace pegabicho.domain.Entities.Core.Users
     {
         public LevelAccess Level { get; set; }
         public ModuleService Module { get; set; }
+
+        public virtual string UserId { get; set; }
+        public virtual User User { get; set; }
     } 
 }
