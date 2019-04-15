@@ -15,9 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\begabicho.shared\pegabicho.shared.csproj" />
     <ProjectReference Include="..\pegabicho.boostrap\pegabicho.boostrap.csproj" />
-    <ProjectReference Include="..\pegabicho.domain\pegabicho.domain.csproj" />
   </ItemGroup>
 
 </Project>

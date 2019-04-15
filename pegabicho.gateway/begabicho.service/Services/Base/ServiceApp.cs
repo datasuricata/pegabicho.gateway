@@ -18,9 +18,9 @@ namespace pegabicho.service.Services.Base
 
         #region [ ctor ]
 
-        public ServiceApp(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public ServiceApp(IRepository<T> repository, IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
+            this.repository = repository;
         }
 
         #endregion

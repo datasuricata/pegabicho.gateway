@@ -22,52 +22,6 @@ namespace pegabicho.boostrap
 
             #endregion
 
-            #region [ identity ]
-
-            //// # identity aplication user
-
-            //            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
-            //                {
-            //                    // Password settings
-            //                    config.Password.RequireDigit = false;
-            //                    config.Password.RequiredLength = 6;
-            //                    config.Password.RequireLowercase = false;
-            //                    config.Password.RequireNonAlphanumeric = false;
-            //                    config.Password.RequireUppercase = false;
-            //
-            //                    // Lockout settings
-            //                    config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-            //                    config.Lockout.MaxFailedAccessAttempts = 10;
-            //                    config.Lockout.AllowedForNewUsers = true;
-            //
-            //                    // User settings
-            //                    config.User.RequireUniqueEmail = true;
-            //                }).AddEntityFrameworkStores<AppDbContext>()
-            //                .AddDefaultTokenProviders();
-
-            //// # cookies
-
-            //            services.ConfigureApplicationCookie(config =>
-            //            {
-            //                // Cookie settings
-            //                config.Cookie.HttpOnly = true;
-            //                config.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-            //                // If the LoginPath isn't set, ASP.NET Core defaults 
-            //                // the path to /Account/Login.
-            //                config.LoginPath = "/Account/Login";
-            //                // If the AccessDeniedPath isn't set, ASP.NET Core defaults 
-            //                // the path to /Account/AccessDenied.
-            //                config.AccessDeniedPath = "/Account/AccessDenied";
-            //                config.SlidingExpiration = true;
-            //            });
-
-            //// # service identity
-
-            //services.AddScoped(typeof(IAuthentication), typeof(Authentication));
-            //services.AddScoped(typeof(IManager), typeof(Manager));
-
-            #endregion
-
             #region [ kernel ]
 
             // # unit of work (context)

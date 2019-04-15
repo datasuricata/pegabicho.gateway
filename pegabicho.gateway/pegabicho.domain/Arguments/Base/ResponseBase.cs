@@ -5,7 +5,7 @@ namespace pegabicho.domain.Arguments.Base
 {
     public class ResponseBase : IResponse
     {
-        public Notification Message { get; set; }
+        protected Notification Message { get; set; }
 
         public ResponseBase() => Message = new Notification("Operação realizada com sucesso.");
         public ResponseBase(string msg) => Message.Value = msg; 

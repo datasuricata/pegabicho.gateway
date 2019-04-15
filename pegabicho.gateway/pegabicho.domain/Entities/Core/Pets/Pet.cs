@@ -8,12 +8,14 @@ namespace pegabicho.domain.Entities.Core.Pets
     public class Pet : EntityBase
     {
         public string Name { get; set; }
+        public string ImageUri { get; set; }
+        public string ImageThumbsUri { get; set; }
 
         public PetSize Size { get; set; }
         public PetSpecie Specie { get; set; }
 
-        public DateTimeOffset BirthDate { get;set;}
-        
+        public DateTimeOffset BirthDate { get; set; }
+
         public float Weight { get; set; }
 
         public virtual string ReceId { get; set; }

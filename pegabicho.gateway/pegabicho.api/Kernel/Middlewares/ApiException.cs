@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using pegabicho.domain.Notifications;
 using System;
 using System.Net;
@@ -35,8 +36,8 @@ namespace pegabicho.api.Kernel.Middlewares
             string ex = exception.InnerException?.InnerException == null ? exception.Message
                 : exception.InnerException.InnerException.Message;
 
-            ex += exception.InnerException == null ? ""
-                : Environment.NewLine + "Inner Exception: " + Environment.NewLine + exception.InnerException.Message;
+            ex += exception.InnerException == null ? "" 
+                : $"{Environment.NewLine} Inner: {Environment.NewLine} {exception.InnerException.Message}";
 
             string[] lines;
 
@@ -45,14 +46,14 @@ namespace pegabicho.api.Kernel.Middlewares
             else
                 lines = new string[] { ex };
 
-            return context.Response.WriteAsync(new Notification()
+            return context.Response.WriteAsync(JsonConvert.SerializeObject(new Notification()
             {
                 StatusCode = context.Response.StatusCode,
                 Value = "Ops! Algo deu errado.",
                 Key = "ApiException",
                 Exception = lines,
                 Call = new string[] { context.Request.Path.ToUriComponent() },
-            }.ToString());
+            }));
         }
     }
 }

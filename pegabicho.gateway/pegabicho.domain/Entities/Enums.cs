@@ -184,11 +184,39 @@ namespace pegabicho.domain.Entities
         public enum LogType
         {
             Uninformed = 0,
+
             Register = 1,
             Update = 2,
             Delete = 3,
             SoftDelete = 4,
-            Exception = 5
+        }
+
+        #endregion
+
+        #region [ survey ]
+
+        public enum SurveyType
+        {
+            [Display(Description = "Entrada")]
+            Entry = 1,
+
+            [Display(Description = "Recolhimento")]
+            Gathering = 2,
+
+            [Display(Description = "Saída")]
+            Output = 3
+        }
+
+        public enum SurveyImage
+        {
+            [Display(Description = "Assinatura do Responsável")]
+            ResponserSub = 1,
+
+            [Display(Description = "Assinatura do Funcionario")]
+            ResceiverSub = 2,
+
+            [Display(Description = "Assinatura de Retorno")]
+            ReturnerSub = 3
         }
 
         #endregion

@@ -5,18 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Arguments\Core\" />
     <Folder Include="Arguments\Hub\" />
     <Folder Include="Endpoints\" />
+    <Folder Include="Entities\Core\Configs\" />
     <Folder Include="Interfaces\Hubs\" />
-    <Folder Include="Interfaces\Repositories\Core\" />
-    <Folder Include="Interfaces\Services\App\" />
-    <Folder Include="Interfaces\Services\Core\" />
     <Folder Include="Interfaces\Services\Ext\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\begabicho.shared\pegabicho.shared.csproj" />
   </ItemGroup>
 
 </Project>

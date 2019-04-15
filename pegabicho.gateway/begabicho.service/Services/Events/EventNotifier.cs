@@ -38,7 +38,7 @@ namespace pegabicho.service.Events
             int i = 0;
 
             string ex = exception.InnerException?.InnerException == null ? exception.Message : exception.InnerException.InnerException.Message;
-            ex += exception.InnerException == null ? "" : $"{Environment.NewLine} Inner Exception: {Environment.NewLine} {exception.InnerException.Message}";
+            ex += exception.InnerException == null ? "" : $"{Environment.NewLine} Inner: {Environment.NewLine} {exception.InnerException.Message}";
 
             if (ex.Contains(Environment.NewLine))
                 lines = ex.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
