@@ -58,13 +58,13 @@ namespace pegabicho.service.Services.Core {
         /// <summary>
         /// Use this to retrive user by login
         /// </summary>
-        /// <param name="login"></param>
+        /// <param name="email"></param>
         /// <returns></returns>
-        public User GetByLogin(string login) {
+        public User GetByEmail(string email) {
             try {
-                return repository.GetBy(m => m.Login.ToLower() == login.ToLower());
+                return repository.GetBy(m => m.Email.ToLower() == email.ToLower());
             } catch (Exception ex) {
-                NotifyException<ServiceUser>("Erro to list user.", ex);
+                NotifyException<ServiceUser>("Erro to get user.", ex);
                 return null;
             }
         }
@@ -83,12 +83,12 @@ namespace pegabicho.service.Services.Core {
                 if (request == null) 
                     return null;
 
-                bool isValid = DataSecurity.IsValid(GetByLogin(request.Login), request.Plataform);
+                bool isValid = DataSecurity.IsValid(GetByEmail(request.Email), request.Plataform);
 
                 if (!isValid) 
                     throw new ValidationException("Voce nao tem acesso a plataforma. Contate o suporte.");
 
-                var user = repository.GetBy(SpecUser.Auth(new User(request.Login, request.Password)));
+                var user = repository.GetBy(SpecUser.Auth(new User(request.Email, request.Password)));
 
                 if (user == null) 
                     throw new ValidationException("Verifique seu login e senha.");

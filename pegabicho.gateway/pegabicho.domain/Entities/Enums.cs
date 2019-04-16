@@ -92,44 +92,36 @@ namespace pegabicho.domain.Entities
 
         public enum UserType
         {
-            [Display(Description = "Cliente", GroupName = "Clientes")]
+            [Display(Description = "Cliente", GroupName = "Cliente")]
             Client = 1,
 
-            [Display(Description = "Passeador", GroupName = "Prestadores")]
+            [Display(Description = "Passeador", GroupName = "Prestador")]
             Walker = 2,
 
-            [Display(Description = "Motorista", GroupName = "Prestadores")]
+            [Display(Description = "Motorista", GroupName = "Prestador")]
             Rider = 3,
 
-            [Display(Description = "Entregador", GroupName = "Prestadores")]
+            [Display(Description = "Entregador", GroupName = "Prestador")]
             Deliveryman = 4,
 
-            [Display(Description = "Adestrador", GroupName = "Prestadores")]
+            [Display(Description = "Adestrador", GroupName = "Prestador")]
             Trainer = 5,
 
-            [Display(Description = "Hotelaria", GroupName = "Prestadores")]
+            [Display(Description = "Hotelaria", GroupName = "Prestador")]
             Hostel = 6,
 
-            [Display(Description = "Adestrador", GroupName = "Prestadores")]
+            [Display(Description = "Veterinario", GroupName = "Prestador")]
             Veterinary = 7,
 
-            [Display(Description = "Vendedor", GroupName = "Vitrine")]
-            Bargainer = 8,
-
-            [Display(Description = "Fornecedor", GroupName = "Vitrine")]
-            Outfitter = 9,
-
-            [Display(Description = "Gerente", GroupName = "Vitrine")]
-            Manager = 10,
-
             [Display(Description = "Operador", GroupName = "BackOffice")]
-            Operator = 11,
+            Operator = 8,
 
             [Display(Description = "Supervisor", GroupName = "BackOffice")]
-            Supervisor = 12,
+            Supervisor = 9,
 
             [Display(Description = "Administrador", GroupName = "BackOffice")]
-            Admin = 13,
+            Admin = 10,
+
 
             [Display(Description = "Mestre dos Magos", GroupName = "Shadow Florest")]
             Root = 99,
