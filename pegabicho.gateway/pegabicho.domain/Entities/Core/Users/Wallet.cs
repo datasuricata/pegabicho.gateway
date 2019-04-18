@@ -5,17 +5,30 @@ namespace pegabicho.domain.Entities.Core.Users
 {
     public class Wallet : EntityBase
     {
-        public PaymentType Type { get; set; }
+        public Wallet(PaymentType type, string agency, string account, string document, int dateDue, bool isDefault) {
+            Type = type;
+            Agency = agency;
+            Account = account;
+            Document = document;
+            DateDue = dateDue;
+            IsDefault = isDefault;
+        }
 
-        public string Agency { get; set; }
-        public string Account { get; set; }
-        public string Document { get; set; }
+        protected Wallet() {
 
-        public int DateDue { get; set; }
+        }
 
-        public bool IsDefault { get; set; }
+        public PaymentType Type { get; private set; }
 
-        public virtual string UserId { get; set; }
-        public virtual User User { get; set; }
+        public string Agency { get; private set; }
+        public string Account { get; private set; }
+        public string Document { get; private set; }
+
+        public int DateDue { get; private set; }
+
+        public bool IsDefault { get; private set; }
+
+        public string UserId { get; set; }
+        public User User { get; set; }
     }
 }

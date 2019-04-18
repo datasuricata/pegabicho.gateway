@@ -7,21 +7,37 @@ namespace pegabicho.domain.Entities.Core.Pets
 {
     public class Pet : EntityBase
     {
-        public string Name { get; set; }
-        public string ImageUri { get; set; }
-        public string ImageThumbsUri { get; set; }
+        #region [ ctor ]
 
-        public PetSize Size { get; set; }
-        public PetSpecie Specie { get; set; }
+        public Pet(string name, string imageUri, string imageThumbsUri, PetSize size, PetSpecie specie, DateTime birthDate, float weight) {
+            Name = name;
+            ImageUri = imageUri;
+            ImageThumbsUri = imageThumbsUri;
+            Size = size;
+            Specie = specie;
+            BirthDate = birthDate;
+            Weight = weight;
+        }
 
-        public DateTimeOffset BirthDate { get; set; }
+        protected Pet() {
 
-        public float Weight { get; set; }
+        }
 
-        public virtual string ReceId { get; set; }
-        public virtual Race Rece { get; set; }
+        #endregion
 
-        public virtual string UserId { get; set; }
-        public virtual User User { get; set; }
+        #region [ attributes ]
+
+        public string Name { get; private set; }
+        public string ImageUri { get; private set; }
+        public string ImageThumbsUri { get; private set; }
+
+        public PetSize Size { get; private set; }
+        public PetSpecie Specie { get; private set; }
+
+        public DateTime BirthDate { get; private set; }
+
+        public float Weight { get; private set; }
+
+        #endregion
     }
 }

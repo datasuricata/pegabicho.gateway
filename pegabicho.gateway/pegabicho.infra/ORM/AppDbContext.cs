@@ -1,28 +1,30 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using pegabicho.domain.Entities.Base;
+using pegabicho.domain.Entities.Core.Users;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
- 
-namespace pegabicho.infra.ORM
-{
 
-    #region Identity
+namespace pegabicho.infra.ORM {
 
-    //    public class AppDbContext : IdentityDbContext<ApplicationUser>
-    //    {
-    //        public AppDbContext(DbContextOptions options) : base(options)
-    //        {
-    //            
-    //        }
-    //    }
-
-    #endregion
 
     public class AppDbContext : DbContext
     {
+        #region [ dbset ]
+
+        // # Users
+        public DbSet<User> Users { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<General> Generals { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Siege> Sieges { get; set; }
+        public DbSet<Wallet> Wallets { get; set; }
+        
+        #endregion
+
         public AppDbContext(DbContextOptions options) : base(options)
         {
 

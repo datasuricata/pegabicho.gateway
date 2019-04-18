@@ -6,10 +6,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using static pegabicho.domain.Entities.Enums;
 
-namespace pegabicho.domain.Entities.Core.Users
-{
-    public class User : EntityBase
-    {
+namespace pegabicho.domain.Entities.Core.Users {
+    public class User : EntityBase {
 
         #region [ attributes ]
 
@@ -17,27 +15,36 @@ namespace pegabicho.domain.Entities.Core.Users
         public virtual string Password { get; private set; }
         public string Email { get; private set; }
 
-        public UserType Type { get; private set; }
-        public UserStage Stage { get; private set; }
 
         public General General { get; private set; }
         public Address Address { get; private set; }
 
+
         public List<Pet> Pets { get; private set; } = new List<Pet>();
-        public List<Access> Access { get; private set; } = new List<Access>();
         public List<Wallet> Wallets { get; private set; } = new List<Wallet>();
+        public List<Access> Profiles { get; private set; } = new List<Access>();
         public List<Document> Documents { get; private set; } = new List<Document>();
 
         #endregion
 
         #region [ ctor ]
 
-        protected User()
-        {
+        // use to data seed
+        public static User Seeder(string email, string password, General general, Address address, List<Pet> pets, List<Wallet> wallets, List<Access> profiles, List<Document> documents) {
+            return new User(email, password) {
+                Profiles = profiles,
+                Address = address,
+                Documents = documents,
+                General = general,
+                Pets = pets,
+                Wallets = wallets,
+            };
         }
 
-        public User(string email, string password)
-        {
+        protected User() {
+        }
+
+        public User(string email, string password) {
             Password = DataSecurity.Encrypt(password);
             Email = email;
         }
@@ -46,12 +53,9 @@ namespace pegabicho.domain.Entities.Core.Users
 
         #region [ user steps ]
 
-        public User Register(UserType type, string email, string password)
-        {
-            return new User(email, password)
-            {
-                Stage = type == UserType.Client ? UserStage.Aproved : UserStage.Pending,
-                Type = type,
+        public User Register(UserType type, string email, string password, List<Access> profiles) {
+            return new User(email, password) {
+                Profiles = profiles,
             };
         }
 
@@ -67,16 +71,7 @@ namespace pegabicho.domain.Entities.Core.Users
             Address = new Address(addressLine, complement, building, number, district, city, stateProvince, country, postalCode);
         }
 
-        // TODO Register Office to B.O. and Vitrine
-
-        public void ChangeStage(UserStage stage) {
-            Stage = stage;
-        }
-
-        public void ChangeType(UserType type) {
-            Type = type == UserType.Root ? Type : type;
-        }
-
+        //TODO FREE REGISTER FOR BACKOFFICE
         #endregion
     }
 }

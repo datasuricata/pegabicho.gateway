@@ -15,8 +15,11 @@ namespace pegabicho.domain.Entities.Core.Users
 
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
-        public DateTimeOffset UserDate { get; private set; }
+        public DateTime UserDate { get; private set; }
 
+        /// <summary>
+        /// Use this for bussines users
+        /// </summary>
         public string Activity { get; private set; }
         public string InscEstadual { get; private set; }
         public string InscMunicipal { get; private set; }
@@ -32,7 +35,7 @@ namespace pegabicho.domain.Entities.Core.Users
         protected General() {
         }
 
-        public General(GenderType type, string phone, string cellPhone, string firstName, string lastName, DateTimeOffset userDate) {
+        public General(GenderType type, string phone, string cellPhone, string firstName, string lastName, DateTime userDate) {
             Type = type;
             Phone = phone;
             LastName = lastName;

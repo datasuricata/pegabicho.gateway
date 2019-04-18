@@ -9,7 +9,7 @@ namespace pegabicho.domain.Arguments.Core.Users {
 
         #region [ casting ]
 
-        public static explicit operator AccessResponse(Access v) {
+        public static explicit operator AccessResponse(Role v) {
             return v == null ? null : new AccessResponse {
                 Level = v.Level,
                 Module = v.Module,

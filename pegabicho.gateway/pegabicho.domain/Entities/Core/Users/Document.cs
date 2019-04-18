@@ -5,11 +5,29 @@ namespace pegabicho.domain.Entities.Core.Users
 {
     public class Document : EntityBase
     {
-        public string DocValue { get; set; }
-        public string DocUri { get; set; }
-        public DocumentType Type { get; set; }
+        #region [ attributes ]
 
-        public virtual string UserId { get; set; }
-        public virtual User User { get; set; }
+        public string Value { get; private set; }
+        public string ImageUri { get; private set; }
+        public DocumentType Type { get; private set; }
+
+        public string UserId { get; private set; }
+        public User User { get; private set; }
+
+        #endregion
+
+        #region [ ctor ]
+
+        public Document(string value, string imageUri, DocumentType type) {
+            Value = value;
+            ImageUri = imageUri;
+            Type = type;
+        }
+
+        protected Document() {
+
+        }
+
+        #endregion
     }
 }
