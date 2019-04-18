@@ -48,5 +48,18 @@ namespace pegabicho.domain.Security {
                 builder.Append(x.ToString("x2"));
             return builder.ToString().ToUpper();
         }
+
+        /// <summary>
+        /// inject user into object context
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="user"></param>
+        public static void InjectAccount<T>(this T obj, User user)
+        {
+            foreach (var x in obj.GetType().GetProperties())
+                if (x.Name == "UserId")
+                    if (x.GetValue(obj) == null)
+                        x.SetValue(obj, user.Id);
+        }
     }
 }

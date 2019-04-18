@@ -33,7 +33,7 @@ namespace pegabicho.domain.Entities.Base
         /// </summary>
         /// <param name="length">Use to substring length</param>
         /// <returns></returns>
-        public static string CustomId(int length = 0)
+        public static string CustomHash(int length = 0)
         {
             return Guid.NewGuid().ToString().ToUpper().Replace("-", "").Substring(0, length);
         }

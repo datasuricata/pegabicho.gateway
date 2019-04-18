@@ -189,14 +189,15 @@ namespace pegabicho.domain.Entities
 
         public enum SurveyType
         {
+            [Display(Description = "Retirada")]
+            Gathering = 1,
+
             [Display(Description = "Entrada")]
-            Entry = 1,
+            Entry = 2,
 
-            [Display(Description = "Recolhimento")]
-            Gathering = 2,
+            [Display(Description = "Entrega")]
+            Output = 3,
 
-            [Display(Description = "Saída")]
-            Output = 3
         }
 
         public enum SurveyImage
@@ -327,7 +328,7 @@ namespace pegabicho.domain.Entities
             Basic = (RoleAccess.View | RoleAccess.Edit | RoleAccess.SoftDelete | RoleAccess.Share),
 
             [Display(Description = "Ansião")]
-            Admin = (Basic | RoleAccess.Admin),
+            Admin = (Basic | RoleAccess.Delete | RoleAccess.Admin),
 
             [Display(Description = "Mestre dos Magos")]
             Root = (Admin | RoleAccess.Root)

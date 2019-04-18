@@ -7,16 +7,18 @@ namespace pegabicho.domain.Entities.Core.Ticket
 {
     public class Ticket : EntityBase
     {
-        public string Token { get; set; } = CustomId(6);
-        public TicketType Type { get; set; }
+        public string Token { get; private set; } = CustomHash(6);
+        public TicketType Type { get; private set; }
 
-        public virtual User Client { get; set; }
-        public virtual string ClientId { get; set; }
+        public virtual User Client { get; private set; }
+        public virtual string ClientId { get; private set; }
         
-        public virtual User Racer { get; set; }
-        public virtual string RacerId { get; set; }
+        public virtual User Racer { get; private set; }
+        public virtual string RacerId { get; private set; }
 
-        public virtual Survey Survey { get; set; }
-        public virtual string SurveyId { get; set; }
+        public virtual Survey Survey { get; private set; }
+        public virtual string SurveyId { get; private set; }
+
+        
     }
 }

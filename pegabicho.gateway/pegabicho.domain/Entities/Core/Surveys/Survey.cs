@@ -8,7 +8,7 @@ namespace pegabicho.domain.Entities.Core.Surveys
     public class Survey : EntityBase
     {
         public SurveyType Type { get; set; }
-        public DateTimeOffset DateDue { get; set; } = DateTime.UtcNow;
+        public DateTimeOffset DateDue { get; set; } = DateTimeOffset.UtcNow;
 
         public virtual List<ImageSurvey> Images { get; set; } = new List<ImageSurvey>();
     }

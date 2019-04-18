@@ -27,20 +27,20 @@ namespace pegabicho.service.Services.Base
 
         #region [ generic crud ]
 
-        public bool BaseExist(Func<T, bool> where)
-        {
-            return repository.Exist(where);
-        }
+        //public bool BaseExist(Func<T, bool> where)
+        //{
+        //    return repository.Exist(where);
+        //}
 
-        public T BaseGetById(string id)
-        {
-            return repository.GetById(id);
-        }
+        //public T BaseGetById(string id)
+        //{
+        //    return repository.GetById(id);
+        //}
 
-        public T BaseSoftDelete(T entity)
-        {
-            return repository.SoftDelete(entity);
-        }
+        //public T BaseSoftDelete(T entity)
+        //{
+        //    return repository.SoftDelete(entity);
+        //}
 
         //public T BaseUpdate<V>(T obj) where V : AbstractValidator<T>
         //{
@@ -61,21 +61,21 @@ namespace pegabicho.service.Services.Base
         //    repository.Register(obj);
         //}
 
-        public void BaseDelete(string id)
-        {
-            var entity = BaseGetById(id);
-            if (entity != null) repository.Delete(entity);
-        }
+        //public void BaseDelete(string id)
+        //{
+        //    var entity = BaseGetById(id);
+        //    if (entity != null) repository.Delete(entity);
+        //}
 
-        public void BaseDeleteRage(IEnumerable<T> entities)
-        {
-            repository.DeleteRange(entities);
-        }
+        //public void BaseDeleteRage(IEnumerable<T> entities)
+        //{
+        //    repository.DeleteRange(entities);
+        //}
 
-        public IEnumerable<T> BaseGetAll()
-        {
-            return repository.ListBy(x => !x.IsDeleted).ToList();
-        }
+        //public IEnumerable<T> BaseGetAll()
+        //{
+        //    return repository.ListBy(x => !x.IsDeleted).ToList();
+        //}
 
         #region [ async ]
 

@@ -22,6 +22,9 @@ namespace pegabicho.domain.Entities.Core.Users
         public string InscMunicipal { get; private set; }
         public string Representation { get; private set; }
 
+        public string UserId { get; private set; }
+        public User User { get; private set; }
+
         #endregion
 
         #region [ ctor ]

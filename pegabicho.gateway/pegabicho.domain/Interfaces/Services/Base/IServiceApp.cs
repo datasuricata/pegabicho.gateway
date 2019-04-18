@@ -6,19 +6,19 @@ namespace pegabicho.domain.Interfaces.Services.Base
 {
     public interface IServiceApp<T> where T : EntityBase
     {
-        T BaseGetById(string id);
+        //T BaseGetById(string id);
 
         //T BaseUpdate<V>(T obj) where V : AbstractValidator<T>;
 
-        IEnumerable<T> BaseGetAll();
+        //IEnumerable<T> BaseGetAll();
 
-        bool BaseExist(Func<T, bool> where);
+        //bool BaseExist(Func<T, bool> where);
 
-        void BaseDelete(string id);
+        //void BaseDelete(string id);
 
-        void BaseDeleteRage(IEnumerable<T> entities);
+        //void BaseDeleteRage(IEnumerable<T> entities);
 
-        T BaseSoftDelete(T obj);
+        //T BaseSoftDelete(T obj);
 
         //void BaseRegisterList<V>(IEnumerable<T> entities) where V : AbstractValidator<T>;
 

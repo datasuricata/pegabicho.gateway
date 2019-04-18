@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using static pegabicho.domain.Entities.Enums;
 
-namespace pegabicho.domain.Entities.Core.Users {
-    public class User : EntityBase {
+namespace pegabicho.domain.Entities.Core.Users
+{
+    public class User : EntityBase
+    {
 
         #region [ attributes ]
 
@@ -18,25 +20,24 @@ namespace pegabicho.domain.Entities.Core.Users {
         public UserType Type { get; private set; }
         public UserStage Stage { get; private set; }
 
-        public virtual General General { get; private set; }
-        public virtual string GeneralId { get; private set; }
+        public General General { get; private set; }
+        public Address Address { get; private set; }
 
-        public virtual Address Address { get; private set; }
-        public virtual string AddressId { get; private set; }
-
-        public virtual List<Pet> Pets { get; private set; } = new List<Pet>();
-        public virtual List<Access> Access { get; private set; } = new List<Access>();
-        public virtual List<Wallet> Wallets { get; private set; } = new List<Wallet>();
-        public virtual List<Document> Documents { get; private set; } = new List<Document>();
+        public List<Pet> Pets { get; private set; } = new List<Pet>();
+        public List<Access> Access { get; private set; } = new List<Access>();
+        public List<Wallet> Wallets { get; private set; } = new List<Wallet>();
+        public List<Document> Documents { get; private set; } = new List<Document>();
 
         #endregion
 
         #region [ ctor ]
 
-        protected User() {
+        protected User()
+        {
         }
 
-        public User(string email, string password) {
+        public User(string email, string password)
+        {
             Password = DataSecurity.Encrypt(password);
             Email = email;
         }
@@ -45,34 +46,35 @@ namespace pegabicho.domain.Entities.Core.Users {
 
         #region [ user steps ]
 
-        public User InitialRegister(UserType type, string email, string password) {
-
-            var user = new User(email, password) {
-                Type = type
+        public User Register(UserType type, string email, string password)
+        {
+            return new User(email, password)
+            {
+                Stage = type == UserType.Client ? UserStage.Aproved : UserStage.Pending,
+                Type = type,
             };
-
-            if (type == UserType.Client)
-                user.Stage = UserStage.Aproved;
-            else
-                user.Stage = UserStage.Pending;
-
-            return user;
         }
 
-        public void GeneralRegister(GenderType type, string phone, string cellPhone, string firstName, string lastName, DateTimeOffset userDate) {
+        public void AddGeneral(GenderType type, string phone, string cellPhone, string firstName, string lastName, DateTimeOffset userDate) {
             General = new General(type, phone, cellPhone, firstName, lastName, userDate);
         }
 
-        public void BussinesRegister(string activity, string inscMunicipal, string inscEstadual, string representation) {
+        public void AddBussines(string activity, string inscMunicipal, string inscEstadual, string representation) {
             General.Bussinses(activity, inscEstadual, inscMunicipal, representation);
         }
+
+        public void AddAddress(string addressLine, int complement, BuildingType building, int number, string district, string city, string stateProvince, string country, string postalCode) {
+            Address = new Address(addressLine, complement, building, number, district, city, stateProvince, country, postalCode);
+        }
+
+        // TODO Register Office to B.O. and Vitrine
 
         public void ChangeStage(UserStage stage) {
             Stage = stage;
         }
 
         public void ChangeType(UserType type) {
-            Type = type;
+            Type = type == UserType.Root ? Type : type;
         }
 
         #endregion
