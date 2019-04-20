@@ -8,12 +8,10 @@ using pegabicho.domain.Interfaces.Services.Core;
 using pegabicho.domain.Security;
 using System;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
-namespace pegabicho.api.Controllers 
-{
+namespace pegabicho.api.Controllers.Base {
+
     //[Authorize]
-    //[ApiController]
     public class CoreController : ControllerBase
     {
         #region [ parameters ]

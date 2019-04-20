@@ -7,25 +7,9 @@ namespace pegabicho.domain.Entities.Core.Pets
 {
     public class Pet : EntityBase
     {
-        #region [ ctor ]
-
-        public Pet(string name, string imageUri, string imageThumbsUri, PetSize size, PetSpecie specie, DateTime birthDate, float weight) {
-            Name = name;
-            ImageUri = imageUri;
-            ImageThumbsUri = imageThumbsUri;
-            Size = size;
-            Specie = specie;
-            BirthDate = birthDate;
-            Weight = weight;
-        }
-
-        protected Pet() {
-
-        }
-
-        #endregion
-
         #region [ attributes ]
+
+        //TODO Carteira clínica
 
         public string Name { get; private set; }
         public string ImageUri { get; private set; }
@@ -37,6 +21,27 @@ namespace pegabicho.domain.Entities.Core.Pets
         public DateTime BirthDate { get; private set; }
 
         public float Weight { get; private set; }
+
+        public Race Race { get; private set; }
+
+        #endregion
+
+        #region [ ctor ]
+
+        public Pet(string name, string imageUri, string imageThumbsUri, PetSize size, PetSpecie specie, DateTime birthDate, float weight, Race race) {
+            Name = name;
+            ImageUri = imageUri;
+            ImageThumbsUri = imageThumbsUri;
+            Size = size;
+            Specie = specie;
+            BirthDate = birthDate;
+            Weight = weight;
+            Race = race;
+        }
+
+        protected Pet() {
+
+        }
 
         #endregion
     }

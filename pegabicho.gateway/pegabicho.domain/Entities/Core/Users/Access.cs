@@ -1,5 +1,6 @@
 ﻿using pegabicho.domain.Entities.Base;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using static pegabicho.domain.Entities.Enums;
 
 namespace pegabicho.domain.Entities.Core.Users {
@@ -7,9 +8,9 @@ namespace pegabicho.domain.Entities.Core.Users {
 
         #region [ attributes ]
 
-        public UserType Type { get; private set; }
+        public UserType Type { get; private set; } 
         public UserStage Stage { get; private set; }
-        public ICollection<Role> Roles { get; private set; } = new List<Role>();
+        public List<Role> Roles { get; private set; } = new List<Role>();
 
         public string UserId { get; private set; }
         public User User { get; private set; }
@@ -19,11 +20,9 @@ namespace pegabicho.domain.Entities.Core.Users {
         #region [ ctor ]
 
         public Access(UserType type) {
+            Stage = (type == UserType.Customer || type == UserType.Root) 
+                ? UserStage.Aproved : UserStage.Pending;
             Type = type;
-
-            //TODO Refatorar no Utils algo como hasAny paramEnums[] 
-            Stage = (type == UserType.Client || type == UserType.Admin 
-                || type == UserType.Root) ? UserStage.Aproved : UserStage.Pending;
         }
 
         protected Access() {

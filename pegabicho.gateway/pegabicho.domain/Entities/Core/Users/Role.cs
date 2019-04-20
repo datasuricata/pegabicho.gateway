@@ -7,11 +7,17 @@ using static pegabicho.domain.Entities.Enums;
 namespace pegabicho.domain.Entities.Core.Users {
     public class Role : EntityBase {
 
+        #region [ attributes ]
+
         public LevelAccess Level { get; private set; }
         public ModuleService Module { get; private set; }
 
         public string ProfileId { get; private set; }
         public Access Profile { get; private set; }
+
+        #endregion
+
+        #region [ ctor ]
 
         protected Role() {
 
@@ -22,31 +28,40 @@ namespace pegabicho.domain.Entities.Core.Users {
             Level = level;
         }
 
-        public static IEnumerable<Role> GenerateRoles(UserType type, List<Role> roles = null) {
+        #endregion
 
+        #region [ methods ]
+
+        public static IEnumerable<Role> GenerateRoles(UserType type, List<ModuleService> modules = null) {
             switch (type) {
-                case UserType.Client:
-                    return GetRoleClient();
-                case UserType.Rider:
-                    return GetRoleRider();
+                case UserType.Customer:
+                    return CustomerRoles();
+                case UserType.Enterprise:
+                    return ByModulesRoles(modules);
+                case UserType.Provider:
+                    return ByModulesRoles(modules);
+                case UserType.Administrative:
+                    return ByModulesRoles(modules);
                 default:
                     return null;
             }
         }
 
-        #region [ generate roles ]
-
-        private static IEnumerable<Role> GetRoleClient() {
-            return Enum.GetValues(typeof(ModuleService))
-                .Cast<ModuleService>()
-                .Select(x => new Role(LevelAccess.Basic, x))
-                .ToList();
+        public void ChangueRole(LevelAccess level) {
+            Level = level;
         }
 
-        private static IEnumerable<Role> GetRoleRider() {
-            return new List<Role> {
-                new Role(LevelAccess.Basic, ModuleService.Transport)
-            };
+        #endregion
+
+        #region [ generate roles ]
+
+        private static IEnumerable<Role> CustomerRoles() {
+            return Enum.GetValues(typeof(ModuleService))
+                .Cast<ModuleService>().Select(x => new Role(LevelAccess.Basic, x)).ToList();
+        }
+
+        private static IEnumerable<Role> ByModulesRoles(List<ModuleService> modules) {
+            return modules.Select(x => new Role(LevelAccess.Basic, x)).ToList();
         }
 
         #endregion

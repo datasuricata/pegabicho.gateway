@@ -3,6 +3,7 @@ using pegabicho.domain.Entities.Core.Pets;
 using pegabicho.domain.Security;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using static pegabicho.domain.Entities.Enums;
 
@@ -12,24 +13,33 @@ namespace pegabicho.domain.Entities.Core.Users {
         #region [ attributes ]
 
         [DataType(DataType.Password)]
-        public virtual string Password { get; private set; }
-        public string Email { get; private set; }
+        public virtual string Password { get; private set; } 
+        public string Email { get; private set; } 
 
+        public General General { get; private set; } 
+        public Address Address { get; private set; } 
 
-        public General General { get; private set; }
-        public Address Address { get; private set; }
-
-
-        public List<Pet> Pets { get; private set; } = new List<Pet>();
-        public List<Wallet> Wallets { get; private set; } = new List<Wallet>();
-        public List<Access> Profiles { get; private set; } = new List<Access>();
-        public List<Document> Documents { get; private set; } = new List<Document>();
+        public ICollection<Pet> Pets { get; private set; } = new Collection<Pet>(); 
+        public ICollection<Wallet> Wallets { get; private set; } = new Collection<Wallet>();  
+        public List<Access> Profiles { get; private set; } = new List<Access>(); 
+        public ICollection<Document> Documents { get; private set; } = new Collection<Document>();
 
         #endregion
 
         #region [ ctor ]
 
-        // use to data seed
+        /// <summary>
+        /// {!ATENTION!} Use this only for data seeder
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="general"></param>
+        /// <param name="address"></param>
+        /// <param name="pets"></param>
+        /// <param name="wallets"></param>
+        /// <param name="profiles"></param>
+        /// <param name="documents"></param>
+        /// <returns></returns>
         public static User Seeder(string email, string password, General general, Address address, List<Pet> pets, List<Wallet> wallets, List<Access> profiles, List<Document> documents) {
             return new User(email, password) {
                 Profiles = profiles,
@@ -59,8 +69,8 @@ namespace pegabicho.domain.Entities.Core.Users {
             };
         }
 
-        public void AddGeneral(GenderType type, string phone, string cellPhone, string firstName, string lastName, DateTimeOffset userDate) {
-            General = new General(type, phone, cellPhone, firstName, lastName, userDate);
+        public void AddGeneral(GenderType type, string phone, string cellPhone, string firstName, string lastName, DateTime birthDate) {
+            General = new General(type, phone, cellPhone, firstName, lastName, birthDate);
         }
 
         public void AddBussines(string activity, string inscMunicipal, string inscEstadual, string representation) {

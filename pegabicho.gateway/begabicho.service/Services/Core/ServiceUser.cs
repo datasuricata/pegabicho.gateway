@@ -14,14 +14,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using static pegabicho.domain.Entities.Enums;
 
-namespace pegabicho.service.Services.Core
-{
-    public class ServiceUser : ServiceApp<User>, IServiceUser
-    {
+namespace pegabicho.service.Services.Core {
+    public class ServiceUser : ServiceApp<User>, IServiceUser {
 
         #region [ attributes ]
 
@@ -36,8 +34,7 @@ namespace pegabicho.service.Services.Core
 
         public ServiceUser(IUnitOfWork unitOfWork,
         IConfiguration configuration,
-        IRepository<User> repository) : base(repository, unitOfWork)
-        {
+        IRepository<User> repository) : base(repository, unitOfWork) {
             this.configuration = configuration;
         }
 
@@ -50,14 +47,10 @@ namespace pegabicho.service.Services.Core
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public User GetMe(string id)
-        {
-            try
-            {
-                return repository.GetById(id, i => i.Access);
-            }
-            catch (Exception ex)
-            {
+        public User GetMe(string id) {
+            try {
+                return repository.GetById(id);
+            } catch (Exception ex) {
                 NotifyException<ServiceUser>("Error to get logged user.", ex);
                 return null;
             }
@@ -68,14 +61,10 @@ namespace pegabicho.service.Services.Core
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public User GetByEmail(string email)
-        {
-            try
-            {
-                return repository.GetBy(m => m.Email.ToLower() == email.ToLower(), i => i.Access);
-            }
-            catch (Exception ex)
-            {
+        public User GetByEmail(string email) {
+            try {
+                return repository.GetBy(m => m.Email.ToLower() == email.ToLower());
+            } catch (Exception ex) {
                 NotifyException<ServiceUser>("Erro to get user.", ex);
                 return null;
             }
@@ -90,10 +79,8 @@ namespace pegabicho.service.Services.Core
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public AuthResponse Authenticate(AuthRequest request)
-        {
-            try
-            {
+        public AuthResponse Authenticate(AuthRequest request) {
+            try {
                 if (request == null)
                     return null;
 
@@ -107,15 +94,11 @@ namespace pegabicho.service.Services.Core
                 if (user == null)
                     throw new ValidationException("Verifique seu login e senha.");
 
-                if (user.Stage == UserStage.Blocked)
-                    throw new ValidationException("Sua conta esta bloqueada. Contate o suporte.");
-
                 var Handler = new JwtSecurityTokenHandler();
                 var Key = Encoding.ASCII.GetBytes(configuration["SecurityKey"]);
-                var Roles = JsonConvert.SerializeObject(user.Access);
+                var Roles = JsonConvert.SerializeObject(user.Profiles);
 
-                var Payload = new SecurityTokenDescriptor
-                {
+                var Payload = new SecurityTokenDescriptor {
                     Subject = new ClaimsIdentity(new Claim[] {
                         new Claim(ClaimTypes.Email, user.Email),
                         new Claim(ClaimTypes.NameIdentifier, user.Id),
@@ -130,9 +113,7 @@ namespace pegabicho.service.Services.Core
                 var Token = Handler.CreateToken(Payload);
 
                 return ((AuthResponse)user).InjectToken(Handler.WriteToken(Token));
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 NotifyException<ServiceUser>("Error to authenticate.", ex);
                 return null;
             }
@@ -140,23 +121,16 @@ namespace pegabicho.service.Services.Core
 
         #endregion
 
-        #region [  ]
-
-        #endregion
-
         /// <summary>
         /// Use this to retrive all user from repository
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<UserResponse> ListAll()
-        {
-            try
-            {
-                var users = BaseGetAll() as List<User>;
-                return users.ConvertAll(e => (UserResponse)e);
-            }
-            catch (Exception ex)
-            {
+        public IEnumerable<UserResponse> ListAll() {
+            try {
+                return repository.ListBy(x => !x.IsDeleted).ToList()
+                    .ConvertAll(e => (UserResponse)e);
+
+            } catch (Exception ex) {
                 NotifyException<ServiceUser>("Error to list users.", ex);
                 return null;
             }

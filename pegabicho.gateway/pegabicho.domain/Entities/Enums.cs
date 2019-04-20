@@ -84,37 +84,19 @@ namespace pegabicho.domain.Entities {
         }
 
         public enum UserType {
-            [Display(Description = "Cliente", GroupName = "Cliente")]
-            Client = 1,
+            [Display(Description = "Cliente")]
+            Customer = 1,
 
-            [Display(Description = "Passeador", GroupName = "Prestador")]
-            Walker = 2,
+            [Display(Description = "Prestador")]
+            Provider = 2,
 
-            [Display(Description = "Motorista", GroupName = "Prestador")]
-            Rider = 3,
+            [Display(Description = "Empresa")]
+            Enterprise = 3,
 
-            [Display(Description = "Entregador", GroupName = "Prestador")]
-            Deliveryman = 4,
+            [Display(Description = "Administrativo")]
+            Administrative = 4,
 
-            [Display(Description = "Adestrador", GroupName = "Prestador")]
-            Trainer = 5,
-
-            [Display(Description = "Hotelaria", GroupName = "Prestador")]
-            Hostel = 6,
-
-            [Display(Description = "Veterinario", GroupName = "Prestador")]
-            Veterinary = 7,
-
-            [Display(Description = "Lojista", GroupName = "Prestador")]
-            Tradesman = 8,
-
-            [Display(Description = "Operador", GroupName = "BackOffice")]
-            Operator = 9,
-
-            [Display(Description = "Administrador", GroupName = "BackOffice")]
-            Admin = 10,
-
-            [Display(Description = "Mestre dos Magos", GroupName = "Shadow Florest")]
+            [Display(Description = "Mestre dos Magos")]
             Root = 99,
         }
 
