@@ -106,8 +106,12 @@ namespace pegabicho.infra.Persistence.Repositories.Base
             context.RemoveRange(entities);
         }
 
-        public virtual bool Exist(Func<T, bool> where)
+        public virtual bool Exist(Func<T, bool> where, params Expression<Func<T, object>>[] includeProperties)
         {
+            if (includeProperties.Any()) {
+                return Include(context.Set<T>(), includeProperties).Any(where);
+            }
+
             return context.Set<T>().Any(where);
         }
 
@@ -122,7 +126,6 @@ namespace pegabicho.infra.Persistence.Repositories.Base
 
         public virtual async Task RegisterAsync(T entity)
         {
-            context.Entry(entity).State = EntityState.Added;
             await context.Set<T>().AddAsync(entity);
         }
 

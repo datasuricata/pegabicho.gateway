@@ -1,35 +1,28 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using pegabicho.domain.Notifications;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace pegabicho.api.Startups
-{
-    public class ApiException 
-    { 
+namespace pegabicho.api.Startups {
+    public class ApiException {
         private readonly RequestDelegate _next;
 
-        public ApiException(RequestDelegate next)
-        {
+        public ApiException(RequestDelegate next) {
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext httpContext)
-        {
-            try
-            {
+        public async Task InvokeAsync(HttpContext httpContext) {
+            try {
                 // #invoke next
                 await _next(httpContext);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 await HandleExceptionAsync(httpContext, ex);
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
-        {
+        private static Task HandleExceptionAsync(HttpContext context, Exception exception) {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
@@ -46,8 +39,7 @@ namespace pegabicho.api.Startups
             else
                 lines = new string[] { ex };
 
-            return context.Response.WriteAsync(new Notification()
-            {
+            return context.Response.WriteAsync(JsonConvert.SerializeObject(new Notification() {
                 StatusCode = context.Response.StatusCode,
                 Value = "Ops! Algo deu errado.",
                 Key = "ApiException",
@@ -56,7 +48,7 @@ namespace pegabicho.api.Startups
                     $"Endpoint: {context.Request.Path.ToUriComponent()}",
                     $"StackTrace: {exception.InnerException.StackTrace}"
                 },
-            }.ToString());
+            }));
         }
     }
 }

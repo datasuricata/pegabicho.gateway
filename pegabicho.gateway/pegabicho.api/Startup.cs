@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,24 +19,19 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace pegabicho.api
-{
-    public class Startup 
-    {
+namespace pegabicho.api {
+    public class Startup {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration)
-        {
+        public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
+        public void ConfigureServices(IServiceCollection services) {
             // # DI
             Bootstrap.Configure(services, Configuration.GetConnectionString("DefaultConnection"));
 
-            services.Configure<CookiePolicyOptions>(opt =>
-            {
+            services.Configure<CookiePolicyOptions>(opt => {
                 opt.CheckConsentNeeded = context => true;
                 opt.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -44,34 +40,28 @@ namespace pegabicho.api
 
             services.AddCors();
 
-            services.AddMvc(config =>
-            {
+            services.AddMvc(config => {
                 // config.Filters.Add(typeof(CrossCutting.ApiFilter));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-               //.AddFluentValidation()
-               .AddJsonOptions(options =>
-               {
+               .AddFluentValidation()
+               .AddJsonOptions(options => {
                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                    options.SerializerSettings.DateFormatString = "yyyy-MM-ddTHH:mm:ssZ";
                    options.SerializerSettings.Formatting = Formatting.Indented;
                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                   //options.SerializerSettings.ContractResolver = new DefaultContractResolver { NamingStrategy = new LowerCaseNamingStrategy() };
                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                });
 
-            // # Jason Web Token
+            // # JWToken
             var key = Encoding.ASCII.GetBytes(Configuration["SecurityKey"]);
-            services.AddAuthentication(x =>
-            {
+            services.AddAuthentication(x => {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                .AddJwtBearer(x =>
-                {
+                .AddJwtBearer(x => {
                     x.RequireHttpsMetadata = false;
                     x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
+                    x.TokenValidationParameters = new TokenValidationParameters {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
@@ -80,22 +70,18 @@ namespace pegabicho.api
                 });
 
             // # swagger documentation
-            services.AddSwaggerGen(config =>
-            {
-                config.SwaggerDoc("v1", new Info
-                {
+            services.AddSwaggerGen(config => {
+                config.SwaggerDoc("v1", new Info {
                     Title = "PegaBicho.Gateway",
                     Version = "v1",
-                    Contact = new Contact
-                    {
+                    Contact = new Contact {
                         Name = "Lucas Rocha de Moraes",
                         Email = "lucas.moraes.dev@gmail.com",
                         Url = "http://www.datasuricata.com.br"
                     }
                 });
 
-                config.AddSecurityDefinition("Bearer", new ApiKeyScheme
-                {
+                config.AddSecurityDefinition("Bearer", new ApiKeyScheme {
                     In = "header",
                     Description = "Please enter into field with: Bearer [Token]",
                     Name = "Authorization",
@@ -110,8 +96,7 @@ namespace pegabicho.api
 
             // # cultures {UseLocalizations}
             services.Configure<RequestLocalizationOptions>(
-                options =>
-                {
+                options => {
                     var supportedCultures = new List<CultureInfo>
                     {
                         new CultureInfo("pt-BR"),
@@ -127,10 +112,9 @@ namespace pegabicho.api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            app.Use(async (context, next) =>
-            {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+            // todo pass to middleware extension class
+            app.Use(async (context, next) => {
                 await next.Invoke();
                 var core = (IServiceBase)context.RequestServices.GetService(typeof(IServiceBase));
                 await core.Commit();
@@ -145,15 +129,14 @@ namespace pegabicho.api
 
             #region [ enviroment ]
 
-            if (env.IsDevelopment())
-            {
+            var index = new DefaultFilesOptions { DefaultFileNames = new List<string> { "index.html" } };
+
+            if (env.IsDevelopment()) {
                 app.UseHsts();
-                app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = new List<string> { "dev.html" } });
-            }
-            else
-            {
+                app.UseDefaultFiles(index);
+            } else {
                 app.UseDeveloperExceptionPage();
-                app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = new List<string> { "local.html" } });
+                app.UseDefaultFiles(index);
             }
 
             #endregion
@@ -169,22 +152,20 @@ namespace pegabicho.api
             app.UseHttpsRedirection();
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
+            app.UseMvc(routes => {
                 routes.MapRoute(name: "default", template: "api/{controller}/{action}/{id?}");
             });
 
             app.UseSwagger();
-            app.UseSwaggerUI(config =>
-            {
+            app.UseSwaggerUI(config => {
                 config.SwaggerEndpoint("/swagger/v1/swagger.json", "APIWinde.Build V1");
             });
 
             app.UseCookiePolicy();
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync($"Ops! MVC didn't find anything!");
-            });
+
+            //app.Run(async (context) => {
+            //    await context.Response.WriteAsync($"Ops! MVC didn't find anything!");
+            //});
         }
     }
 }

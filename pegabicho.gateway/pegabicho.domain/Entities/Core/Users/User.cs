@@ -19,10 +19,10 @@ namespace pegabicho.domain.Entities.Core.Users {
         public General General { get; private set; } 
         public Address Address { get; private set; } 
 
-        public ICollection<Pet> Pets { get; private set; } = new Collection<Pet>(); 
-        public ICollection<Wallet> Wallets { get; private set; } = new Collection<Wallet>();  
+        public List<Pet> Pets { get; private set; } = new List<Pet>(); 
+        public List<Wallet> Wallets { get; private set; } = new List<Wallet>();  
         public List<Access> Profiles { get; private set; } = new List<Access>(); 
-        public ICollection<Document> Documents { get; private set; } = new Collection<Document>();
+        public List<Document> Documents { get; private set; } = new List<Document>();
 
         #endregion
 
@@ -63,9 +63,16 @@ namespace pegabicho.domain.Entities.Core.Users {
 
         #region [ user steps ]
 
-        public User Register(UserType type, string email, string password, List<Access> profiles) {
+        /// <summary>
+        /// Initial Step to register any yser
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="profiles"></param>
+        /// <returns></returns>
+        public static User Register(UserType type, string email, string password) {
             return new User(email, password) {
-                Profiles = profiles,
             };
         }
 
@@ -73,15 +80,22 @@ namespace pegabicho.domain.Entities.Core.Users {
             General = new General(type, phone, cellPhone, firstName, lastName, birthDate);
         }
 
-        public void AddBussines(string activity, string inscMunicipal, string inscEstadual, string representation) {
-            General.Bussinses(activity, inscEstadual, inscMunicipal, representation);
+        public void AddDocument(List<Document> document) {
+            Documents = document;
         }
 
         public void AddAddress(string addressLine, int complement, BuildingType building, int number, string district, string city, string stateProvince, string country, string postalCode) {
             Address = new Address(addressLine, complement, building, number, district, city, stateProvince, country, postalCode);
         }
 
-        //TODO FREE REGISTER FOR BACKOFFICE
+        public void AddPets(List<Pet> pets) {
+            Pets = pets;
+        }
+
+        public void AddBussines(string activity, string inscMunicipal, string inscEstadual, string representation) {
+            General.Bussinses(activity, inscEstadual, inscMunicipal, representation);
+        }
+
         #endregion
     }
 }

@@ -6,12 +6,12 @@ using pegabicho.service.Services.Base;
 
 namespace pegabicho.service.Services.Core
 {
-    public class ServiceSurvey : ServiceApp<Survey>, IServiceSurvey
-    {
-        public ServiceSurvey(IUnitOfWork unitOfWork,
-        IRepository<Survey> repository) : base(repository, unitOfWork)
-        {
+    //public class ServiceSurvey : ServiceApp<Survey>, IServiceSurvey
+    //{
+    //    //public ServiceSurvey(IUnitOfWork unitOfWork,
+    //    //IRepository<Survey> repository) : base(repository, unitOfWork)
+    //    //{
 
-        }
-    }
+    //    //}
+    //}
 }

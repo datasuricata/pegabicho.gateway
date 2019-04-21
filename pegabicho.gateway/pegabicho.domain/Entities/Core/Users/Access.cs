@@ -1,6 +1,5 @@
 ﻿using pegabicho.domain.Entities.Base;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using static pegabicho.domain.Entities.Enums;
 
 namespace pegabicho.domain.Entities.Core.Users {
@@ -20,7 +19,7 @@ namespace pegabicho.domain.Entities.Core.Users {
         #region [ ctor ]
 
         public Access(UserType type) {
-            Stage = (type == UserType.Customer || type == UserType.Root) 
+            Stage = (type == UserType.Customer || type == UserType.Root)  
                 ? UserStage.Aproved : UserStage.Pending;
             Type = type;
         }

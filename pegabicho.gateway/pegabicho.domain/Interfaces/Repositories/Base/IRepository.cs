@@ -32,7 +32,7 @@ namespace pegabicho.domain.Interfaces.Repositories.Base
 
         void DeleteRange(IEnumerable<T> entities);
 
-        bool Exist(Func<T, bool> where);
+        bool Exist(Func<T, bool> where, params Expression<Func<T, object>>[] includeProperties);
 
         Task<T> GetByIdAsync(string id);
 

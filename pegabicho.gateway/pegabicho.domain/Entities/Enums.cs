@@ -246,8 +246,11 @@ namespace pegabicho.domain.Entities {
 
         [Flags]
         public enum ModuleService {
-            [Display(Description = "Transporte")] //[1]
-            Transport = 1 << 0,
+            [Display(Description = "Básico")]
+            Base = 0,
+
+            [Display(Description = "Transporte")]
+            Transport = 1,
         }
 
         [Flags]

@@ -8,11 +8,11 @@ using System.Linq;
 
 namespace pegabicho.service.Events
 {
-    public class EventNotifier : IEventNotifier, IDisposable
+    public class EventNotifier : IEventNotifier
     {
         #region [ parameters ]
 
-        protected Notifier Notifier;
+        private Notifier Notifier;
         private bool disposed = false;
 
         #endregion
@@ -25,9 +25,9 @@ namespace pegabicho.service.Events
 
         #region [ methods ]
 
-        public void Notify<N>(string message) => Notifier.Notifications.Add(new Notification { Key = typeof(N).Name, Value = message, StatusCode = 400 });
+        public void Add<N>(string message) => Notifier.Notifications.Add(new Notification { Key = typeof(N).Name, Value = message, StatusCode = 400 });
 
-        public void NotifyException<N>(string message, Exception exception = null)
+        public void AddException<N>(string message, Exception exception = null)
         {
             var stack = new StackTrace(exception);
             var frames = stack.GetFrames();
@@ -60,7 +60,7 @@ namespace pegabicho.service.Events
             });
         }
 
-        public bool HasNotification() => Notifier.HasAny;
+        public bool HasAny() => Notifier.HasAny;
 
         public IEnumerable<Notification> GetNotifications() => Notifier.Notifications.AsEnumerable();
 

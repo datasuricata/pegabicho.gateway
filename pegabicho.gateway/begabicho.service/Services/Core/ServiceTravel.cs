@@ -7,26 +7,26 @@ using System;
 
 namespace pegabicho.service.Services.Core
 {
-    public class ServiceTravel : ServiceApp<Ticket>, IServiceTravel
-    {
-        public readonly IServiceSurvey ISurvey;
+    //public class ServiceTravel : ServiceApp<Ticket>, IServiceTravel
+    //{
+    //    //public readonly IServiceSurvey ISurvey;
 
-        public ServiceTravel(IUnitOfWork unitOfWork,
-        IRepository<Ticket> repository,
-        IServiceSurvey ISurvey) : base(repository, unitOfWork)
-        {
-        }
+    //    //public ServiceTravel(IUnitOfWork unitOfWork,
+    //    //IRepository<Ticket> repository,
+    //    //IServiceSurvey ISurvey) : base(repository, unitOfWork)
+    //    //{
+    //    //}
 
-        public void Register()
-        {
-            try
-            {
+    //    //public void Register()
+    //    //{
+    //    //    try
+    //    //    {
 
-            }
-            catch (Exception e)
-            {
-                NotifyException<ServiceTravel>(e.Message, e);
-            }
-        }
-    }
+    //    //    }
+    //    //    catch (Exception e)
+    //    //    {
+    //    //        NotifyException<ServiceTravel>(e.Message, e);
+    //    //    }
+    //    //}
+    //}
 }

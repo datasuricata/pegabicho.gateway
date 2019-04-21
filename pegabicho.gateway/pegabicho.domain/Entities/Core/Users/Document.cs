@@ -29,5 +29,15 @@ namespace pegabicho.domain.Entities.Core.Users
         }
 
         #endregion
+
+        #region [ methods ]
+
+        public static Document Register(string value, string imageUri, DocumentType type, string userId) {
+            return new Document(value, imageUri, type) {
+                UserId = userId,
+            };
+        }
+
+        #endregion
     }
 }

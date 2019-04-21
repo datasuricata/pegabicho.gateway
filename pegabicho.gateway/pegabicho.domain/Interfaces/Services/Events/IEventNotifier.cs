@@ -4,11 +4,11 @@ using System.Collections.Generic;
  
 namespace pegabicho.domain.Interfaces.Services.Events
 {
-    public interface IEventNotifier
+    public interface IEventNotifier : IDisposable
     {
-        void Notify<N>(string message);
-        void NotifyException<N>(string message, Exception exception = null);
-        bool HasNotification();
+        void Add<N>(string message);
+        void AddException<N>(string message, Exception exception = null);
+        bool HasAny();
         IEnumerable<Notification> GetNotifications();
     }
 }

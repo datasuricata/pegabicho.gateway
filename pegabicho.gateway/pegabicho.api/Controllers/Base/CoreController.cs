@@ -5,6 +5,7 @@ using pegabicho.domain.Arguments.Base;
 using pegabicho.domain.Entities.Core.Users;
 using pegabicho.domain.Interfaces.Services.Base;
 using pegabicho.domain.Interfaces.Services.Core;
+using pegabicho.domain.Interfaces.Services.Events;
 using pegabicho.domain.Security;
 using System;
 using System.Security.Claims;
@@ -12,15 +13,14 @@ using System.Security.Claims;
 namespace pegabicho.api.Controllers.Base {
 
     //[Authorize]
-    public class CoreController : ControllerBase
-    {
+    public class CoreController : ControllerBase {
         #region [ parameters ]
 
-        /// <summary>
-        /// User Service {Session Manager}
-        /// </summary>
-        protected IServiceBase ServiceBase => (IServiceBase)HttpContext.RequestServices.GetService(typeof(IServiceBase));
-        protected IServiceUser ServiceUser => (IServiceUser)HttpContext.RequestServices.GetService(typeof(IServiceUser));
+        private IServiceUser serviceUser =>
+            (IServiceUser)HttpContext.RequestServices.GetService(typeof(IServiceUser));
+
+        private IEventNotifier notifier =>
+            (IEventNotifier)HttpContext.RequestServices.GetService(typeof(IEventNotifier));
 
         #endregion
 
@@ -29,8 +29,7 @@ namespace pegabicho.api.Controllers.Base {
         /// <summary>
         /// ctor
         /// </summary>
-        protected CoreController()
-        {
+        protected CoreController() {
 
         }
 
@@ -42,8 +41,7 @@ namespace pegabicho.api.Controllers.Base {
         /// inject reference account
         /// </summary>
         /// <param name="obj"></param>
-        protected T InjectAccount<T>(T obj)
-        {
+        protected T InjectAccount<T>(T obj) {
             DataSecurity.InjectAccount(obj, Logged);
             return obj;
         }
@@ -52,11 +50,9 @@ namespace pegabicho.api.Controllers.Base {
         /// return user info from current context
         /// </summary>
         /// <returns></returns>
-        protected User Logged
-        {
-            get
-            {
-                return ServiceUser?.GetMe(User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
+        protected User Logged {
+            get {
+                return serviceUser?.GetMe(User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
             }
         }
 
@@ -64,8 +60,7 @@ namespace pegabicho.api.Controllers.Base {
         /// return server info used for request
         /// </summary>
         /// <returns></returns>
-        protected string ServerUri()
-        {
+        protected string ServerUri() {
             return Request.GetDisplayUrl();
         }
 
@@ -73,69 +68,34 @@ namespace pegabicho.api.Controllers.Base {
         /// return ip from request context
         /// </summary>
         /// <returns></returns>
-        protected string RequestIp()
-        {
+        protected string RequestIp() {
             return HttpContext.Connection.RemoteIpAddress.ToString();
         }
 
         #endregion
 
-        #region [ action result ]
+        #region [ results ]
 
         /// <summary>
         /// return new ObjectResponse or message notification
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected IActionResult Result(object result = null)
-        {
-            try
-            {
-                if (ServiceBase.HasNotification())
-                    return BadRequest(ServiceBase.GetNotifications());
+        protected IActionResult Result(object result = null) {
+            try {
+                if (notifier.HasAny())
+                    return BadRequest(notifier.GetNotifications());
 
                 if (result == null)
                     return new ObjectResult(new ResponseBase());
 
                 return new ObjectResult(result);
-            }
-            catch (ArgumentException ex)
-            {
+            } catch (ArgumentException ex) {
                 return NotFound(ex);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 return BadRequest(ex);
             }
         }
-
-        #endregion
-
-        #region [ async action result ] 
-
-        // # todo async result response for generic request
-
-        //protected async Task<IActionResult> ResultAsync(object result = null)
-        //{
-        //    try
-        //    {
-        //        if (ServiceBase.HasNotification())
-        //            return BadRequest(ServiceBase.GetNotifications());
-
-        //        if (result == null)
-        //            return new ObjectResult(new ResponseBase());
-
-        //        return new ObjectResult(result);
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        return NotFound(ex);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex);
-        //    }
-        //}
 
         #endregion
     }

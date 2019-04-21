@@ -2,12 +2,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using pegabicho.domain.Interfaces.Repositories.Base;
 using pegabicho.domain.Interfaces.Services.Base;
+using pegabicho.domain.Interfaces.Services.Core;
 using pegabicho.domain.Interfaces.Services.Events;
 using pegabicho.infra.ORM;
 using pegabicho.infra.Persistence.Repositories.Base;
 using pegabicho.infra.Transaction;
 using pegabicho.service.Events;
 using pegabicho.service.Services.Base;
+using pegabicho.service.Services.Core;
 
 namespace pegabicho.boostrap
 {
@@ -29,19 +31,16 @@ namespace pegabicho.boostrap
             /// use this to interact with db transactions
             /// </summary>
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
-
             // # service base {events}
             /// <summary>
             /// use this to inject base events into internal service
             /// </summary>
             services.AddScoped(typeof(IServiceBase), typeof(ServiceBase));
-
             // # repository base {entities}
             /// <summary>
             /// use this manipule internal entities from db source
             /// </summary>
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
             // # events base {notifications}
             /// <summary>
             /// use this to inject message notifications into internal services application
@@ -59,6 +58,8 @@ namespace pegabicho.boostrap
             #region [ core ]
 
             // # services contract with base {internal events} services
+            services.AddScoped(typeof(IServiceUser), typeof(ServiceUser));
+
             /// <summary>
             /// use this area to register current internal services events for applications
             /// </summary>
