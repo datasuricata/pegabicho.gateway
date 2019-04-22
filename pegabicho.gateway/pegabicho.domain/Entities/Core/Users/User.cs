@@ -53,7 +53,6 @@ namespace pegabicho.domain.Entities.Core.Users {
 
         protected User() {
         }
-
         public User(string email, string password) {
             Password = DataSecurity.Encrypt(password);
             Email = email;

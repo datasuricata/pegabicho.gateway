@@ -3,7 +3,7 @@ using pegabicho.domain.Helpers;
 using pegabicho.domain.Interfaces.Arguments.Base;
 
 namespace pegabicho.domain.Arguments.Core.Users {
-    public class DocumentResponse : IRequest {
+    public class DocumentResponse : IResponse {
         public string Id { get; set; }
         public string Value { get; set; }
         public string ImageUri { get; set; }

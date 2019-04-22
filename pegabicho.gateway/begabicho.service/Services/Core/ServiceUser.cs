@@ -4,13 +4,11 @@ using Newtonsoft.Json;
 using pegabicho.domain.Arguments.Core.Security;
 using pegabicho.domain.Arguments.Core.Users;
 using pegabicho.domain.Entities.Core.Users;
-using pegabicho.domain.Interfaces.Repositories.Base;
 using pegabicho.domain.Interfaces.Services.Core;
-using pegabicho.domain.Interfaces.Services.Events;
 using pegabicho.domain.Security;
 using pegabicho.infra.Specs.Users;
-using pegabicho.infra.Transaction;
 using pegabicho.service.Services.Base;
+using pegabicho.service.Validators.Core.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +16,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace pegabicho.service.Services.Core {
     public class ServiceUser : ServiceApp<User>, IServiceUser {
@@ -29,14 +26,14 @@ namespace pegabicho.service.Services.Core {
         /// Use this to retrive JWT key from config
         /// </summary>
         private readonly IConfiguration appConf;
-        public ServiceUser(IServiceProvider provider, IConfiguration appConf) : base(provider) {
-            this.appConf = appConf;
-        }
 
         #endregion
 
         #region [ ctor ]
 
+        public ServiceUser(IServiceProvider provider, IConfiguration appConf) : base(provider) {
+            this.appConf = appConf;
+        }
 
         #endregion
 
@@ -51,7 +48,7 @@ namespace pegabicho.service.Services.Core {
             try {
                 return repository.GetById(id);
             } catch (Exception ex) {
-                Notifier.AddException<ServiceUser>("Error to get logged user.", ex);
+                Notifier.AddException<ServiceUser>("Erro ao obter usuário logado.", ex);
                 return null;
             }
         }
@@ -63,9 +60,12 @@ namespace pegabicho.service.Services.Core {
         /// <returns></returns>
         public User GetByEmail(string email) {
             try {
-                return repository.GetBy(m => m.Email.ToLower() == email.ToLower());
+                var user = repository.GetBy(m => m.Email.ToLower() == email.ToLower());
+                if (user is null)
+                    Notifier.Add<ServiceUser>("Usuário não encontrado.");
+                return user;
             } catch (Exception ex) {
-                Notifier.AddException<ServiceUser>("Erro to get user.", ex);
+                Notifier.AddException<ServiceUser>("Erro ao retornar usuário.", ex);
                 return null;
             }
         }
@@ -81,12 +81,11 @@ namespace pegabicho.service.Services.Core {
         /// <returns></returns>
         public AuthResponse Authenticate(AuthRequest request) {
             try {
+
                 if (request == null)
                     return null;
 
-                bool isValid = DataSecurity.IsValid(GetByEmail(request.Email), request.Plataform);
-
-                if (!isValid)
+                if (!DataSecurity.IsValid(GetByEmail(request.Email), request.Plataform))
                     throw new ValidationException("Voce nao tem acesso a plataforma. Contate o suporte.");
 
                 var user = repository.GetBy(SpecUser.Auth(new User(request.Email, request.Password)));
@@ -116,7 +115,7 @@ namespace pegabicho.service.Services.Core {
 
                 return ((AuthResponse)user).InjectToken(Handler.WriteToken(Token));
             } catch (Exception ex) {
-                Notifier.AddException<ServiceUser>("Error to authenticate.", ex);
+                Notifier.AddException<ServiceUser>("Erro para autenticar.", ex);
                 return null;
             }
         }
@@ -127,41 +126,82 @@ namespace pegabicho.service.Services.Core {
 
         public UserResponse GetById(string id) {
             try {
-                return (UserResponse)repository.GetById(id, i => i.General, i => i.Documents);
-
+                var user = repository.GetById(id, i => i.General, i => i.Documents);
+                if (user is null)
+                    Notifier.Add<ServiceUser>("Usuário não encontrado.");
+                return (UserResponse)user;
             } catch (Exception e) {
                 Notifier.AddException<ServiceUser>(e.Message, e);
                 return null;
             }
         }
 
-        public async Task StepRegister(UserInitialRequest request) {
-
+        public void InitialRegister(UserRequest request) {
             try {
-                var exist = repository.Exist(x => x.Email == request.Email && x.Profiles.Any(a => request.Type == a.Type));
-                if (exist)
-                    throw new ValidationException("Voce nao tem acesso a plataforma. Contate o suporte.");
 
-                var user = User.Register(request.Type, request.Email, request.Password);
+                //if (repository.Exist(x => x.Email == request.Email && x.Profiles.Any(a => request.Type == a.Type)))
+                //    Notifier.Add<ServiceUser>("Já existe um perfil cadastrado com os mesmos dados.");
 
-                await repository.RegisterAsync(user);
-                //todo confirm e-mail
+                // todo confirm e-mail
+
+                RegisterValidator<UserValidator>(User.Register(request.Type, request.Email, request.Password));
+
             } catch (Exception e) {
-                Notifier.AddException<ServiceUser>(e.Message, e);
+                Notifier.AddException<ServiceUser>("Erro ao adicionar usuário", e);
             }
         }
 
-        /// <summary>
-        /// Use this to retrive all user from repository
-        /// </summary>
-        /// <returns></returns>
+        public void GeneralRegister(GeneralRequest request) {
+            try {
+
+                var user = repository.GetById(request.UserId);
+                user.AddGeneral(request.Type, request.Phone, request.CellPhone, request.FirstName, request.LastName, request.BirthDate);
+                UpdateValidator<UserValidator>(user);
+
+            } catch (Exception e) {
+                Notifier.AddException<ServiceUser>("Erro ao registrar informações gerais.", e);
+            }
+        }
+
+        public void DocumentsRegister(List<DocumentRequest> requests, User user) {
+            try {
+                var documents = requests.Select(x => new Document(x.Value, x.ImageUri, x.Type)).ToList();
+                user.AddDocument(documents);
+                UpdateValidator<UserValidator>(user);
+            } catch (Exception e) {
+                Notifier.AddException<ServiceUser>("Erro ao adicionar documentos.", e);
+            }
+        }
+
+        public void BussinesRegister(BussinesRequest request) {
+            try {
+                var user = repository.GetById(request.UserId, i => i.General);
+                user.AddBussines(request.Activity, request.InscMunicipal, request.InscEstadual, request.Representation);
+                UpdateValidator<UserValidator>(user);
+
+            } catch (Exception e) {
+                Notifier.AddException<ServiceUser>("Erro ao adicionar informações da empresa", e);
+            }
+        }
+
+        public void AddressRegister(AddressRequest request) {
+            try {
+                var user = repository.GetById(request.UserId);
+                user.AddAddress(request.AddressLine, request.Complement, request.Building, request.Number,
+                    request.District, request.City, request.StateProvince, request.Country, request.PostalCode);
+                UpdateValidator<UserValidator>(user);
+            } catch (Exception e) {
+                Notifier.AddException<ServiceUser>("Erro ao registrar endereço.", e);
+            }
+        }
+
         public IEnumerable<UserResponse> ListAll() {
             try {
                 return repository.ListBy(x => !x.IsDeleted).ToList()
                     .ConvertAll(e => (UserResponse)e);
 
-            } catch (Exception ex) {
-                Notifier.AddException<ServiceUser>("Error to list users.", ex);
+            } catch (Exception e) {
+                Notifier.AddException<ServiceUser>("Erro ao listar usuários", e);
                 return null;
             }
         }

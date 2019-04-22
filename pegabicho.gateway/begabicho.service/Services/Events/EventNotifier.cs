@@ -6,10 +6,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace pegabicho.service.Events
-{
-    public class EventNotifier : IEventNotifier
-    {
+namespace pegabicho.service.Events {
+    public class EventNotifier : IEventNotifier {
+
         #region [ parameters ]
 
         private Notifier Notifier;
@@ -27,18 +26,16 @@ namespace pegabicho.service.Events
 
         public void Add<N>(string message) => Notifier.Notifications.Add(new Notification { Key = typeof(N).Name, Value = message, StatusCode = 400 });
 
-        public void AddException<N>(string message, Exception exception = null)
-        {
+        public void AddException<N>(string message, Exception exception = null) {
             var stack = new StackTrace(exception);
             var frames = stack.GetFrames();
 
-            string[] path = new string[frames.Count()];
+            string[] trace = new string[frames.Count()];
             string[] lines;
 
             int i = 0;
 
             string ex = exception.InnerException?.InnerException == null ? exception.Message : exception.InnerException.InnerException.Message;
-            ex += exception.InnerException == null ? "" : $"{Environment.NewLine} Inner: {Environment.NewLine} {exception.InnerException.Message}";
 
             if (ex.Contains(Environment.NewLine))
                 lines = ex.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
@@ -46,17 +43,14 @@ namespace pegabicho.service.Events
                 lines = new string[] { ex };
 
             foreach (var x in frames)
-            {
-                path[i++] = $"{i}. ↓ {x.GetMethod().Name}";
-            }
+                trace[i++] = $"{i}. ↓ {x.GetMethod().Name}";
 
-            Notifier.Notifications.Add(new Notification
-            {
+            Notifier.Notifications.Add(new Notification {
                 Key = typeof(N).Name,
                 Value = message,
                 Exception = lines,
                 StatusCode = 500,
-                Call = path
+                Call = trace
             });
         }
 
@@ -74,8 +68,7 @@ namespace pegabicho.service.Events
 
         #region [ dispose ]
 
-        protected virtual void Dispose(bool disposing)
-        {
+        protected virtual void Dispose(bool disposing) {
             if (!this.disposed)
                 if (disposing)
                     Notifier.Notifications.Clear();
@@ -83,8 +76,7 @@ namespace pegabicho.service.Events
             this.disposed = true;
         }
 
-        public void Dispose()
-        {
+        public void Dispose() {
             Dispose(true);
             GC.SuppressFinalize(this);
         }

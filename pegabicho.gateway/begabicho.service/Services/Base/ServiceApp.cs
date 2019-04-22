@@ -29,17 +29,23 @@ namespace pegabicho.service.Services.Base {
 
         public void UpdateValidator<V>(T obj) where V : AbstractValidator<T> {
             Validate(obj, Activator.CreateInstance<V>());
-          //  repository.Update(obj);
+            if (!Notifier.HasAny()) {
+                //  repository.Update(obj);
+            }
         }
 
         public void RegisterValidatorMany<V>(IEnumerable<T> entities) where V : AbstractValidator<T> {
             ValidateList(entities, Activator.CreateInstance<V>());
-         //   repository.RegisterList(entities);
+            if (!Notifier.HasAny()) {
+                //   repository.RegisterList(entities);
+            }
         }
 
         public void RegisterValidator<V>(T obj) where V : AbstractValidator<T> {
             Validate(obj, Activator.CreateInstance<V>());
-         //   repository.Register(obj);
+            if (!Notifier.HasAny()) {
+                //   repository.Register(obj);
+            }
         }
 
         public void EntityValidtor<V>(T obj) where V : AbstractValidator<T> {
@@ -52,21 +58,15 @@ namespace pegabicho.service.Services.Base {
 
         private void Validate(T obj, AbstractValidator<T> validator) {
             if (obj == null)
-                throw new Exception("No object call.");
-
+                Notifier.Add<ServiceApp<T>>("No object call.");
             validator.ValidateAndThrow(obj);
         }
 
         private void ValidateList(IEnumerable<T> obj, AbstractValidator<T> validator) {
-            if (!obj.Any())
-                throw new Exception("No object call.");
-
-            foreach (var x in obj) {
-                if (x == null)
-                    throw new Exception("No object call.");
-
+            if (obj == null)
+                Notifier.Add<ServiceApp<T>>("No object call.");
+            foreach (var x in obj)
                 validator.ValidateAndThrow(x);
-            }
         }
 
         #endregion

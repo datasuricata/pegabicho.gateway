@@ -8,6 +8,6 @@ namespace pegabicho.domain.Arguments.Base
         protected Notification Message { get; set; }
 
         public ResponseBase() => Message = new Notification("Operação realizada com sucesso.");
-        public ResponseBase(string msg) => Message.Value = msg; 
+        public ResponseBase(string msg) => Message = new Notification(msg); 
     }
 }

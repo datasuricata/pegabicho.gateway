@@ -1,6 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using pegabicho.domain.Entities.Base;
+using pegabicho.domain.Entities.Core.Logs;
+using pegabicho.domain.Entities.Core.Pets;
+using pegabicho.domain.Entities.Core.Surveys;
+using pegabicho.domain.Entities.Core.Ticket;
 using pegabicho.domain.Entities.Core.Users;
 using System;
 using System.Linq;
@@ -22,6 +26,22 @@ namespace pegabicho.infra.ORM {
         public DbSet<Role> Roles { get; set; }
         public DbSet<Siege> Sieges { get; set; }
         public DbSet<Wallet> Wallets { get; set; }
+
+        // # Log
+        public DbSet<LogApp> LogApp { get; set; }
+        public DbSet<LogCore> LogCore { get; set; }
+        public DbSet<LogKernel> LogKernel { get; set; }
+
+        // # Pet
+        public DbSet<Pet> Pets { get; set; }
+        public DbSet<Race> Races { get; set; }
+
+        // # Surveys
+        public DbSet<ImageSurvey> ImageSurveys { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
+
+        // # Ticket
+        public DbSet<Ticket> Tickets { get; set; }
         
         #endregion
 
@@ -32,7 +52,7 @@ namespace pegabicho.infra.ORM {
 
         protected override void OnModelCreating(ModelBuilder options)
         {
-            #region [ general scheme ]
+            #region [ scheme ]
 
             options.HasDefaultSchema("Core");
 

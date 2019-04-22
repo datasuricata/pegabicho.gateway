@@ -1,6 +1,7 @@
 ﻿using pegabicho.domain.Arguments.Core.Security;
 using pegabicho.domain.Arguments.Core.Users;
 using pegabicho.domain.Entities.Core.Users;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace pegabicho.domain.Interfaces.Services.Core {
@@ -10,9 +11,16 @@ namespace pegabicho.domain.Interfaces.Services.Core {
         User GetMe(string id);
         User GetByEmail(string email);
         UserResponse GetById(string id);
+        IEnumerable<UserResponse> ListAll();
+
+        // # auth
         AuthResponse Authenticate(AuthRequest request);
 
         // # post
-        Task StepRegister(UserInitialRequest request);
+        void InitialRegister(UserRequest request);
+        void GeneralRegister(GeneralRequest request);
+        void DocumentsRegister(List<DocumentRequest> requests, User user);
+        void BussinesRegister(BussinesRequest request);
+        void AddressRegister(AddressRequest request);
     }
 }

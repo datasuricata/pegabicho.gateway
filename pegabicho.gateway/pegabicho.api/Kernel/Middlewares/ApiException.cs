@@ -46,14 +46,15 @@ namespace pegabicho.api.Kernel.Middlewares
             else
                 lines = new string[] { ex };
 
-            return context.Response.WriteAsync(JsonConvert.SerializeObject(new Notification()
-            {
+            var json = JsonConvert.SerializeObject(new Notification() {
                 StatusCode = context.Response.StatusCode,
                 Value = "Ops! Algo deu errado.",
                 Key = "ApiException",
                 Exception = lines,
                 Call = new string[] { context.Request.Path.ToUriComponent() },
-            }));
+            });
+
+            return context.Response.WriteAsync(json);
         }
     }
 }
