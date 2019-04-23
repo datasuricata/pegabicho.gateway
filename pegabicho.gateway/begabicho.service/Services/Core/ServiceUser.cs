@@ -60,7 +60,7 @@ namespace pegabicho.service.Services.Core {
         /// <returns></returns>
         public User GetByEmail(string email) {
             try {
-                var user = repository.GetBy(m => m.Email.ToLower() == email.ToLower());
+                var user = repository.GetBy(m => m.Email.ToLower() == email.ToLower()    );
                 if (user is null)
                     Notifier.Add<ServiceUser>("Usuário não encontrado.");
                 return user;
@@ -139,12 +139,22 @@ namespace pegabicho.service.Services.Core {
         public void InitialRegister(UserRequest request) {
             try {
 
-                //if (repository.Exist(x => x.Email == request.Email && x.Profiles.Any(a => request.Type == a.Type)))
-                //    Notifier.Add<ServiceUser>("Já existe um perfil cadastrado com os mesmos dados.");
+                if (repository.Exist(x => x.Email == request.Email && x.Profiles.Any(a => request.Type == a.Type)))
+                    Notifier.Add<ServiceUser>("Já existe um perfil cadastrado com os mesmos dados.");
 
                 // todo confirm e-mail
 
                 RegisterValidator<UserValidator>(User.Register(request.Type, request.Email, request.Password));
+
+            } catch (Exception e) {
+                Notifier.AddException<ServiceUser>("Erro ao adicionar usuário", e);
+            }
+        }
+
+        public void ModulesRegister(RoleRequest request) {
+            try {
+
+
 
             } catch (Exception e) {
                 Notifier.AddException<ServiceUser>("Erro ao adicionar usuário", e);

@@ -60,7 +60,7 @@ namespace pegabicho.domain.Entities.Core.Users {
 
         #endregion
 
-        #region [ user steps ]
+        #region [ create ]
 
         /// <summary>
         /// Initial Step to register any yser
@@ -72,6 +72,7 @@ namespace pegabicho.domain.Entities.Core.Users {
         /// <returns></returns>
         public static User Register(UserType type, string email, string password) {
             return new User(email, password) {
+                Profiles = new List<Access> { Access.Register(type) },
             };
         }
 
@@ -93,6 +94,10 @@ namespace pegabicho.domain.Entities.Core.Users {
 
         public void AddBussines(string activity, string inscMunicipal, string inscEstadual, string representation) {
             General.Bussinses(activity, inscEstadual, inscMunicipal, representation);
+        }
+
+        public void AddProfile(UserType type, List<ModuleService> modules) {
+            Profiles.Add(Access.Register(type, modules));
         }
 
         #endregion

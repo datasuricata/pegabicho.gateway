@@ -7,7 +7,6 @@ namespace pegabicho.infra.Transaction
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly AppDbContext db;
-
         private bool disposed = false;
 
         public UnitOfWork(AppDbContext db)

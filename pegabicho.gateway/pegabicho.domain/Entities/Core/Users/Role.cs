@@ -47,13 +47,13 @@ namespace pegabicho.domain.Entities.Core.Users {
             }
         }
 
-        public void ChangueRole(LevelAccess level) {
+        public void ChangRole(LevelAccess level) {
             Level = level;
         }
 
         #endregion
 
-        #region [ generate roles ]
+        #region [ roles ]
 
         private static IEnumerable<Role> CustomerRoles() {
             return Enum.GetValues(typeof(ModuleService))

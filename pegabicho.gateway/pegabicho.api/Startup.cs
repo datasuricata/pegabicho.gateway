@@ -88,8 +88,7 @@ namespace pegabicho.api {
                     Type = "apiKey"
                 });
 
-                config.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
-                {
+                config.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
                     {"Bearer", Enumerable.Empty<string>()},
                 });
             });
@@ -97,8 +96,7 @@ namespace pegabicho.api {
             // # cultures {UseLocalizations}
             services.Configure<RequestLocalizationOptions>(
                 options => {
-                    var supportedCultures = new List<CultureInfo>
-                    {
+                    var supportedCultures = new List<CultureInfo> {
                         new CultureInfo("pt-BR"),
                         new CultureInfo("en-US"),
                     };
@@ -158,7 +156,7 @@ namespace pegabicho.api {
 
             app.UseSwagger();
             app.UseSwaggerUI(config => {
-                config.SwaggerEndpoint("/swagger/v1/swagger.json", "APIWinde.Build V1");
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "PegaBicho V1");
             });
 
             app.UseCookiePolicy();

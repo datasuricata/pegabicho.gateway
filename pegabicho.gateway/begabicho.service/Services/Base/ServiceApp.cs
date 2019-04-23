@@ -2,11 +2,8 @@
 using pegabicho.domain.Entities.Base;
 using pegabicho.domain.Interfaces.Repositories.Base;
 using pegabicho.domain.Interfaces.Services.Base;
-using pegabicho.domain.Interfaces.Services.Events;
-using pegabicho.infra.Transaction;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace pegabicho.service.Services.Base {
     public class ServiceApp<T> : ServiceBase, IServiceApp<T> where T : EntityBase {
@@ -30,21 +27,21 @@ namespace pegabicho.service.Services.Base {
         public void UpdateValidator<V>(T obj) where V : AbstractValidator<T> {
             Validate(obj, Activator.CreateInstance<V>());
             if (!Notifier.HasAny()) {
-                //  repository.Update(obj);
+                repository.Update(obj);
             }
         }
 
         public void RegisterValidatorMany<V>(IEnumerable<T> entities) where V : AbstractValidator<T> {
             ValidateList(entities, Activator.CreateInstance<V>());
             if (!Notifier.HasAny()) {
-                //   repository.RegisterList(entities);
+                repository.RegisterList(entities);
             }
         }
 
         public void RegisterValidator<V>(T obj) where V : AbstractValidator<T> {
             Validate(obj, Activator.CreateInstance<V>());
             if (!Notifier.HasAny()) {
-                //   repository.Register(obj);
+                repository.Register(obj);
             }
         }
 

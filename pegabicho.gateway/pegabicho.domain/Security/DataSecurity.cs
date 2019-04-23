@@ -13,6 +13,7 @@ namespace pegabicho.domain.Security {
         }
 
         public static bool IsValid(User user, AuthPlataform plataform) {
+
             if (user == null)
                 return false;
 

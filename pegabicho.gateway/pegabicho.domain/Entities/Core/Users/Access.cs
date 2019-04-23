@@ -7,7 +7,7 @@ namespace pegabicho.domain.Entities.Core.Users {
 
         #region [ attributes ]
 
-        public UserType Type { get; private set; } 
+        public UserType Type { get; private set; }
         public UserStage Stage { get; private set; }
         public List<Role> Roles { get; private set; } = new List<Role>();
 
@@ -19,7 +19,7 @@ namespace pegabicho.domain.Entities.Core.Users {
         #region [ ctor ]
 
         public Access(UserType type) {
-            Stage = (type == UserType.Customer || type == UserType.Root)  
+            Stage = (type == UserType.Customer || type == UserType.Root)
                 ? UserStage.Aproved : UserStage.Pending;
             Type = type;
         }
@@ -31,10 +31,14 @@ namespace pegabicho.domain.Entities.Core.Users {
 
         #region [ methods ]
 
-        public static Access Register(UserType type) {
+        public static Access Register(UserType type, List<ModuleService> modules = null) {
             return new Access(type) {
-                Roles = Role.GenerateRoles(type) as List<Role>,
+                Roles = Role.GenerateRoles(type, modules) as List<Role>,
             };
+        }
+
+        public void ChangeRoles(LevelAccess level) {
+            Roles.ForEach(x => { x.ChangRole(level); });
         }
 
         public void ChangeStage(UserStage stage) {
@@ -48,4 +52,3 @@ namespace pegabicho.domain.Entities.Core.Users {
         #endregion
     }
 }
-
