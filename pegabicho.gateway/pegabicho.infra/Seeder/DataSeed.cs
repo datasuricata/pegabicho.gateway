@@ -28,7 +28,7 @@ namespace pegabicho.infra.Seeder {
                         new General(GenderType.Male, "33333333", "41998623719", "Geovani", "Martinez", new DateTime(1996, 01, 16)),
                         new Address("Rua Roberto Lobo", 4, BuildingType.Townhouse, 266, "Guabirutuba", "Curitiba", "Paraná", "Brasil", "80610040"),
                         new List<Pet> { new Pet("Rosana", null, null, PetSize.Small, PetSpecie.Cat, new DateTime(2014, 05, 11), 2.3f, new Race("Persa")),
-                            new Pet("Carlos", null, null, PetSize.Small, PetSpecie.Dog, new DateTime(2013, 05, 11), 4.3f, new Race("Bulldog")) },
+                                        new Pet("Carlos", null, null, PetSize.Small, PetSpecie.Dog, new DateTime(2013, 05, 11), 4.3f, new Race("Bulldog")) },
                         new List<Wallet> { new Wallet(PaymentType.Credit, "0000", "0000", "07732404971", 15, true) },
                         new List<Access> { new Access(UserType.Root) },
                         new List<Document> { new Document("07732404971", null, DocumentType.CPF), new Document("110890800", null, DocumentType.RG) });

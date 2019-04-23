@@ -16,6 +16,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using static pegabicho.domain.Entities.Enums;
 
 namespace pegabicho.service.Services.Core {
     public class ServiceUser : ServiceApp<User>, IServiceUser {
@@ -79,21 +80,20 @@ namespace pegabicho.service.Services.Core {
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public AuthResponse Authenticate(AuthRequest request) {
+        public AuthResponse Authenticate(AuthRequest request, AuthPlataform plataform) {
             try {
 
                 if (request == null)
                     return null;
 
-                if (!DataSecurity.IsValid(GetByEmail(request.Email), request.Plataform))
+                var user = repository.GetBy(SpecUser.Auth(new User(request.Email, request.Password)),
+                    i => i.Profiles, i => i.Profiles.Select(x => x.Roles));
+
+                if (!DataSecurity.IsValid(user, plataform))
                     throw new ValidationException("Voce nao tem acesso a plataforma. Contate o suporte.");
 
-                var user = repository.GetBy(SpecUser.Auth(new User(request.Email, request.Password)));
 
-                //todo fluent validator (block, exist, valid access)
-
-                if (user == null)
-                    throw new ValidationException("Verifique seu login e senha.");
+                //todo fluent validator (block, exist, valid access step)
 
                 var Handler = new JwtSecurityTokenHandler();
                 var Key = Encoding.ASCII.GetBytes(appConf["SecurityKey"]);

@@ -12,5 +12,9 @@ namespace pegabicho.service.Validators.Core.Users {
             //RuleFor(r => r.UserDate)
             //    .Must(ClienteMaiorDeIdade).WithMessage("Idade minima 18 anos.");
         }
+
+        //private static bool ClienteMaiorDeIdade(DateTimeOffset dataNascimento) {
+        //    return dataNascimento <= DateTimeOffset.Now.AddYears(-18);
+        //}
     }
 }
