@@ -29,6 +29,10 @@ namespace pegabicho.infra.Persistence.Repositories.Base
 
         #region [ methods ]
 
+        public virtual IQueryable<T> GetQueryable() {
+            return context.Set<T>();
+        }
+
         public virtual IQueryable<T> ListBy(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties)
         {
             return List(includeProperties).Where(where);
@@ -59,9 +63,7 @@ namespace pegabicho.infra.Persistence.Repositories.Base
             IQueryable<T> query = context.Set<T>();
 
             if (includeProperties.Any())
-            {
                 return Include(context.Set<T>(), includeProperties);
-            }
 
             return query;
         }

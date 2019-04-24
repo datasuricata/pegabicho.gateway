@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using pegabicho.domain.Arguments.Core.Security;
@@ -9,6 +10,7 @@ using pegabicho.domain.Security;
 using pegabicho.infra.Specs.Users;
 using pegabicho.service.Services.Base;
 using pegabicho.service.Validators.Core.Users;
+using pegabicho.service.Validators.Security;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -86,14 +88,16 @@ namespace pegabicho.service.Services.Core {
                 if (request == null)
                     return null;
 
-                var user = repository.GetBy(SpecUser.Auth(new User(request.Email, request.Password)),
-                    i => i.Profiles, i => i.Profiles.Select(x => x.Roles));
+                //var user = repository.GetBy(SpecUser.Auth(new User(request.Email, request.Password)),
+                //    i => i.Profiles, i => i.Profiles.Roles);
+
+                var login = new User(request.Email, request.Password);
+                var user = repository.GetQueryable().Include(x => x.Profiles).Where(x => x.Email == login.Email && x.Password == login.Password).FirstOrDefault();
 
                 if (!DataSecurity.IsValid(user, plataform))
                     throw new ValidationException("Voce nao tem acesso a plataforma. Contate o suporte.");
 
-
-                //todo fluent validator (block, exist, valid access step)
+                EntityValidtor<SecurityValidator>(user);
 
                 var Handler = new JwtSecurityTokenHandler();
                 var Key = Encoding.ASCII.GetBytes(appConf["SecurityKey"]);

@@ -213,23 +213,24 @@ namespace pegabicho.domain.Entities {
         #region [ access manager ]
 
         public enum AuthPlataform {
+
             /// <summary>
             /// App cliente, institucional, vitrine (consumidor)
             /// </summary>
             [Display(Description = "Autenticação Cliente")] //App
-            Client = 1,
+            Customer = 1,
 
             /// <summary>
             /// App consumidor
             /// </summary>
             [Display(Description = "Autenticação Prestador")] //App
-            Customer = 2,
+            Provider = 2,
 
             /// <summary>
             /// Vitrine (empresa)
             /// </summary>
             [Display(Description = "Vitrine")] //Vitrine
-            Vitrine = 3,
+            Showplace = 3,
 
             /// <summary>
             /// Backoffice da empresa

@@ -8,6 +8,8 @@ namespace pegabicho.domain.Interfaces.Repositories.Base
 {
     public interface IRepository<T> where T : class
     {
+        IQueryable<T> GetQueryable();
+
         IQueryable<T> ListBy(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
 
         IQueryable<T> GetOrderBy<TKey>(Expression<Func<T, bool>> where, Expression<Func<T, TKey>> ordem, bool ascendente = true, params Expression<Func<T, object>>[] includeProperties);

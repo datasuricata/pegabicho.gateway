@@ -1,5 +1,6 @@
 ﻿using pegabicho.domain.Arguments.Core.Security;
 using pegabicho.domain.Entities.Core.Users;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using static pegabicho.domain.Entities.Enums;
@@ -17,20 +18,7 @@ namespace pegabicho.domain.Security {
             if (user == null)
                 return false;
 
-            switch (plataform) {
-                case AuthPlataform.Client:
-                    return false;
-                case AuthPlataform.Customer:
-                    return false;
-                case AuthPlataform.Vitrine:
-                    return false;
-                case AuthPlataform.BackOffice:
-                    return false;
-                case AuthPlataform.Shadow:
-                    return false;
-                default:
-                    return false;
-            }
+            return ValidProfile(user, plataform);
         }
 
         /// <summary>
@@ -55,12 +43,34 @@ namespace pegabicho.domain.Security {
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="user"></param>
-        public static void InjectAccount<T>(this T obj, User user)
-        {
+        public static void InjectAccount<T>(this T obj, User user) {
             foreach (var x in obj.GetType().GetProperties())
                 if (x.Name == "UserId")
                     if (x.GetValue(obj) == null)
                         x.SetValue(obj, user.Id);
+        }
+
+        /// <summary>
+        /// Use this to valid user profiles for data validator
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="plataform"></param>
+        /// <returns></returns>
+        private static bool ValidProfile(User user, AuthPlataform plataform) {
+            switch (plataform) {
+                case AuthPlataform.Customer:
+                    return (user.Profiles.Any(x => (x.Type & UserType.Customer) == UserType.Customer));
+                case AuthPlataform.Provider:
+                    return (user.Profiles.Any(x => (x.Type & UserType.Provider) == UserType.Provider));
+                case AuthPlataform.Showplace:
+                    return (user.Profiles.Any(x => (x.Type & UserType.Enterprise) == UserType.Enterprise));
+                case AuthPlataform.BackOffice:
+                    return (user.Profiles.Any(x => (x.Type & UserType.Administrative) == UserType.Administrative));
+                case AuthPlataform.Shadow:
+                    return (user.Profiles.Any(x => (x.Type & UserType.Root) == UserType.Root));
+                default:
+                    return false;
+            }
         }
     }
 }
