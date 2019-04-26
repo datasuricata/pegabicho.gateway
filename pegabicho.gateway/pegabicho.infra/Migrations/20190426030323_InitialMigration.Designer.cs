@@ -10,7 +10,7 @@ using pegabicho.infra.ORM;
 namespace pegabicho.infra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190421170446_InitialMigration")]
+    [Migration("20190426030323_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,8 +115,6 @@ namespace pegabicho.infra.Migrations
 
                     b.Property<int>("Size");
 
-                    b.Property<int>("Specie");
-
                     b.Property<DateTimeOffset?>("UpdatedAt");
 
                     b.Property<string>("UserId");
@@ -142,6 +140,8 @@ namespace pegabicho.infra.Migrations
                     b.Property<string>("Name");
 
                     b.Property<string>("PetId");
+
+                    b.Property<int>("Specie");
 
                     b.Property<DateTimeOffset?>("UpdatedAt");
 

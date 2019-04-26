@@ -27,21 +27,21 @@ namespace pegabicho.api.Controllers {
         }
 
         [HttpPost]
-        [Route("showplace/provider")]
-        public IActionResult LoginShowplace([FromBody] AuthRequest request) {
-            return Result(serviceUser.Authenticate(request, AuthPlataform.Showplace));
+        [Route("showplace")]
+        public IActionResult LoginShowplace([FromBody] dynamic request) {
+            return Result(serviceUser.Authenticate(new AuthRequest {
+                Email = (string)request.email,
+                Password = (string)request.password
+            }, AuthPlataform.Showplace));
         }
 
         [HttpPost]
         [Route("backoffice")]
-        public IActionResult LoginBackOffice([FromBody] AuthRequest request) {
-            return Result(serviceUser.Authenticate(request, AuthPlataform.BackOffice));
-        }
-
-        [HttpPost]
-        [Route("likeashadow")]
-        public IActionResult Shadow([FromBody] AuthRequest request) {
-            return Result(serviceUser.Authenticate(request, AuthPlataform.Showplace));
+        public IActionResult LoginBackOffice([FromBody] dynamic request) {
+            return Result(serviceUser.Authenticate(new AuthRequest {
+                Email = (string)request.email,
+                Password = (string)request.password
+            }, AuthPlataform.BackOffice));
         }
 
         [HttpGet]

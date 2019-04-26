@@ -24,28 +24,28 @@ namespace pegabicho.service.Services.Base {
 
         #region [ persistance ]
 
-        public void UpdateValidator<V>(T obj) where V : AbstractValidator<T> {
+        public void ValidUpdate<V>(T obj) where V : AbstractValidator<T> {
             Validate(obj, Activator.CreateInstance<V>());
             if (!Notifier.HasAny()) {
                 repository.Update(obj);
             }
         }
 
-        public void RegisterValidatorMany<V>(IEnumerable<T> entities) where V : AbstractValidator<T> {
+        public void ValidManyRegisters<V>(IEnumerable<T> entities) where V : AbstractValidator<T> {
             ValidateList(entities, Activator.CreateInstance<V>());
             if (!Notifier.HasAny()) {
                 repository.RegisterList(entities);
             }
         }
 
-        public void RegisterValidator<V>(T obj) where V : AbstractValidator<T> {
+        public void ValidRegister<V>(T obj) where V : AbstractValidator<T> {
             Validate(obj, Activator.CreateInstance<V>());
             if (!Notifier.HasAny()) {
                 repository.Register(obj);
             }
         }
 
-        public void EntityValidtor<V>(T obj) where V : AbstractValidator<T> {
+        public void ValidEntity<V>(T obj) where V : AbstractValidator<T> {
             Validate(obj, Activator.CreateInstance<V>());
         }
 

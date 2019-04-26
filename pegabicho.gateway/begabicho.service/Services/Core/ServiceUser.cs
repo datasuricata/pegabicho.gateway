@@ -88,20 +88,16 @@ namespace pegabicho.service.Services.Core {
                 if (request == null)
                     return null;
 
-                //var user = repository.GetBy(SpecUser.Auth(new User(request.Email, request.Password)),
-                //    i => i.Profiles, i => i.Profiles.Roles);
-
-                var login = new User(request.Email, request.Password);
-                var user = repository.GetQueryable().Include(x => x.Profiles).SingleOrDefault(x => x.Email == login.Email && x.Password == login.Password);
+                var user = repository.GetBy(SpecUser.Auth(new User(request.Email, request.Password)), i => i.Profiles);
 
                 if (!DataSecurity.IsValid(user, plataform))
                     throw new ValidationException("Voce nao tem acesso a plataforma. Contate o suporte.");
 
-                EntityValidtor<SecurityValidator>(user);
+                ValidEntity<SecurityValidator>(user);
 
                 var Handler = new JwtSecurityTokenHandler();
                 var Key = Encoding.ASCII.GetBytes(appConf["SecurityKey"]);
-                var Roles = JsonConvert.SerializeObject(user.Profiles);
+                var Roles = JsonConvert.SerializeObject(user.Profiles.ConvertAll(e => (AccessResponse)e));
 
                 var Payload = new SecurityTokenDescriptor {
                     Subject = new ClaimsIdentity(new Claim[] {
@@ -148,7 +144,7 @@ namespace pegabicho.service.Services.Core {
 
                 // todo confirm e-mail
 
-                RegisterValidator<UserValidator>(User.Register(request.Type, request.Email, request.Password));
+                ValidRegister<UserValidator>(User.Register(request.Type, request.Email, request.Password));
 
             } catch (Exception e) {
                 Notifier.AddException<ServiceUser>("Erro ao adicionar usuário", e);
@@ -170,7 +166,7 @@ namespace pegabicho.service.Services.Core {
 
                 var user = repository.GetById(request.UserId);
                 user.AddGeneral(request.Type, request.Phone, request.CellPhone, request.FirstName, request.LastName, request.BirthDate);
-                UpdateValidator<UserValidator>(user);
+                ValidUpdate<UserValidator>(user);
 
             } catch (Exception e) {
                 Notifier.AddException<ServiceUser>("Erro ao registrar informações gerais.", e);
@@ -181,7 +177,7 @@ namespace pegabicho.service.Services.Core {
             try {
                 var documents = requests.Select(x => new Document(x.Value, x.ImageUri, x.Type)).ToList();
                 user.AddDocument(documents);
-                UpdateValidator<UserValidator>(user);
+                ValidUpdate<UserValidator>(user);
             } catch (Exception e) {
                 Notifier.AddException<ServiceUser>("Erro ao adicionar documentos.", e);
             }
@@ -191,7 +187,7 @@ namespace pegabicho.service.Services.Core {
             try {
                 var user = repository.GetById(request.UserId, i => i.General);
                 user.AddBussines(request.Activity, request.InscMunicipal, request.InscEstadual, request.Representation);
-                UpdateValidator<UserValidator>(user);
+                ValidUpdate<UserValidator>(user);
 
             } catch (Exception e) {
                 Notifier.AddException<ServiceUser>("Erro ao adicionar informações da empresa", e);
@@ -203,7 +199,7 @@ namespace pegabicho.service.Services.Core {
                 var user = repository.GetById(request.UserId);
                 user.AddAddress(request.AddressLine, request.Complement, request.Building, request.Number,
                     request.District, request.City, request.StateProvince, request.Country, request.PostalCode);
-                UpdateValidator<UserValidator>(user);
+                ValidUpdate<UserValidator>(user);
             } catch (Exception e) {
                 Notifier.AddException<ServiceUser>("Erro ao registrar endereço.", e);
             }

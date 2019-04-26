@@ -7,7 +7,7 @@ namespace pegabicho.domain.Arguments.Core.Security {
     public class AuthResponse : IResponse {
         
         public string Id { get; set; }
-        public string Name { get; set; }
+        public string Email { get; set; }
         public string Token { get; set; }
         public List<AccessResponse> Profiles { get; set; }
 
@@ -16,7 +16,7 @@ namespace pegabicho.domain.Arguments.Core.Security {
         public static explicit operator AuthResponse(User v) {
             return v == null ? null : new AuthResponse {
                 Id = v.Id,
-                Name = v.Id,
+                Email = v.Email,
                 Profiles = v.Profiles?.ConvertAll(e => (AccessResponse)e),
             };
         }

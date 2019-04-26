@@ -8,6 +8,7 @@
     <Folder Include="Hubs\Core\" />
     <Folder Include="Hubs\Services\" />
     <Folder Include="Properties\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
   <ItemGroup>

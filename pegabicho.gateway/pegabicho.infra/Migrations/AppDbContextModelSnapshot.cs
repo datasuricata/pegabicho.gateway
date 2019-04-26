@@ -113,8 +113,6 @@ namespace pegabicho.infra.Migrations
 
                     b.Property<int>("Size");
 
-                    b.Property<int>("Specie");
-
                     b.Property<DateTimeOffset?>("UpdatedAt");
 
                     b.Property<string>("UserId");
@@ -140,6 +138,8 @@ namespace pegabicho.infra.Migrations
                     b.Property<string>("Name");
 
                     b.Property<string>("PetId");
+
+                    b.Property<int>("Specie");
 
                     b.Property<DateTimeOffset?>("UpdatedAt");
 

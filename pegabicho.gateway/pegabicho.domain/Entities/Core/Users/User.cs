@@ -69,9 +69,9 @@ namespace pegabicho.domain.Entities.Core.Users {
         /// <param name="password"></param>
         /// <param name="profiles"></param>
         /// <returns></returns>
-        public static User Register(UserType type, string email, string password) {
+        public static User Register(UserType type, string email, string password, List<ModuleService> modules = null) {
             return new User(email, password) {
-                Profiles = new List<Access> { Access.Register(type) },
+                Profiles = new List<Access> { Access.Register(type, modules) },
             };
         }
 

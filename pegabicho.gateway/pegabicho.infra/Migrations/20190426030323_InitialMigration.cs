@@ -258,7 +258,6 @@ namespace pegabicho.infra.Migrations
                     ImageUri = table.Column<string>(nullable: true),
                     ImageThumbsUri = table.Column<string>(nullable: true),
                     Size = table.Column<int>(nullable: false),
-                    Specie = table.Column<int>(nullable: false),
                     BirthDate = table.Column<DateTime>(nullable: false),
                     Weight = table.Column<float>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
@@ -407,6 +406,7 @@ namespace pegabicho.infra.Migrations
                     UpdatedAt = table.Column<DateTimeOffset>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
+                    Specie = table.Column<int>(nullable: false),
                     PetId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
