@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using pegabicho.domain.Arguments.Core.Security;
@@ -122,7 +121,7 @@ namespace pegabicho.service.Services.Core {
 
         #endregion
 
-        #region [ methods ]
+        #region [ get ]
 
         public UserResponse GetById(string id) {
             try {
@@ -135,6 +134,21 @@ namespace pegabicho.service.Services.Core {
                 return null;
             }
         }
+
+        public IEnumerable<UserResponse> ListAll() {
+            try {
+                return repository.ListBy(x => !x.IsDeleted).ToList()
+                    .ConvertAll(e => (UserResponse)e);
+
+            } catch (Exception e) {
+                Notifier.AddException<ServiceUser>("Erro ao listar usuários", e);
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region [ register ]
 
         public void InitialRegister(UserRequest request) {
             try {
@@ -183,6 +197,10 @@ namespace pegabicho.service.Services.Core {
             }
         }
 
+        /// <summary>
+        /// Use this after register GeneralRegister() method
+        /// </summary>
+        /// <param name="request"></param>
         public void BussinesRegister(BussinesRequest request) {
             try {
                 var user = repository.GetById(request.UserId, i => i.General);
@@ -202,17 +220,6 @@ namespace pegabicho.service.Services.Core {
                 ValidUpdate<UserValidator>(user);
             } catch (Exception e) {
                 Notifier.AddException<ServiceUser>("Erro ao registrar endereço.", e);
-            }
-        }
-
-        public IEnumerable<UserResponse> ListAll() {
-            try {
-                return repository.ListBy(x => !x.IsDeleted).ToList()
-                    .ConvertAll(e => (UserResponse)e);
-
-            } catch (Exception e) {
-                Notifier.AddException<ServiceUser>("Erro ao listar usuários", e);
-                return null;
             }
         }
 
