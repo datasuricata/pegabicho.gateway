@@ -181,7 +181,7 @@ namespace pegabicho.domain.Entities {
 
         #endregion
 
-        #region [ ticket manager ]
+        #region [ ticket ]
 
         public enum TicketType {
             [Display(Description = "Particular")]
@@ -210,7 +210,7 @@ namespace pegabicho.domain.Entities {
 
         #endregion
 
-        #region [ access manager ]
+        #region [ access ]
 
         public enum AuthPlataform {
 

@@ -92,7 +92,7 @@ namespace pegabicho.service.Services.Core {
                 //    i => i.Profiles, i => i.Profiles.Roles);
 
                 var login = new User(request.Email, request.Password);
-                var user = repository.GetQueryable().Include(x => x.Profiles).Where(x => x.Email == login.Email && x.Password == login.Password).FirstOrDefault();
+                var user = repository.GetQueryable().Include(x => x.Profiles).SingleOrDefault(x => x.Email == login.Email && x.Password == login.Password);
 
                 if (!DataSecurity.IsValid(user, plataform))
                     throw new ValidationException("Voce nao tem acesso a plataforma. Contate o suporte.");

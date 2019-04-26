@@ -14,11 +14,13 @@ namespace pegabicho.service.Validators.Security {
         }
 
         private static bool IsBlock(List<Access> profiles) {
-            return profiles.Any(a => a.Stage == UserStage.Blocked);
+            var valid = profiles.Any(a => a.Stage == UserStage.Blocked);
+            return !valid;
         }
 
         private static bool IsRecused(List<Access> profiles) {
-            return profiles.Any(a => a.Stage == UserStage.Recused);
+            var valid = profiles.Any(a => a.Stage == UserStage.Recused);
+            return !valid;
         }
     }
 }

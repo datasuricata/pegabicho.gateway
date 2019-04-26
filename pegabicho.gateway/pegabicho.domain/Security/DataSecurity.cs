@@ -57,6 +57,10 @@ namespace pegabicho.domain.Security {
         /// <param name="plataform"></param>
         /// <returns></returns>
         private static bool ValidProfile(User user, AuthPlataform plataform) {
+
+            if (user.Profiles.Any(x => (x.Type == UserType.Root)))
+                return true;
+
             switch (plataform) {
                 case AuthPlataform.Customer:
                     return (user.Profiles.Any(x => (x.Type & UserType.Customer) == UserType.Customer));
@@ -66,8 +70,6 @@ namespace pegabicho.domain.Security {
                     return (user.Profiles.Any(x => (x.Type & UserType.Enterprise) == UserType.Enterprise));
                 case AuthPlataform.BackOffice:
                     return (user.Profiles.Any(x => (x.Type & UserType.Administrative) == UserType.Administrative));
-                case AuthPlataform.Shadow:
-                    return (user.Profiles.Any(x => (x.Type & UserType.Root) == UserType.Root));
                 default:
                     return false;
             }
