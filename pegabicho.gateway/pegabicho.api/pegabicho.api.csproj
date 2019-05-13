@@ -5,8 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Hubs\Core\" />
-    <Folder Include="Hubs\Services\" />
+    <Compile Remove="Hubs\Core\**" />
+    <Compile Remove="Hubs\Services\**" />
+    <Content Remove="Hubs\Core\**" />
+    <Content Remove="Hubs\Services\**" />
+    <EmbeddedResource Remove="Hubs\Core\**" />
+    <EmbeddedResource Remove="Hubs\Services\**" />
+    <None Remove="Hubs\Core\**" />
+    <None Remove="Hubs\Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>

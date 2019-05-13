@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using pegabicho.api.Hubs;
 using pegabicho.api.Startups.Base;
 using pegabicho.boostrap;
 using pegabicho.domain.Interfaces.Services.Base;
@@ -93,6 +94,8 @@ namespace pegabicho.api {
                 });
             });
 
+            services.AddSignalR();
+
             // # cultures {UseLocalizations}
             services.Configure<RequestLocalizationOptions>(
                 options => {
@@ -150,20 +153,18 @@ namespace pegabicho.api {
             app.UseHttpsRedirection();
             app.UseAuthentication();
 
-            app.UseMvc(routes => {
-                routes.MapRoute(name: "default", template: "api/{controller}/{action}/{id?}");
-            });
-
             app.UseSwagger();
             app.UseSwaggerUI(config => {
                 config.SwaggerEndpoint("/swagger/v1/swagger.json", "PegaBicho V1");
             });
 
+            app.UseSignalR(route => { route.MapHub<NotifyHub>("/NotifyHub"); });
+
             app.UseCookiePolicy();
 
-            //app.Run(async (context) => {
-            //    await context.Response.WriteAsync($"Ops! MVC didn't find anything!");
-            //});
+            app.UseMvc(routes => {
+                routes.MapRoute(name: "default", template: "api/{controller}/{action}/{id?}");
+            });
         }
     }
 }

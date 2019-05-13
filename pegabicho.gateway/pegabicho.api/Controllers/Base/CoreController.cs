@@ -87,9 +87,9 @@ namespace pegabicho.api.Controllers.Base {
                     return BadRequest(notifier.GetNotifications());
 
                 if (result == null)
-                    return new ObjectResult(new ResponseBase());
+                    return new OkObjectResult(new ResponseBase());
 
-                return new ObjectResult(result);
+                return new OkObjectResult(result);
             } catch (ArgumentException ex) {
                 return NotFound(ex);
             } catch (Exception ex) {
