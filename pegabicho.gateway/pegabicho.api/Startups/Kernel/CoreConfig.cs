@@ -1,0 +1,150 @@
+﻿using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using pegabicho.api.Hubs;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+
+namespace pegabicho.api.Startups.Kernel {
+    public static class CoreConfig {
+
+        #region [ services ]
+
+        public static IServiceCollection AddSwagger(this IServiceCollection services) {
+
+            return services;
+        }
+
+        public static IServiceCollection AddCustomMvc(this IServiceCollection services) {
+            services.AddMvc(config => {
+                // config.Filters.Add(typeof(CrossCutting.ApiFilter));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+              .AddFluentValidation()
+              .AddJsonOptions(options => {
+                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                options.SerializerSettings.DateFormatString = "yyyy-MM-ddTHH:mm:ssZ";
+                options.SerializerSettings.Formatting = Formatting.Indented;
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+
+            return services;
+        }
+
+        public static IServiceCollection AddCustomSwagger(this IServiceCollection services) {
+            services.AddSwaggerGen(config => {
+                config.SwaggerDoc("v1", new Info {
+                    Title = "PegaBicho.Gateway",
+                    Version = "v1",
+                    Contact = new Contact {
+                        Name = "Lucas Rocha de Moraes",
+                        Email = "lucas.moraes.dev@gmail.com",
+                        Url = "http://www.datasuricata.com.br"
+                    }
+                });
+
+                config.AddSecurityDefinition("Bearer", new ApiKeyScheme {
+                    In = "header",
+                    Description = "Please enter into field with: Bearer [Token]",
+                    Name = "Authorization",
+                    Type = "apiKey"
+                });
+
+                config.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                    {"Bearer", Enumerable.Empty<string>()},
+                });
+            });
+            return services;
+        }
+
+        public static IServiceCollection AddJWTService(this IServiceCollection services, IConfiguration configuration) {
+            var key = Encoding.ASCII.GetBytes(configuration["SecurityKey"]);
+            services.AddAuthentication(x => {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x => {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                    };
+                });
+            return services;
+        }
+
+        public static IServiceCollection AddLocalizations(this IServiceCollection services) {
+            services.Configure<RequestLocalizationOptions>(
+               options => {
+                   var supportedCultures = new List<CultureInfo> {
+                        new CultureInfo("pt-BR"),
+                        new CultureInfo("en-US"),
+                   };
+
+                   options.DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR");
+                   options.SupportedCultures = supportedCultures;
+                   options.SupportedUICultures = supportedCultures;
+
+                   options.RequestCultureProviders.Insert(0, new AcceptLanguageHeaderRequestCultureProvider());
+               });
+            return services;
+        }
+
+        #endregion
+
+        #region [ application ]
+
+        public static IApplicationBuilder UserCustomCors(this IApplicationBuilder app) {
+            app.UseCors(options => {
+                options.AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .AllowAnyOrigin()
+                       .AllowCredentials();
+            });
+            return app;
+        }
+
+        public static IApplicationBuilder UseSwaggerDocs(this IApplicationBuilder app) {
+            app.UseSwagger();
+            app.UseSwaggerUI(config => {
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "PegaBicho V1");
+            });
+            return app;
+        }
+
+        public static IApplicationBuilder UserNotifyHub(this IApplicationBuilder app) {
+            app.UseSignalR(route => { route.MapHub<NotifyHub>("/NotifyHub"); });
+            return app;
+        }
+
+        public static IApplicationBuilder UserDevExceptionIfDebug(this IApplicationBuilder app, IHostingEnvironment env) {
+            var index = new DefaultFilesOptions { DefaultFileNames = new List<string> { "index.html" } };
+
+            if (env.IsDevelopment()) {
+                app.UseHsts();
+                app.UseDefaultFiles(index);
+            } else {
+                app.UseDeveloperExceptionPage();
+                app.UseDefaultFiles(index);
+            }
+            return app;
+        }
+
+        #endregion
+
+    }
+}

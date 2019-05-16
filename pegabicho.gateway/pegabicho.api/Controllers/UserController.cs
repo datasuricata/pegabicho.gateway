@@ -14,51 +14,113 @@ namespace pegabicho.api.Controllers {
             this.serviceUser = serviceUser;
         }
 
+        #region [ get ]
+
         [HttpGet]
-        [Route("all/getById")]
+        [Route("getById")]
         public IActionResult GetById(string id) {
             return Result(serviceUser.GetById(id));
         }
 
         [HttpGet]
-        [Route("all/listUsers")]
+        [Route("listUsers")]
         public IActionResult ListUsers() {
             return Result(serviceUser.ListAll());
         }
 
+        #endregion
+
+        #region [ post ]
+
         [HttpPost]
-        [Route("all/registerStep")]
+        [Route("registerStep")]
         public IActionResult RegisterStep([FromBody]UserRequest request) {
             serviceUser.InitialRegister(request);
             return Result(new ResponseBase($"Usuário {request.Email} criado com sucesso."));
         }
 
         [HttpPost]
-        [Route("all/registerGeneral")]
+        [Route("registerGeneral")]
         public IActionResult RegisterGeneral([FromBody]GeneralRequest request) {
             serviceUser.GeneralRegister(request);
             return Result(new ResponseBase("Informações atualizadas."));
         }
 
         [HttpPost]
-        [Route("all/registerDocuments")]
+        [Route("registerDocuments")]
         public IActionResult RegisterDocuments([FromBody]List<DocumentRequest> request) {
             serviceUser.DocumentsRegister(request, Logged);
             return Result(new ResponseBase("Documentos adicionados."));
         }
 
         [HttpPost]
-        [Route("all/registerAddress")]
+        [Route("registerAddress")]
         public IActionResult RegisterAddress([FromBody]AddressRequest request) {
             serviceUser.AddressRegister(request);
             return Result(new ResponseBase("Endereço adicionado."));
         }
 
+        #endregion
+
+        #region [ put ]
+
         [HttpPut]
-        [Route("all/registerBussines")]
+        [Route("registerBussines")]
         public IActionResult RegisterBussines([FromBody]BussinesRequest request) {
             serviceUser.BussinesRegister(request);
-            return Result(new ResponseBase("Informações atualizadas."));
+            return Result(new ResponseBase("Informações da empresa registradas."));
         }
+
+        [HttpPut]
+        [Route("updateBussines")]
+        public IActionResult UpdateBussines([FromBody]BussinesRequest request) {
+            //serviceUser.
+            return Result(new ResponseBase("Informações da empresa atualizadas."));
+        }
+
+        [HttpPut]
+        [Route("updateGeneral")]
+        public IActionResult UpdateGeneral([FromBody]GeneralRequest request) {
+            //serviceUser.
+            return Result(new ResponseBase("Informaçõe gerais atualziadas com sucesso."));
+        }
+
+        [HttpPut]
+        [Route("updateDocument")]
+        public IActionResult UpdateDocument([FromBody] DocumentRequest request) {
+            //serviceUser.
+            return Result(new ResponseBase("Documento atualizado com sucesso."));
+        }
+
+        [HttpPut]
+        [Route("updateAddress")]
+        public IActionResult UpdateAddress([FromBody] AddressRequest request) {
+            //serviceUser.
+            return Result(new ResponseBase("Endereço atualizado com sucesso."));
+        }
+
+        #endregion
+
+        #region [ delete ]
+
+        [HttpDelete]
+        [Route("deleteUser")]
+        public IActionResult DeleteUser(string id) {
+            //serviceUser.
+            return Result(new ResponseBase("Usuário deletado com sucesso."));
+        }
+
+        [HttpDelete]
+        [Route("softDeleteUser")]
+        public ResponseBase SoftDeleteUser(string id) {
+            //serviceUser.
+            return new ResponseBase("Usuário desativado com sucesso.");
+        }
+
+        #endregion
+
+        #region [ custom ]
+
+        #endregion
     }
 }

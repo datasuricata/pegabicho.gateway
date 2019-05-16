@@ -14,6 +14,13 @@ namespace pegabicho.api.Controllers {
             this.serviceUser = serviceUser;
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("ValidToken")]
+        public IActionResult ValidToken() {
+            return Result("Token has been validated.");
+        }
+
         [HttpPost]
         [Route("app/customer")]
         public IActionResult LoginCustomer([FromBody] AuthRequest request) {
@@ -42,13 +49,6 @@ namespace pegabicho.api.Controllers {
                 Email = (string)request.email,
                 Password = (string)request.password
             }, AuthPlataform.BackOffice));
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("ValidToken")]
-        public IActionResult ValidToken() {
-            return Result("Token has been validated.");
         }
     }
 }

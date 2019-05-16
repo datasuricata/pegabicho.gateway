@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using pegabicho.domain.Arguments.Base;
 using pegabicho.domain.Entities.Core.Users;
-using pegabicho.domain.Interfaces.Services.Base;
 using pegabicho.domain.Interfaces.Services.Core;
 using pegabicho.domain.Interfaces.Services.Events;
 using pegabicho.domain.Security;

@@ -3,6 +3,18 @@ using System.Threading.Tasks;
 
 namespace pegabicho.api.Hubs {
     public class NotifyHub : Hub {
-        public async Task JoinGroup(string groupName) => await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+        /// <summary>
+        /// join into group for city general view
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public async Task JoinCity(string cityId) => await Groups.AddToGroupAsync(Context.ConnectionId, cityId);
+
+        /// <summary>
+        /// join into ticket for general view by group ticket
+        /// </summary>
+        /// <param name="ticketId"></param>
+        /// <returns></returns>
+        public async Task JoinGroup(string ticketId) => await Groups.AddToGroupAsync(Context.ConnectionId, ticketId);
     }
 }
