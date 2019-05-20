@@ -39,15 +39,16 @@ namespace pegabicho.domain.Security {
         }
 
         /// <summary>
-        /// inject user into object context
+        /// inject user into object context 
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="user"></param>
-        public static void InjectAccount<T>(this T obj, User user) {
-            foreach (var x in obj.GetType().GetProperties())
-                if (x.Name == "UserId")
+        public static void InjectAccount<T>(this T obj, string UserId, string nameOf) {
+            foreach (var x in obj.GetType().GetProperties()) {
+                if (x.Name == nameOf)
                     if (x.GetValue(obj) == null)
-                        x.SetValue(obj, user.Id);
+                        x.SetValue(obj, UserId);
+            }
         }
 
         /// <summary>

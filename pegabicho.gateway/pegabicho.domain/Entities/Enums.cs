@@ -188,7 +188,10 @@ namespace pegabicho.domain.Entities {
             Private = 1,
 
             [Display(Description = "Comercial")]
-            Comercial = 2
+            Comercial = 2,
+
+            [Display(Description = "Consultoria")]
+            Consulting = 3,
         }
 
         public enum TicketStatus {
@@ -202,7 +205,7 @@ namespace pegabicho.domain.Entities {
             Reproved = 3,
 
             [Display(Description = "Rechamada")]
-            CallBack = 4,
+            ReCall = 4,
 
             [Display(Description = "Processado")]
             Processed = 5,

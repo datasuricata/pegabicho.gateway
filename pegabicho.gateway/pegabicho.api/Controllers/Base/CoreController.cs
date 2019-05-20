@@ -17,7 +17,6 @@ namespace pegabicho.api.Controllers.Base {
 
         private IServiceUser serviceUser =>
             (IServiceUser)HttpContext.RequestServices.GetService(typeof(IServiceUser));
-
         private IEventNotifier notifier =>
             (IEventNotifier)HttpContext.RequestServices.GetService(typeof(IEventNotifier));
 
@@ -34,16 +33,7 @@ namespace pegabicho.api.Controllers.Base {
 
         #endregion
 
-        #region [ methods ]
-
-        /// <summary>
-        /// inject reference account
-        /// </summary>
-        /// <param name="obj"></param>
-        protected T InjectAccount<T>(T obj) {
-            DataSecurity.InjectAccount(obj, Logged);
-            return obj;
-        }
+        #region [ user session ]
 
         /// <summary>
         /// return user info from current context
@@ -53,6 +43,31 @@ namespace pegabicho.api.Controllers.Base {
             get {
                 return serviceUser?.GetMe(User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "");
             }
+        }
+
+        /// <summary>
+        /// return user info from current context
+        /// </summary>
+        /// <returns></returns>
+        protected string LoggedLess {
+            get {
+                return User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            }
+        }
+
+        #endregion
+
+        #region [ methods ]
+
+        /// <summary>
+        /// inject reference account
+        /// </summary>
+        /// <typeparam name="T">Model generic</typeparam>
+        /// <param name="obj">Model</param>
+        /// <param name="nameOf">Propertie user identifier</param>
+        /// <returns>Model with user identifier injected</returns>
+        protected T InvokeAccount<T>(T obj, string nameOf) {
+            DataSecurity.InjectAccount(obj, LoggedLess, nameOf);
         }
 
         /// <summary>

@@ -48,6 +48,10 @@ namespace pegabicho.infra.Persistence.Repositories.Base
             return List(includeProperties).FirstOrDefault(where);
         }
 
+        public virtual T GetByReadOnly(Func<T, bool> where, params Expression<Func<T, object>>[] includeProperties) {
+            return List(includeProperties).AsNoTracking().FirstOrDefault(where);
+        }
+
         public virtual T GetById(string id, params Expression<Func<T, object>>[] includeProperties)
         {
             if (includeProperties.Any())
@@ -129,6 +133,12 @@ namespace pegabicho.infra.Persistence.Repositories.Base
         public virtual async Task RegisterAsync(T entity)
         {
             await context.Set<T>().AddAsync(entity);
+        }
+
+        public virtual async Task<List<T>> ListAsync(params Expression<Func<T, object>>[] includeProperties) {
+            if (includeProperties.Any())
+                return await Include(context.Set<T>(), includeProperties).ToListAsync();
+            return await context.Set<T>().ToListAsync();
         }
 
         #endregion

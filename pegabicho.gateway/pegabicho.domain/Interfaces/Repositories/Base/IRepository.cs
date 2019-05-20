@@ -9,35 +9,26 @@ namespace pegabicho.domain.Interfaces.Repositories.Base
     public interface IRepository<T> where T : class
     {
         IQueryable<T> GetQueryable();
-
         IQueryable<T> ListBy(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
-
         IQueryable<T> GetOrderBy<TKey>(Expression<Func<T, bool>> where, Expression<Func<T, TKey>> ordem, bool ascendente = true, params Expression<Func<T, object>>[] includeProperties);
-
         IQueryable<T> List(params Expression<Func<T, object>>[] includeProperties);
-
         IQueryable<T> ListOrderedBy<TKey>(Expression<Func<T, TKey>> ordem, bool ascendente = true, params Expression<Func<T, object>>[] includeProperties);
 
         T GetBy(Func<T, bool> where, params Expression<Func<T, object>>[] includeProperties);
-
+        T GetByReadOnly(Func<T, bool> where, params Expression<Func<T, object>>[] includeProperties);
         T GetById(string id, params Expression<Func<T, object>>[] includeProperties);
-
         T Update(T entity);
-
         T SoftDelete(T entity);
 
         void Delete(T entity);
-
         void Register(T entity);
-
         void RegisterList(IEnumerable<T> entities);
-
         void DeleteRange(IEnumerable<T> entities);
 
         bool Exist(Func<T, bool> where, params Expression<Func<T, object>>[] includeProperties);
 
-        Task<T> GetByIdAsync(string id);
-
         Task RegisterAsync(T entity);
+        Task<T> GetByIdAsync(string id);
+        Task<List<T>> ListAsync(params Expression<Func<T, object>>[] includeProperties);
     }
 }
