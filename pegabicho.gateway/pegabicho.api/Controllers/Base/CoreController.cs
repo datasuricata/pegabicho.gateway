@@ -66,8 +66,8 @@ namespace pegabicho.api.Controllers.Base {
         /// <param name="obj">Model</param>
         /// <param name="nameOf">Propertie user identifier</param>
         /// <returns>Model with user identifier injected</returns>
-        protected T InvokeAccount<T>(T obj, string nameOf) {
-            DataSecurity.InjectAccount(obj, LoggedLess, nameOf);
+        protected T InjectAccount<T>(this T obj, string nameOf) {
+            return DataSecurity.InjectAccount(obj, LoggedLess, nameOf);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using pegabicho.api.Controllers.Base;
 using pegabicho.domain.Arguments.Base;
 using pegabicho.domain.Arguments.Core.Travel;
@@ -17,10 +18,12 @@ namespace pegabicho.api.Controllers {
         }
 
         [HttpPost]
-        public IActionResult AddTravel(TravelRequest request) {
-            serviceTravel.AddTravel(InvokeAccount(request, nameof(TravelRequest.ClientId)));
-            //hub.
-            return Result(new ResponseBase(""));
+        [Route("all/invokeTravel")]
+        [Authorize]
+        public IActionResult InvokeTravel(TravelRequest request) {
+            serviceTravel.AddTravel(InjectAccount(request, nameof(TravelRequest.ClientId)));
+            // todo hub push response for apps
+            return Result(new ResponseBase("Procurando motoristas..."));
         }
     }
 }
