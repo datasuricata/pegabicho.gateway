@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using pegabicho.api.Startups.Kernel;
 using pegabicho.boostrap;
-using pegabicho.domain.Interfaces.Services.Base;
 
 namespace pegabicho.api {
     public class Startup {

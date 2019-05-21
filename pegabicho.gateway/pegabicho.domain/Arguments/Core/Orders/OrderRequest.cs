@@ -1,11 +1,11 @@
 ﻿using pegabicho.domain.Interfaces.Arguments.Base;
 using static pegabicho.domain.Entities.Enums;
 
-namespace pegabicho.domain.Arguments.Core.Travel {
-    public class TravelRequest : IRequest {
-        public TicketType Type { get; set; }
+namespace pegabicho.domain.Arguments.Core.Orders {
+    public class OrderRequest : IRequest {
+        public OrderType Type { get; set; }
         public string ClientId { get; set; }
         public string ProviderId { get; set; }
-        public bool IsRecall { get; set; }
+        public string Id { get; set; }
     }
 }

@@ -183,7 +183,7 @@ namespace pegabicho.domain.Entities {
 
         #region [ ticket ]
 
-        public enum TicketType {
+        public enum OrderType {
             [Display(Description = "Particular")]
             Private = 1,
 
@@ -194,7 +194,7 @@ namespace pegabicho.domain.Entities {
             Consulting = 3,
         }
 
-        public enum TicketStatus {
+        public enum OrdertStatus {
             [Display(Description = "Aguardando")]
             Waiting = 1,
 
@@ -204,11 +204,8 @@ namespace pegabicho.domain.Entities {
             [Display(Description = "Reprovado")]
             Reproved = 3,
 
-            [Display(Description = "Rechamada")]
-            ReCall = 4,
-
             [Display(Description = "Processado")]
-            Processed = 5,
+            Processed = 4,
         }
 
         #endregion

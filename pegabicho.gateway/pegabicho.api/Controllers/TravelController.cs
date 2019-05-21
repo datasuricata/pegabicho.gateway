@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using pegabicho.api.Controllers.Base;
 using pegabicho.domain.Arguments.Base;
-using pegabicho.domain.Arguments.Core.Travel;
+using pegabicho.domain.Arguments.Core.Orders;
 using pegabicho.domain.Interfaces.Services.Core;
 using System.Threading.Tasks;
 
@@ -20,8 +20,8 @@ namespace pegabicho.api.Controllers {
         [HttpPost]
         [Route("all/invokeTravel")]
         [Authorize]
-        public IActionResult InvokeTravel(TravelRequest request) {
-            serviceTravel.AddTravel(InjectAccount(request, nameof(TravelRequest.ClientId)));
+        public IActionResult InvokeTravel(OrderRequest request) {
+            serviceTravel.AddTravel(InjectAccount(request, nameof(OrderRequest.ClientId)));
             // todo hub push response for apps
             return Result(new ResponseBase("Procurando motoristas..."));
         }

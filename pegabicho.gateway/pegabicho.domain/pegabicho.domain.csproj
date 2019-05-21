@@ -7,7 +7,7 @@
   <ItemGroup>
     <Folder Include="Arguments\Hub\" />
     <Folder Include="Endpoints\" />
-    <Folder Include="Entities\Core\Configs\" />
+    <Folder Include="Entities\Core\Settings\" />
     <Folder Include="Interfaces\Hubs\" />
     <Folder Include="Interfaces\Security\" />
     <Folder Include="Interfaces\Services\Ext\" />
