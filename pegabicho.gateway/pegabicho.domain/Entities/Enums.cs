@@ -34,11 +34,14 @@ namespace pegabicho.domain.Entities {
         }
 
         public enum PetSpecie {
+            [Display(Description = "Não Definido")]
+            Uninformed = 0,
+
             [Display(Description = "Cão")]
-            Dog = 0,
+            Dog = 1,
 
             [Display(Description = "Gato")]
-            Cat = 1,
+            Cat = 2,
         }
 
         #endregion

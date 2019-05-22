@@ -52,6 +52,7 @@ namespace pegabicho.domain.Entities.Core.Users {
 
         protected User() {
         }
+
         public User(string email, string password) {
             Password = DataSecurity.Encrypt(password);
             Email = email;
@@ -62,7 +63,7 @@ namespace pegabicho.domain.Entities.Core.Users {
         #region [ create ]
 
         /// <summary>
-        /// Initial Step to register any yser
+        /// Initial Step to register any user
         /// </summary>
         /// <param name="type"></param>
         /// <param name="email"></param>
@@ -97,6 +98,14 @@ namespace pegabicho.domain.Entities.Core.Users {
 
         public void AddProfile(UserType type, List<ModuleService> modules) {
             Profiles.Add(Access.Register(type, modules));
+        }
+
+        #endregion
+
+        #region [ methods ]
+
+        public override string ToString() {
+            return $"{General?.FirstName} {General?.LastName}";
         }
 
         #endregion

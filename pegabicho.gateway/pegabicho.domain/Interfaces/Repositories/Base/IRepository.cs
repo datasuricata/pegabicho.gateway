@@ -10,6 +10,7 @@ namespace pegabicho.domain.Interfaces.Repositories.Base
     {
         IQueryable<T> GetQueryable();
         IQueryable<T> ListBy(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
+        IQueryable<T> ListByReadOnly(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties);
         IQueryable<T> GetOrderBy<TKey>(Expression<Func<T, bool>> where, Expression<Func<T, TKey>> ordem, bool ascendente = true, params Expression<Func<T, object>>[] includeProperties);
         IQueryable<T> List(params Expression<Func<T, object>>[] includeProperties);
         IQueryable<T> ListOrderedBy<TKey>(Expression<Func<T, TKey>> ordem, bool ascendente = true, params Expression<Func<T, object>>[] includeProperties);

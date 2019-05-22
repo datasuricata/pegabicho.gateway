@@ -5,11 +5,14 @@ namespace pegabicho.domain.Entities.Core.Pets
 {
     public class Race : EntityBase
     {
+        #region [ attributes ]
+
         public string Name { get; private set; }
         public PetSpecie Specie { get; private set; }
 
-        public Pet Pet { get; private set; }
-        public string PetId { get; private set; }
+        #endregion
+
+        #region [ ctor ]
 
         public Race(string name, PetSpecie species) {
             Name = name;
@@ -18,5 +21,15 @@ namespace pegabicho.domain.Entities.Core.Pets
 
         protected Race() {
         }
+
+        #endregion
+
+        #region [ methods ]
+
+        public override string ToString() {
+            return $"{Name}-({Helpers.EnumUteis.EnumDisplay(Specie)})";
+        }
+
+        #endregion
     }
 }

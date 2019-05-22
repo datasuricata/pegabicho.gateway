@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
-namespace pegabicho.domain.Entities.Base 
-{
-    public class EntityBase
-    {
+namespace pegabicho.domain.Entities.Base {
+    public class EntityBase {
         #region [ attributes ]
 
         [Key]
@@ -18,8 +17,7 @@ namespace pegabicho.domain.Entities.Base
 
         #region [ ctor ]
 
-        protected EntityBase()
-        {
+        protected EntityBase() {
             Id = Guid.NewGuid().ToString().ToUpper().Replace("-", "");
             CreatedAt = DateTimeOffset.UtcNow;
         }
@@ -33,9 +31,15 @@ namespace pegabicho.domain.Entities.Base
         /// </summary>
         /// <param name="length">Use to substring length</param>
         /// <returns></returns>
-        public static string CustomHash(int length = 0)
-        {
+        public static string CustomHash(int length = 0) {
             return Guid.NewGuid().ToString().ToUpper().Replace("-", "").Substring(0, length);
+        }
+
+        public static string LetterHash(int length) {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         #endregion

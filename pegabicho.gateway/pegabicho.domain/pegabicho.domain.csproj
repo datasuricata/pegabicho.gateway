@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Arguments\Hub\" />
+    <Compile Remove="Arguments\Hub\**" />
+    <EmbeddedResource Remove="Arguments\Hub\**" />
+    <None Remove="Arguments\Hub\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Endpoints\" />
     <Folder Include="Entities\Core\Settings\" />
     <Folder Include="Interfaces\Hubs\" />

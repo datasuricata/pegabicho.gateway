@@ -1,10 +1,10 @@
 ﻿using pegabicho.domain.Entities.Base;
 using pegabicho.domain.Entities.Core.Orders;
+using pegabicho.domain.Entities.Core.Surveys;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace pegabicho.domain.Entities.Core.Travel {
+namespace pegabicho.domain.Entities.Core.Travels {
     public class Travel : EntityBase {
 
         #region [ attributes ]
@@ -22,6 +22,8 @@ namespace pegabicho.domain.Entities.Core.Travel {
         /// Usada para o agendamento
         /// </summary>
         public DateTimeOffset? Scheduled { get; private set; }
+
+        public List<Survey> Surveys { get; private set; } = new List<Survey>();
 
         #endregion
 

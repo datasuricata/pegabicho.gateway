@@ -8,7 +8,7 @@ namespace pegabicho.domain.Entities.Core.Orders {
 
         #region [ attributes ]
 
-        public string Token { get; private set; } = $"{CustomHash(4)}-{CustomHash(4)}";
+        public string Token { get; private set; } = $"{LetterHash(2)}-{CustomHash(4)}-{CustomHash(4)}";
 
         public OrdertStatus Status {
             get {
@@ -21,7 +21,6 @@ namespace pegabicho.domain.Entities.Core.Orders {
                 return OrdertStatus.Waiting;
             }
         }
-
         public OrderType Type { get; private set; }
 
         public User Client { get; private set; }

@@ -274,7 +274,7 @@ namespace pegabicho.infra.Seeder {
                     var root1 = User.Seeder("lucas.moraes@datasuricata.br", "m0raes@123!!",
                         new General(GenderType.Male, "33333333", "41998623719", "Lucas Rocha", "de Moraes", new DateTime(1994, 09, 22)),
                         new Address("Rua Roberto Lobo", 4, BuildingType.Townhouse, 266, "Guabirutuba", "Curitiba", "Paraná", "Brasil", "80610040"),
-                        new List<Pet> { new Pet("Morgana", null, null, PetSize.Small, new DateTime(2015, 09, 22), 2.3f, races[62]) },
+                        new List<Pet> { new Pet("Morgana", null, PetSize.Small, new DateTime(2015, 09, 22), 2.3f, races[62]) },
                         new List<Wallet> { new Wallet(PaymentType.Credit, "0000", "0000", "50707255058", 15, true) },
                         new List<Access> { new Access(UserType.Root) },
                         new List<Document> { new Document("50707255058", null, DocumentType.CPF), new Document("432579564", null, DocumentType.RG) });
@@ -282,8 +282,8 @@ namespace pegabicho.infra.Seeder {
                     var root2 = User.Seeder("geovani.martinez@datasuricata.br", "$J92R90Li",
                         new General(GenderType.Male, "33333333", "41998623719", "Geovani", "Martinez", new DateTime(1996, 01, 16)),
                         new Address("Rua Roberto Lobo", 4, BuildingType.Townhouse, 266, "Guabirutuba", "Curitiba", "Paraná", "Brasil", "80610040"),
-                        new List<Pet> { new Pet("Rosana", null, null, PetSize.Small, new DateTime(2014, 05, 11), 2.3f, races[4]),
-                                        new Pet("Carlos", null, null, PetSize.Small, new DateTime(2013, 05, 11), 4.3f, races[12]) },
+                        new List<Pet> { new Pet("Rosana", null, PetSize.Small, new DateTime(2014, 05, 11), 2.3f, races[4]),
+                                        new Pet("Carlos", null, PetSize.Small, new DateTime(2013, 05, 11), 4.3f, races[12]) },
                         new List<Wallet> { new Wallet(PaymentType.Credit, "0000", "0000", "03259290095", 15, true) },
                         new List<Access> { new Access(UserType.Root) },
                         new List<Document> { new Document("03259290095", null, DocumentType.CPF), new Document("314621222", null, DocumentType.RG) });
@@ -291,7 +291,7 @@ namespace pegabicho.infra.Seeder {
                     var root3 = User.Seeder("leon.suckow@datasuricata.br", "Suck0w123!!",
                         new General(GenderType.Male, "33333333", "41998623719", "Leon", "Suckow", new DateTime(1996, 01, 16)),
                         new Address("Rua Roberto Lobo", 4, BuildingType.Townhouse, 266, "Guabirutuba", "Curitiba", "Paraná", "Brasil", "80610040"),
-                        new List<Pet> { new Pet("Rosana", null, null, PetSize.Small, new DateTime(2014, 05, 11), 2.3f, races[25]) },
+                        new List<Pet> { new Pet("Rosana", null, PetSize.Small, new DateTime(2014, 05, 11), 2.3f, races[25]) },
                         new List<Wallet> { new Wallet(PaymentType.Credit, "0000", "0000", "91247948056", 15, true) },
                         new List<Access> { new Access(UserType.Root) },
                         new List<Document> { new Document("91247948056", null, DocumentType.CPF), new Document("330067606", null, DocumentType.RG) });
@@ -300,19 +300,19 @@ namespace pegabicho.infra.Seeder {
                     customer1.AddGeneral(GenderType.Male, "33333333", "41998623719", "Customer", "Teste 1", new DateTime(1996, 01, 16));
                     customer1.AddDocument(new List<Document> { new Document("15667743060", null, DocumentType.CPF), new Document("243684484", null, DocumentType.RG) });
                     customer1.AddAddress("Rua Roberto Lobo", 4, BuildingType.Townhouse, 266, "Guabirutuba", "Curitiba", "Paraná", "Brasil", "80610040");
-                    customer1.AddPets(new List<Pet> { new Pet("Carlito", null, null, PetSize.Small, new DateTime(2014, 05, 11), 2.3f, races[25]) });
+                    customer1.AddPets(new List<Pet> { new Pet("Carlito", null, PetSize.Small, new DateTime(2014, 05, 11), 2.3f, races[25]) });
 
                     var customer2 = User.Register(UserType.Customer, "customer2@datasuricata.br", "Cust0mer123!!");
-                    customer1.AddGeneral(GenderType.Male, "33333333", "41998623719", "Customer", "Teste 2", new DateTime(1996, 01, 16));
-                    customer1.AddDocument(new List<Document> { new Document("29656120094", null, DocumentType.CPF), new Document("283765768", null, DocumentType.RG) });
-                    customer1.AddAddress("Rua Roberto Lobo", 4, BuildingType.Townhouse, 266, "Guabirutuba", "Curitiba", "Paraná", "Brasil", "80610040");
-                    customer1.AddPets(new List<Pet> { new Pet("Mauricio", null, null, PetSize.Small, new DateTime(2014, 05, 11), 2.3f, races[25]) });
+                    customer2.AddGeneral(GenderType.Male, "33333333", "41998623719", "Customer", "Teste 2", new DateTime(1996, 01, 16));
+                    customer2.AddDocument(new List<Document> { new Document("29656120094", null, DocumentType.CPF), new Document("283765768", null, DocumentType.RG) });
+                    customer2.AddAddress("Rua Roberto Lobo", 4, BuildingType.Townhouse, 266, "Guabirutuba", "Curitiba", "Paraná", "Brasil", "80610040");
+                    customer2.AddPets(new List<Pet> { new Pet("Mauricio", null, PetSize.Small, new DateTime(2014, 05, 11), 2.3f, races[25]) });
 
                     var provider1 = User.Register(UserType.Provider, "provider1@datasuricata.br", "Pr0vid3r123!!", new List<ModuleService> { ModuleService.Base, ModuleService.Transport });
-                    customer1.AddGeneral(GenderType.Male, "33333333", "41998623719", "Motorista", "Teste 1", new DateTime(1996, 01, 16));
-                    customer1.AddDocument(new List<Document> { new Document("29656120094", null, DocumentType.CPF), new Document("283765768", null, DocumentType.RG) });
-                    customer1.AddAddress("Rua Roberto Lobo", 4, BuildingType.Townhouse, 266, "Guabirutuba", "Curitiba", "Paraná", "Brasil", "80610040");
-                    customer1.AddBussines("Transportador", "000000", "000000", "Provider LTDA.");
+                    provider1.AddGeneral(GenderType.Male, "33333333", "41998623719", "Motorista", "Teste 1", new DateTime(1996, 01, 16));
+                    provider1.AddDocument(new List<Document> { new Document("29656120094", null, DocumentType.CPF), new Document("283765768", null, DocumentType.RG) });
+                    provider1.AddAddress("Rua Roberto Lobo", 4, BuildingType.Townhouse, 266, "Guabirutuba", "Curitiba", "Paraná", "Brasil", "80610040");
+                    provider1.AddBussines("Transportador", "000000", "000000", "Provider LTDA.");
 
                     context.Races.AddRange(races);
                     await context.Users.AddRangeAsync(root1, root2, root3, customer1, customer2, provider1);

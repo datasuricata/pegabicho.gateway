@@ -38,6 +38,10 @@ namespace pegabicho.infra.Persistence.Repositories.Base
             return List(includeProperties).Where(where);
         }
 
+        public virtual IQueryable<T> ListByReadOnly(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includeProperties) {
+            return List(includeProperties).Where(where).AsNoTracking();
+        }
+
         public virtual IQueryable<T> GetOrderBy<TKey>(Expression<Func<T, bool>> where, Expression<Func<T, TKey>> ordem, bool ascendente = true, params Expression<Func<T, object>>[] includeProperties)
         {
             return ascendente ? ListBy(where, includeProperties).OrderBy(ordem) : ListBy(where, includeProperties).OrderByDescending(ordem);

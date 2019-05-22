@@ -87,7 +87,7 @@ namespace pegabicho.service.Services.Core {
                 if (request == null)
                     return null;
 
-                var user = repository.GetBy(SpecUser.Auth(new User(request.Email, request.Password)), i => i.Profiles);
+                var user = repository.GetByReadOnly(SpecUser.Auth(new User(request.Email, request.Password)), i => i.Profiles);
 
                 if (!DataSecurity.IsValid(user, plataform))
                     throw new ValidationException("Voce nao tem acesso a plataforma. Contate o suporte.");
@@ -137,7 +137,7 @@ namespace pegabicho.service.Services.Core {
 
         public IEnumerable<UserResponse> ListAll() {
             try {
-                return repository.ListBy(x => !x.IsDeleted).ToList()
+                return repository.ListByReadOnly(x => !x.IsDeleted).ToList()
                     .ConvertAll(e => (UserResponse)e);
 
             } catch (Exception e) {

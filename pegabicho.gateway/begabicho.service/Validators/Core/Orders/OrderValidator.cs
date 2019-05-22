@@ -3,7 +3,7 @@ using pegabicho.domain.Entities.Core.Orders;
 using System;
 using static pegabicho.domain.Entities.Enums;
 
-namespace pegabicho.service.Validators.Core.Travel {
+namespace pegabicho.service.Validators.Core.Orders {
     public class OrderValidator : AbstractValidator<Order> {
         public OrderValidator() {
             RuleFor(r => r.ClientId)

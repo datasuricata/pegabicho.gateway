@@ -4,7 +4,6 @@ using pegabicho.domain.Entities.Base;
 using pegabicho.domain.Entities.Core.Logs;
 using pegabicho.domain.Entities.Core.Pets;
 using pegabicho.domain.Entities.Core.Surveys;
-using pegabicho.domain.Entities.Core.Ticket;
 using pegabicho.domain.Entities.Core.Users;
 using System;
 using System.Linq;
@@ -40,9 +39,6 @@ namespace pegabicho.infra.ORM {
         public DbSet<ImageSurvey> ImageSurveys { get; set; }
         public DbSet<Survey> Surveys { get; set; }
 
-        // # Ticket
-        public DbSet<Ticket> Tickets { get; set; }
-        
         #endregion
 
         public AppDbContext(DbContextOptions options) : base(options)
