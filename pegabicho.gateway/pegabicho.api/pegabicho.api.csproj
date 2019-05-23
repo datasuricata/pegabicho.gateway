@@ -7,17 +7,20 @@
   <ItemGroup>
     <Compile Remove="Hubs\Core\**" />
     <Compile Remove="Hubs\Services\**" />
+    <Compile Remove="Properties\PublishProfiles\**" />
     <Content Remove="Hubs\Core\**" />
     <Content Remove="Hubs\Services\**" />
+    <Content Remove="Properties\PublishProfiles\**" />
     <EmbeddedResource Remove="Hubs\Core\**" />
     <EmbeddedResource Remove="Hubs\Services\**" />
+    <EmbeddedResource Remove="Properties\PublishProfiles\**" />
     <None Remove="Hubs\Core\**" />
     <None Remove="Hubs\Services\**" />
+    <None Remove="Properties\PublishProfiles\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
   <ItemGroup>

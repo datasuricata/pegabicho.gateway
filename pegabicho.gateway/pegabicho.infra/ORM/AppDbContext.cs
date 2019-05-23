@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using pegabicho.domain.Entities.Base;
 using pegabicho.domain.Entities.Core.Logs;
+using pegabicho.domain.Entities.Core.Orders;
 using pegabicho.domain.Entities.Core.Pets;
 using pegabicho.domain.Entities.Core.Surveys;
+using pegabicho.domain.Entities.Core.Travels;
 using pegabicho.domain.Entities.Core.Users;
 using System;
 using System.Linq;
@@ -16,7 +18,7 @@ namespace pegabicho.infra.ORM {
     public class AppDbContext : DbContext {
         #region [ dbset ]
 
-        // # Users
+        // # users
         public DbSet<User> Users { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Document> Documents { get; set; }
@@ -25,16 +27,20 @@ namespace pegabicho.infra.ORM {
         public DbSet<Siege> Sieges { get; set; }
         public DbSet<Wallet> Wallets { get; set; }
 
-        // # Log
+        // # orders
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Travel> Travels { get; set; }
+
+        // # log
         public DbSet<LogApp> LogApp { get; set; }
         public DbSet<LogCore> LogCore { get; set; }
         public DbSet<LogKernel> LogKernel { get; set; }
 
-        // # Pet
+        // # pet
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Race> Races { get; set; }
 
-        // # Surveys
+        // # surveys
         public DbSet<ImageSurvey> ImageSurveys { get; set; }
         public DbSet<Survey> Surveys { get; set; }
 

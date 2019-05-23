@@ -13,8 +13,8 @@ namespace pegabicho.api.Hubs {
         /// <summary>
         /// join into ticket for general view by group ticket
         /// </summary>
-        /// <param name="ticketId"></param>
+        /// <param name="orderId"></param>
         /// <returns></returns>
-        public async Task JoinGroup(string ticketId) => await Groups.AddToGroupAsync(Context.ConnectionId, ticketId);
+        public async Task JoinGroup(string orderId) => await Groups.AddToGroupAsync(Context.ConnectionId, orderId);
     }
 }

@@ -49,7 +49,7 @@ namespace pegabicho.service.Services.Core {
         /// <param name="request"></param>
         public void AddPet(PetRequest request) {
             try {
-                var pet = new Pet(request.Name, request.ImageUri, request.Size, request.BirthDate, request.Weight, request.RaceId, request.RaceId);
+                var pet = new Pet(request.Name, request.ImageUri, request.Size, request.BirthDate, request.Weight, request.RaceId, request.UserId);
                 ValidRegister<PetValidator>(pet);
 
             } catch (Exception e) {

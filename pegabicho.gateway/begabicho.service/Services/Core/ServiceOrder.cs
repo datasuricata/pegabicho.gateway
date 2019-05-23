@@ -14,6 +14,15 @@ namespace pegabicho.service.Services.Core {
         public ServiceOrder(IServiceProvider provider) : base(provider) {
         }
 
+        public Order GetById(string id) {
+            try {
+                return repository.GetBy(x => !x.IsDeleted && x.Id == id);
+            } catch (Exception e) {
+                Notifier.AddException<ServiceOrder>("Erro ao localizar ordem de serviço pelo identenficador", e);
+                return null;
+            }
+        }
+
         public List<Order> ListOrders() {
             try {
                 return repository.ListByReadOnly(x => !x.IsDeleted).OrderByDescending(x => x.CreatedAt).ToList();

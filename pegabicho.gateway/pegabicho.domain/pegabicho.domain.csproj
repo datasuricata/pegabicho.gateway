@@ -6,15 +6,21 @@
 
   <ItemGroup>
     <Compile Remove="Arguments\Hub\**" />
+    <Compile Remove="Endpoints\**" />
+    <Compile Remove="Interfaces\Hubs\**" />
+    <Compile Remove="Interfaces\Security\**" />
     <EmbeddedResource Remove="Arguments\Hub\**" />
+    <EmbeddedResource Remove="Endpoints\**" />
+    <EmbeddedResource Remove="Interfaces\Hubs\**" />
+    <EmbeddedResource Remove="Interfaces\Security\**" />
     <None Remove="Arguments\Hub\**" />
+    <None Remove="Endpoints\**" />
+    <None Remove="Interfaces\Hubs\**" />
+    <None Remove="Interfaces\Security\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\" />
     <Folder Include="Entities\Core\Settings\" />
-    <Folder Include="Interfaces\Hubs\" />
-    <Folder Include="Interfaces\Security\" />
     <Folder Include="Interfaces\Services\Ext\" />
   </ItemGroup>
 
