@@ -46,7 +46,6 @@ namespace pegabicho.boostrap
             /// use this to inject message notifications into internal services application
             /// </summary>
             services.AddScoped(typeof(IEventNotifier), typeof(EventNotifier));
-
             // # service base {application}
             /// <summary>
             /// use this to inject db context for internal services applications
@@ -58,14 +57,11 @@ namespace pegabicho.boostrap
             #region [ core ]
 
             // # services contract with base {internal events} services
+            services.AddScoped(typeof(IServicePet), typeof(ServicePet));
             services.AddScoped(typeof(IServiceUser), typeof(ServiceUser));
-
-            /// <summary>
-            /// use this area to register current internal services events for applications
-            /// </summary>
-            //services.AddScoped(typeof(IServiceReport), typeof(ServiceReport));
-            //services.AddScoped(typeof(IServiceLocation), typeof(ServiceLocation));
-            //services.AddScoped(typeof(IServiceConfiguration), typeof(ServiceConfiguration));
+            services.AddScoped(typeof(IServiceOrder), typeof(ServiceOrder));
+            services.AddScoped(typeof(IServiceTravel), typeof(ServiceTravel));
+            services.AddScoped(typeof(IServiceSurvey), typeof(ServiceSurvey));
 
             #endregion
         }

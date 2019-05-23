@@ -13,8 +13,7 @@ using System.Threading.Tasks;
 namespace pegabicho.infra.ORM {
 
 
-    public class AppDbContext : DbContext
-    {
+    public class AppDbContext : DbContext {
         #region [ dbset ]
 
         // # Users
@@ -41,20 +40,17 @@ namespace pegabicho.infra.ORM {
 
         #endregion
 
-        public AppDbContext(DbContextOptions options) : base(options)
-        {
+        public AppDbContext(DbContextOptions options) : base(options) {
 
         }
 
-        protected override void OnModelCreating(ModelBuilder options)
-        {
+        protected override void OnModelCreating(ModelBuilder options) {
             #region [ scheme ]
 
             options.HasDefaultSchema("Core");
 
             // # config conventions by metadata model loop
-            foreach (var entityType in options.Model.GetEntityTypes())
-            {
+            foreach (var entityType in options.Model.GetEntityTypes()) {
                 // # config equivalent
                 // # convention Remove Pluralizing Table Names Covention
                 entityType.Relational().TableName = entityType.DisplayName();
@@ -83,8 +79,7 @@ namespace pegabicho.infra.ORM {
             base.OnModelCreating(options);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
+        protected override void OnConfiguring(DbContextOptionsBuilder options) {
             // # enable lazy loading be careful
             //options.UseLazyLoadingProxies();
 
@@ -97,13 +92,11 @@ namespace pegabicho.infra.ORM {
         /// Apply some things on entities during the async commit
         /// </summary>
         /// <returns>Override SaveChanges</returns>
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
-        {
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken)) {
             foreach (var entry in ChangeTracker.Entries().Where(entry =>
             entry.Entity.GetType().GetProperty(nameof(EntityBase.CreatedAt)) != null ||
             entry.Entity.GetType().GetProperty(nameof(EntityBase.UpdatedAt)) != null ||
-            entry.Entity.GetType().GetProperty(nameof(EntityBase.Id)) != null))
-            {
+            entry.Entity.GetType().GetProperty(nameof(EntityBase.Id)) != null)) {
                 if (entry.Property(nameof(EntityBase.CreatedAt)) != null)
                     if (entry.State == EntityState.Added)
                         entry.Property(nameof(EntityBase.CreatedAt)).CurrentValue = DateTimeOffset.UtcNow;

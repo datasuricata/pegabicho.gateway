@@ -4,6 +4,7 @@ using pegabicho.domain.Arguments.Base;
 using pegabicho.domain.Arguments.Core.Users;
 using pegabicho.domain.Interfaces.Services.Core;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace pegabicho.api.Controllers {
     [Route("api/[controller]")]
@@ -16,45 +17,44 @@ namespace pegabicho.api.Controllers {
 
         #region [ get ]
 
-        [HttpGet]
-        [Route("getById")]
+        [HttpGet("getById")]
         public IActionResult GetById(string id) {
-            return Result(serviceUser.GetById(id));
+            return Result((UserResponse)serviceUser.GetById(id));
         }
 
-        [HttpGet]
-        [Route("listUsers")]
+        [HttpGet("getByEmail")]
+        public IActionResult GetByEmail(string email) {
+            return Result((UserResponse)serviceUser.GetByEmail(email));
+        }
+
+        [HttpGet("listUsers")]
         public IActionResult ListUsers() {
-            return Result(serviceUser.ListAll());
+            return Result(serviceUser.ListUsers().ConvertAll(e => (UserResponse)e));
         }
 
         #endregion
 
         #region [ post ]
 
-        [HttpPost]
-        [Route("registerStep")]
+        [HttpPost("registerStep")]
         public IActionResult RegisterStep([FromBody]UserRequest request) {
             serviceUser.InitialRegister(request);
             return Result(new ResponseBase($"Usuário {request.Email} criado com sucesso."));
         }
 
-        [HttpPost]
-        [Route("registerGeneral")]
+        [HttpPost("registerGeneral")]
         public IActionResult RegisterGeneral([FromBody]GeneralRequest request) {
             serviceUser.GeneralRegister(request);
             return Result(new ResponseBase("Informações atualizadas."));
         }
 
-        [HttpPost]
-        [Route("registerDocuments")]
+        [HttpPost("registerDocuments")]
         public IActionResult RegisterDocuments([FromBody]List<DocumentRequest> request) {
             serviceUser.DocumentsRegister(request, Logged);
             return Result(new ResponseBase("Documentos adicionados."));
         }
 
-        [HttpPost]
-        [Route("registerAddress")]
+        [HttpPost("registerAddress")]
         public IActionResult RegisterAddress([FromBody]AddressRequest request) {
             serviceUser.AddressRegister(request);
             return Result(new ResponseBase("Endereço adicionado."));
@@ -64,36 +64,31 @@ namespace pegabicho.api.Controllers {
 
         #region [ put ]
 
-        [HttpPut]
-        [Route("registerBussines")]
+        [HttpPut("registerBussines")]
         public IActionResult RegisterBussines([FromBody]BussinesRequest request) {
             serviceUser.BussinesRegister(request);
             return Result(new ResponseBase("Informações da empresa registradas."));
         }
 
-        [HttpPut]
-        [Route("updateBussines")]
+        [HttpPut("updateBussines")]
         public IActionResult UpdateBussines([FromBody]BussinesRequest request) {
             //serviceUser.
             return Result(new ResponseBase("Informações da empresa atualizadas."));
         }
 
-        [HttpPut]
-        [Route("updateGeneral")]
+        [HttpPut("updateGeneral")]
         public IActionResult UpdateGeneral([FromBody]GeneralRequest request) {
             //serviceUser.
             return Result(new ResponseBase("Informaçõe gerais atualziadas com sucesso."));
         }
 
-        [HttpPut]
-        [Route("updateDocument")]
+        [HttpPut("updateDocument")]
         public IActionResult UpdateDocument([FromBody] DocumentRequest request) {
             //serviceUser.
             return Result(new ResponseBase("Documento atualizado com sucesso."));
         }
 
-        [HttpPut]
-        [Route("updateAddress")]
+        [HttpPut("updateAddress")]
         public IActionResult UpdateAddress([FromBody] AddressRequest request) {
             //serviceUser.
             return Result(new ResponseBase("Endereço atualizado com sucesso."));
@@ -103,23 +98,11 @@ namespace pegabicho.api.Controllers {
 
         #region [ delete ]
 
-        [HttpDelete]
-        [Route("deleteUser")]
-        public IActionResult DeleteUser(string id) {
+        [HttpDelete("softDelete")]
+        public IActionResult SoftDeleteUser(string id) {
             //serviceUser.
-            return Result(new ResponseBase("Usuário deletado com sucesso."));
+            return Result(new ResponseBase("Usuário desativado com sucesso."));
         }
-
-        [HttpDelete]
-        [Route("softDeleteUser")]
-        public ResponseBase SoftDeleteUser(string id) {
-            //serviceUser.
-            return new ResponseBase("Usuário desativado com sucesso.");
-        }
-
-        #endregion
-
-        #region [ custom ]
 
         #endregion
     }

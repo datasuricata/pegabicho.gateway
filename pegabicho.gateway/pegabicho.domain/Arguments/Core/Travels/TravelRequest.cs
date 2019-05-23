@@ -9,9 +9,7 @@ namespace pegabicho.domain.Arguments.Core.Travels {
         public double FromLatitude { get; set; }
         public double ToLongitude { get; set; }
         public double ToLatitude { get; set; }
-
         public DateTime? Scheduled { get; set; }
-
         public OrderRequest Order { get; set; }
     }
 }

@@ -14,22 +14,19 @@ namespace pegabicho.service.Services.Core {
         public ServiceOrder(IServiceProvider provider) : base(provider) {
         }
 
-        public List<OrderResponse> ListOrders() {
+        public List<Order> ListOrders() {
             try {
-                var orders = repository.ListByReadOnly(x => !x.IsDeleted).OrderByDescending(x => x.CreatedAt).ToList();
-                return orders.ConvertAll(e => (OrderResponse)e);
+                return repository.ListByReadOnly(x => !x.IsDeleted).OrderByDescending(x => x.CreatedAt).ToList();
             } catch (Exception e) {
                 Notifier.AddException<ServiceOrder>("Erro ao listar todas as ordens de serviço.", e);
                 return null;
             }
         }
 
-        public List<OrderResponse> ListOrdersByStatus(OrdertStatus status) {
+        public List<Order> ListOrdersByStatus(OrdertStatus status) {
             try {
-                var orders = repository.ListByReadOnly(x => !x.IsDeleted && x.Status == status)
+                return repository.ListByReadOnly(x => !x.IsDeleted && x.Status == status)
                     .OrderByDescending(x => x.CreatedAt).ToList();
-
-                return orders.ConvertAll(e => (OrderResponse)e);
             } catch (Exception e) {
                 Notifier.AddException<ServiceOrder>($"Erro ao listar todas as order de serviço pelo status {EnumUteis.EnumDisplay(status).ToLower()}", e);
                 return null;

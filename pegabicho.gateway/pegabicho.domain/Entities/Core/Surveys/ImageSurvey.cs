@@ -28,10 +28,29 @@ namespace pegabicho.domain.Entities.Core.Surveys
 
         }
 
+        /// <summary>
+        /// Vincule to any survey
+        /// </summary>
+        /// <param name="surveyId"></param>
+        /// <param name="imageUri"></param>
+        /// <param name="fullName"></param>
+        /// <param name="type"></param>
         public ImageSurvey(string surveyId, string imageUri, string fullName, SurveyImage type) {
             ImageUri = imageUri;
             FullName = fullName;
             SurveyId = surveyId;
+            Type = type; 
+        }
+
+        /// <summary>
+        /// Create a simple instance
+        /// </summary>
+        /// <param name="imageUri"></param>
+        /// <param name="fullName"></param>
+        /// <param name="type"></param>
+        public ImageSurvey(string imageUri, string fullName, SurveyImage type) {
+            ImageUri = imageUri;
+            FullName = fullName;
             Type = type;
         }
 

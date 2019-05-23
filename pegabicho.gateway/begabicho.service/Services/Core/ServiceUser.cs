@@ -62,7 +62,7 @@ namespace pegabicho.service.Services.Core {
         /// <returns></returns>
         public User GetByEmail(string email) {
             try {
-                var user = repository.GetBy(m => m.Email.ToLower() == email.ToLower()    );
+                var user = repository.GetBy(m => m.Email.ToLower() == email.ToLower());
                 if (user is null)
                     Notifier.Add<ServiceUser>("Usuário não encontrado.");
                 return user;
@@ -123,23 +123,18 @@ namespace pegabicho.service.Services.Core {
 
         #region [ get ]
 
-        public UserResponse GetById(string id) {
+        public User GetById(string id) {
             try {
-                var user = repository.GetById(id, i => i.General, i => i.Documents);
-                if (user is null)
-                    Notifier.Add<ServiceUser>("Usuário não encontrado.");
-                return (UserResponse)user;
+                return repository.GetById(id, i => i.General, i => i.Documents);
             } catch (Exception e) {
-                Notifier.AddException<ServiceUser>(e.Message, e);
+                Notifier.AddException<ServiceUser>("Usuário não encontrado.", e);
                 return null;
             }
         }
 
-        public IEnumerable<UserResponse> ListAll() {
+        public List<User> ListUsers() {
             try {
-                return repository.ListByReadOnly(x => !x.IsDeleted).ToList()
-                    .ConvertAll(e => (UserResponse)e);
-
+                return repository.ListByReadOnly(x => !x.IsDeleted).ToList();
             } catch (Exception e) {
                 Notifier.AddException<ServiceUser>("Erro ao listar usuários", e);
                 return null;

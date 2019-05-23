@@ -31,7 +31,7 @@ namespace pegabicho.service.Services.Base {
             }
         }
 
-        public void ValidManyRegisters<V>(IEnumerable<T> entities) where V : AbstractValidator<T> {
+        public void ValidManyRegisters<V>(List<T> entities) where V : AbstractValidator<T> {
             ValidateList(entities, Activator.CreateInstance<V>());
             if (!Notifier.HasAny()) {
                 repository.RegisterList(entities);
@@ -59,7 +59,7 @@ namespace pegabicho.service.Services.Base {
             validator.ValidateAndThrow(obj);
         }
 
-        private void ValidateList(IEnumerable<T> obj, AbstractValidator<T> validator) {
+        private void ValidateList(List<T> obj, AbstractValidator<T> validator) {
             if (obj == null)
                 Notifier.Add<ServiceApp<T>>("No object call.");
             foreach (var x in obj)

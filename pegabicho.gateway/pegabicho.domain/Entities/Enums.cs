@@ -168,7 +168,6 @@ namespace pegabicho.domain.Entities {
 
             [Display(Description = "Entrega")]
             Output = 3,
-
         }
 
         public enum SurveyImage {
