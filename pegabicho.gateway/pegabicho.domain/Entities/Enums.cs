@@ -183,7 +183,7 @@ namespace pegabicho.domain.Entities {
 
         #endregion
 
-        #region [ ticket ]
+        #region [ service order ]
 
         public enum OrderType {
             [Display(Description = "Particular")]
@@ -254,6 +254,12 @@ namespace pegabicho.domain.Entities {
 
             [Display(Description = "Transporte")]
             Transport = 1,
+
+            [Display(Description = "Banho e Tosa")]
+            Beauty = 2,
+
+            [Display(Description = "Clínico")]
+            Clinical = 3,
         }
 
         [Flags]

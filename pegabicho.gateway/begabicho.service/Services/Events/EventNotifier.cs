@@ -24,6 +24,17 @@ namespace pegabicho.service.Events {
 
         #region [ methods ]
 
+        // use for fast validations
+        public void When<N>(bool hasError, string message) {
+            if (hasError)
+                Notifier.Notifications
+                    .Add(new Notification {
+                        Key = typeof(N).Name,
+                        Value = message,
+                        StatusCode = 400
+                    });
+        }
+
         public void Add<N>(string message) => Notifier.Notifications.Add(new Notification { Key = typeof(N).Name, Value = message, StatusCode = 400 });
 
         public void AddException<N>(string message, Exception exception = null) {

@@ -16,9 +16,8 @@ namespace pegabicho.api.Controllers {
             this.serviceTravel = serviceTravel;
         }
 
-        [HttpPost]
-        [Route("all/invokeTravel")]
         [Authorize]
+        [HttpPost("all/invokeTravel")]
         public IActionResult InvokeTravel(OrderRequest request) {
            
             // todo hub push response for apps

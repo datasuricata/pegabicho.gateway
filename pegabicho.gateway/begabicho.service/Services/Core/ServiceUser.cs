@@ -63,8 +63,7 @@ namespace pegabicho.service.Services.Core {
         public User GetByEmail(string email) {
             try {
                 var user = repository.GetBy(m => m.Email.ToLower() == email.ToLower());
-                if (user is null)
-                    Notifier.Add<ServiceUser>("Usuário não encontrado.");
+                Notifier.When<ServiceUser>(user is null, "Usuário não encontrado.");
                 return user;
             } catch (Exception ex) {
                 Notifier.AddException<ServiceUser>("Erro ao retornar usuário.", ex);
@@ -89,8 +88,8 @@ namespace pegabicho.service.Services.Core {
 
                 var user = repository.GetByReadOnly(SpecUser.Auth(new User(request.Email, request.Password)), i => i.Profiles);
 
-                if (!DataSecurity.IsValid(user, plataform))
-                    throw new ValidationException("Voce nao tem acesso a plataforma. Contate o suporte.");
+                Notifier.When<ServiceUser>(!DataSecurity.IsValid(user, plataform), 
+                    "Voce nao tem acesso a plataforma. Contate o suporte.");
 
                 ValidEntity<SecurityValidator>(user);
 
@@ -163,7 +162,7 @@ namespace pegabicho.service.Services.Core {
         public void ModulesRegister(RoleRequest request) {
             try {
 
-
+                throw new NotImplementedException();
 
             } catch (Exception e) {
                 Notifier.AddException<ServiceUser>("Erro ao adicionar usuário", e);

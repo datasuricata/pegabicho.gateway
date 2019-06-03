@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using pegabicho.domain.Arguments.Base;
 using pegabicho.domain.Entities.Core.Users;
+using pegabicho.domain.Helpers;
 using pegabicho.domain.Interfaces.Services.Core;
 using pegabicho.domain.Interfaces.Services.Events;
 using pegabicho.domain.Security;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 
 namespace pegabicho.api.Controllers.Base {
@@ -109,6 +113,40 @@ namespace pegabicho.api.Controllers.Base {
             } catch (Exception ex) {
                 return BadRequest(ex);
             }
+        }
+
+        #endregion
+
+        #region [ components ]
+
+        protected List<SelectListItem> ToDropDown<T>(List<T> list, string text, string value) {
+            List<SelectListItem> dropdown = new List<SelectListItem>();
+            foreach (var item in list) {
+                var sItem = new SelectListItem();
+                sItem.Text = item.GetType().GetProperty(text).GetValue(item, null) as string;
+                sItem.Value = item.GetType().GetProperty(value).GetValue(item, null) as string;
+                dropdown.Add(sItem);
+            }
+
+            return dropdown.OrderBy(x => x.Text).ToList();
+        }
+        /// <summary>
+        /// Create a Dropdown Enum
+        /// </summary>
+        /// <typeparam name="T">Generic Enum</typeparam>
+        /// <param name="excludeProps">Exclude attribute</param>
+        /// <returns></returns>
+        protected List<SelectListItem> ToEnumDropDown<T>(string excludeProps = "") {
+            List<SelectListItem> dropdown = new List<SelectListItem>();
+            foreach (var item in Enum.GetValues(typeof(T))) {
+                if (excludeProps != Enum.GetName(typeof(T), item)) {
+                    var sItem = new SelectListItem();
+                    sItem.Text = EnumUteis.EnumDisplay(item as Enum);
+                    sItem.Value = ((int)item).ToString();
+                    dropdown.Add(sItem);
+                }
+            }
+            return dropdown.OrderBy(x => x.Text).ToList();
         }
 
         #endregion

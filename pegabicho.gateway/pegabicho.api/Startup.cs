@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using pegabicho.api.Startups.Kernel;
 using pegabicho.boostrap;
+using pegabicho.domain.Interfaces.Services.Base;
 
 namespace pegabicho.api {
     public class Startup {
@@ -34,13 +35,12 @@ namespace pegabicho.api {
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
 
-
-             app.UseApiUnitOfWork();
-            //app.Use(async (context, next) => {
-            //    await next.Invoke();
-            //    var core = (IServiceBase)context.RequestServices.GetService(typeof(IServiceBase));
-            //    await core.Commit();
-            //});
+            //app.UseApiUnitOfWork();
+            app.Use(async (context, next) => {
+                await next.Invoke();
+                var core = (IServiceBase)context.RequestServices.GetService(typeof(IServiceBase));
+                await core.Commit();
+            });
 
             app.UserDevExceptionIfDebug(env);
             app.UseStaticFiles();
@@ -51,7 +51,6 @@ namespace pegabicho.api {
             app.UseSwaggerDocs();
             app.UserNotifyHub();
             app.UseCookiePolicy();
-
             app.UseMvc();
         }
     }

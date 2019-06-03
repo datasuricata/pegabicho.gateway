@@ -3,15 +3,17 @@ using pegabicho.domain.Interfaces.Arguments.Base;
 
 namespace pegabicho.domain.Arguments.Core.Pets {
     public class PetResponse : IResponse{
-        public string Name { get; private set; }
-        public string Code { get; private set; }
-        public string Size { get; private set; }
-        public string Race { get; private set; }
-        public string BirthDate { get; private set; }
-        public float Weight { get; private set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public string Size { get; set; }
+        public string Race { get; set; }
+        public string BirthDate { get; set; }
+        public float Weight { get; set; }
 
         public static explicit operator PetResponse(Pet v) {
             return v == null ? null : new PetResponse {
+                Id = v.Id,
                 BirthDate = v.BirthDate.ToString("dd/MM/yyyy"),
                 Code = v.Code,
                 Name = v.Name,

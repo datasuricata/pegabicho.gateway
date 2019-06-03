@@ -9,8 +9,21 @@ namespace pegabicho.domain.Entities.Core.Logs
     /// </summary>
     public class LogKernel : EntityBase, ILogKernel
     {
-        public string UserId { get; set; }
-        public string Payload { get; set; }
-        public bool Fixed { get; set; }
+        public string UserId { get; private set; }
+        public string Payload { get; private set; }
+        public bool Fixed { get; private set; }
+
+        protected LogKernel() {
+
+        }
+
+        public LogKernel(string userId, string payload) {
+            UserId = userId;
+            Payload = payload;
+        }
+
+        public void Ok() {
+            Fixed = true;
+        }
     }
 }

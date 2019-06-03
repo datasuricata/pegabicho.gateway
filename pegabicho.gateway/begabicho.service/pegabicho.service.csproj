@@ -31,6 +31,7 @@
   <ItemGroup>
     <Folder Include="Requests\Storage\" />
     <Folder Include="Services\Ext\" />
+    <Folder Include="Services\Logs\" />
     <Folder Include="Validators\Custom\" />
     <Folder Include="Validators\Extension\" />
   </ItemGroup>

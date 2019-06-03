@@ -6,10 +6,29 @@ namespace pegabicho.domain.Entities.Core.Logs
 {
     public class LogApp : EntityBase, ILogApp
     {
-        public string Ip { get; set; }
-        public string Event { get; set; }
-        public string Ticket { get; set; }
-        public string Message { get; set; }
-        public ModuleService Service { get; set; }
+        /// <summary>
+        /// Use this for generic logs from application changes
+        /// </summary>
+        public string Ip { get; private set; }
+
+        /// <summary>
+        /// Method name for details event
+        /// </summary>
+        public string Event { get; private set; }
+        public string OrderId { get; private set; }
+        public string Message { get; private set; }
+        public ModuleService Service { get; private set; }
+
+        protected LogApp() {
+
+        }
+
+        public LogApp(string ip, string eventType, string orderId, string message, ModuleService service) {
+            Ip = ip;
+            Event = eventType;
+            OrderId = orderId;
+            Message = message;
+            Service = service;
+        }
     }
 }

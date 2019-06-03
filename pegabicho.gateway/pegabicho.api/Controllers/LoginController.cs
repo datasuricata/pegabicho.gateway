@@ -14,27 +14,23 @@ namespace pegabicho.api.Controllers {
             this.serviceUser = serviceUser;
         }
 
-        [HttpGet]
         [Authorize]
-        [Route("ValidToken")]
+        [HttpGet("ValidToken")]
         public IActionResult ValidToken() {
             return Result("Token has been validated.");
         }
 
-        [HttpPost]
-        [Route("app/customer")]
+        [HttpPost("app/customer")]
         public IActionResult LoginCustomer([FromBody] AuthRequest request) {
             return Result(serviceUser.Authenticate(request, AuthPlataform.Customer));
         }
 
-        [HttpPost]
-        [Route("app/provider")]
+        [HttpPost("app/provider")]
         public IActionResult LoginProvider([FromBody] AuthRequest request) {
             return Result(serviceUser.Authenticate(request, AuthPlataform.Provider));
         }
 
-        [HttpPost]
-        [Route("showplace")]
+        [HttpPost("showplace")]
         public IActionResult LoginShowplace([FromBody] dynamic request) {
             return Result(serviceUser.Authenticate(new AuthRequest {
                 Email = (string)request.email,
@@ -42,8 +38,7 @@ namespace pegabicho.api.Controllers {
             }, AuthPlataform.Showplace));
         }
 
-        [HttpPost]
-        [Route("backoffice")]
+        [HttpPost("backoffice")]
         public IActionResult LoginBackOffice([FromBody] dynamic request) {
             return Result(serviceUser.Authenticate(new AuthRequest {
                 Email = (string)request.email,

@@ -10,10 +10,22 @@ namespace pegabicho.domain.Entities.Core.Logs
     /// </summary>
     public class LogCore : EntityBase, ILogCore
     {
-        public string Ip { get; set; }
-        public string UserId { get; set; }
-        public string Payload { get; set; }
-        public LogType Type { get; set; }
-        public ModuleService Service { get; set; }
+        public string Ip { get; private set; }
+        public string UserId { get; private set; }
+        public string Payload { get; private set; }
+        public LogType Type { get; private set; }
+        public ModuleService Service { get; private set; }
+
+        protected LogCore() {
+
+        }
+
+        public LogCore(string ip, string userId, string payload, LogType type, ModuleService service) {
+            Ip = ip;
+            UserId = userId;
+            Payload = payload;
+            Type = type;
+            Service = service;
+        }
     }
 }

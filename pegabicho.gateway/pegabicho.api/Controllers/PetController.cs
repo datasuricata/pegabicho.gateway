@@ -59,6 +59,3 @@ namespace pegabicho.api.Controllers {
         }
     }
 }
-
-//void ChangeGeneral(PetRequest request);
-//void SoftDelete(string id);

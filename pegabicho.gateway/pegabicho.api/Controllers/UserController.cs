@@ -4,7 +4,6 @@ using pegabicho.domain.Arguments.Base;
 using pegabicho.domain.Arguments.Core.Users;
 using pegabicho.domain.Interfaces.Services.Core;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace pegabicho.api.Controllers {
     [Route("api/[controller]")]
@@ -83,13 +82,13 @@ namespace pegabicho.api.Controllers {
         }
 
         [HttpPut("updateDocument")]
-        public IActionResult UpdateDocument([FromBody] DocumentRequest request) {
+        public IActionResult UpdateDocument([FromBody]DocumentRequest request) {
             //serviceUser.
             return Result(new ResponseBase("Documento atualizado com sucesso."));
         }
 
         [HttpPut("updateAddress")]
-        public IActionResult UpdateAddress([FromBody] AddressRequest request) {
+        public IActionResult UpdateAddress([FromBody]AddressRequest request) {
             //serviceUser.
             return Result(new ResponseBase("Endereço atualizado com sucesso."));
         }
