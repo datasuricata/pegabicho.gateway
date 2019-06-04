@@ -10,16 +10,17 @@ namespace pegabicho.service.Services.Base {
         #region [ attributes ]
 
         private readonly IUnitOfWork uow;
-        private readonly IServiceProvider Provider;
+        private readonly IServiceProvider provider;
+
         protected readonly IEventNotifier Notifier;
+        protected readonly ILogEvent Log;
 
         #endregion
 
         #region [ ctor ]
 
         public ServiceBase(IServiceProvider provider) {
-            this.Provider = provider;
-
+            this.provider = provider;
             uow = (IUnitOfWork)provider.GetService(typeof(IUnitOfWork));
             Notifier = (IEventNotifier)provider.GetService(typeof(IEventNotifier));
         }

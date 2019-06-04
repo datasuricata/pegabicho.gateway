@@ -1,6 +1,7 @@
 ﻿using pegabicho.domain.Arguments.Core.Security;
 using pegabicho.domain.Arguments.Core.Users;
 using pegabicho.domain.Entities.Core.Users;
+using pegabicho.domain.Interfaces.Services.Events;
 using System.Collections.Generic;
 using static pegabicho.domain.Entities.Enums;
 

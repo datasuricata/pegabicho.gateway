@@ -5,6 +5,7 @@ using pegabicho.domain.Arguments.Core.Security;
 using pegabicho.domain.Arguments.Core.Users;
 using pegabicho.domain.Entities.Core.Users;
 using pegabicho.domain.Interfaces.Services.Core;
+using pegabicho.domain.Interfaces.Services.Events;
 using pegabicho.domain.Security;
 using pegabicho.infra.Specs.Users;
 using pegabicho.service.Services.Base;
@@ -20,7 +21,7 @@ using System.Text;
 using static pegabicho.domain.Entities.Enums;
 
 namespace pegabicho.service.Services.Core {
-    public class ServiceUser : ServiceApp<User>, IServiceUser {
+    public class ServiceUser : ServiceApp<User>, IServiceUser{
 
         #region [ attributes ]
 
